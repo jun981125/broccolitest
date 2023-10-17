@@ -46,7 +46,7 @@ public interface ReviewMappingInterface {
 	int totalCnt();
 
 	// 리뷰 수정
-	@Update("update reviews set rnickname=#{rnickname}, title=#{title}, rating=#{rating}, comment=#{comment}, reviewdate=#{reviewdate}, rimage=#{rimage} where reviewId=#{reviewid}")
+	@Update("update reviews set title=#{title}, rating=#{rating}, comment=#{comment}, reviewdate=#{reviewdate}, rimage=#{rimage} where reviewId=#{reviewid}")
 	int updateReview(ReviewBean bean);
 
 	// 리뷰 삭제

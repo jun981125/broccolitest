@@ -32,7 +32,7 @@ public class ReviewUpdateController {
 		model.addAttribute("page", page);
 		model.addAttribute("rimage",rimage);
 		
-		return "reviewupdate";
+		return "review/reviewupdate";
 	}
 	// 사진을 입력하지 않으면 원래 사진 그대로 남아있게 함
 	@PostMapping("reviewupdate")
