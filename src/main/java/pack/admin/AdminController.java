@@ -94,4 +94,5 @@ private final CustomerService customerService;
        model.addAttribute("customerlist", searchResults);
        return "admin/customerlist"; 
    }
+
 }
