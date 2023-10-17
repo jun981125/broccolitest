@@ -53,7 +53,7 @@ public class ReviewListController {
 	public String showReviewList(@RequestParam(name = "page", defaultValue = "1") int page,
 			HttpSession session ,Model model) {
 		
-		String customerid = (String) session.getAttribute("loginId");
+		String customerid = (String) session.getAttribute("loginid");
 		
 	    // paging 처리
 	    int spage = 0;
@@ -79,7 +79,7 @@ public class ReviewListController {
 	public String showSellerReviewList(@RequestParam(name = "page", defaultValue = "1") int page,
 			HttpSession session ,Model model) {
 		
-		String customerid = (String) session.getAttribute("loginId");
+		String customerid = (String) session.getAttribute("loginid");
 		
 	    // paging 처리
 	    int spage = 0;

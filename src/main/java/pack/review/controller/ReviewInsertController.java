@@ -27,7 +27,7 @@ public class ReviewInsertController {
 	@GetMapping("reviewinsert")
 	public String insert(@RequestParam("rproductid") int rproductid, Model model) {
 		model.addAttribute("rproductid", rproductid);
-		return "reviewinsert";
+		return "review/reviewinsert";
 	}
 
 	@PostMapping("reviewinsert")
@@ -35,7 +35,7 @@ public class ReviewInsertController {
 			HttpSession session ,Model model) throws Exception {
 		
 		String rnickname = (String) session.getAttribute("nickname");
-		String customerid = (String) session.getAttribute("loginId");
+		String customerid = (String) session.getAttribute("loginid");
 		bean.setRcustomerid(customerid);
 		bean.setRnickname(rnickname);
 		   

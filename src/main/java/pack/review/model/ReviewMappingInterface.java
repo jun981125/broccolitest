@@ -19,7 +19,7 @@ public interface ReviewMappingInterface {
 
 	// 리뷰 목록 보기 - 구매자 별(자신이 남긴 리뷰)
 	// products table의 model,brand를 가져오기 위해 join 사용
-	@Select("select rproductid, reviewid, rnickname, title, pimage  ,model, brand, rating, comment, reviewdate from reviews left outer join products on rproductid = productid where customerid = #{customerid} order by reviewid desc")
+	@Select("select rproductid, reviewid, rnickname, title, pimage  ,model, brand, rating, comment, reviewdate from reviews left outer join products on rproductid = productid where rcustomerid = #{rcustomerid} order by reviewid desc")
 	List<ReviewDto> selectAll(String customerid);
 	
 	// 판매자 별(자신의 상품에 대한 리뷰)
