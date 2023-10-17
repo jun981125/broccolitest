@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link href="../css/reviewstar.css" rel="stylesheet" />
+	<title>Insert title here</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			let btnIns = document.getElementById("btnIns");
+			btnIns.addEventListener("click", checkData);
+		}
+
+		function checkData() {
+			if (myform.rating.value === "") {
+				alert("별점을 입력하시오");
+				myform.rating.focus();
+				return;
+			}
+
+			if (myform.comment.value === "") {
+				alert("상품평을 입력하시오");
+				myform.comment.focus();
+				return;
+			}
+
+			myform.submit();
+		}
+
+	</script>
+</head>
+
+<body>
+	<h3>리뷰 등록</h3>
+	<form class="mb-3" action="reviewinsert" name="myform" id="myform" method="post" enctype="multipart/form-data">
+		<table style="width: 80%">
+			<input type="hidden" name="rproductid" th:value="${rproductid}" />
+			<tr>
+				<td>상품 아이디 : [[${rproductid}]]</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="text-bold">별점을 선택해주세요</span>
+					<fieldset>
+						<input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+						<input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+						<input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+						<input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+						<input type="radio" name="rating" value="1" id="rate5"><label for="rate5">★</label>
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td>닉네임</td>
+				<td><input type="text" name="nickname" th:value="${customernickname}"  /></td>
+				<td>제목</td>
+				<td><input type="text" name="title"/></td>
+			</tr>
+			<tr>
+				<td>상품평</td>
+				<td><textarea id="reviewContents" placeholder="상품에 대한 평가를 남겨주세요" type="text" name="comment"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>리뷰 이미지</td>
+				<td><input type="file" name="rimagePath"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input type="button" value="등록" id="btnIns" />
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+
+</html>

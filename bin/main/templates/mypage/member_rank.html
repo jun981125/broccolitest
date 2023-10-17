@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 등급 확인</title>
+</head>
+<body>
+    <h1>회원 등급 확인</h1>
+    <p>회원 아이디 : <span th:text="${member.customerid}"></span></p>
+    <p>총 구매 금액 : <span th:text="${member.total_purchase_amount}"></span></p>
+    <p>회원 등급 : <span th:text="${member.member_rank}"></span></p>
+</body>
+</html>

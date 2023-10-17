@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>게시판</title>
+	<link rel="stylesheet" type="text/css" href="/css/board.css">
+	<script type="text/javascript">
+		window.onload = function () {
+			let btnIns = document.getElementById("btnIns");
+			btnIns.addEventListener("click", checkData);
+		}
+
+		function checkData() {
+			if (frm.title.value === "") {
+				alert("제목을 입력하시오");
+				frm.title.focus();
+				return;
+			}
+
+			if (frm.cont.value === "") {
+				alert("내용을 입력하시오");
+				frm.cont.focus();
+				return;
+			}
+
+			frm.submit();
+		}
+	</script>
+</head>
+
+<body>
+		<th:block th:replace="common/header :: headerFragment"></th:block>
+	** 글 쓰기 **
+	<p />
+	<form action="qinsert" method="post" name="frm" enctype="multipart/form-data">
+		<table style="width: 80%">
+			<tr>
+				<td>작성자</td>
+				<td th:text="${nickname}"></td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td><input type="text" name="title" style="width: 99%"></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td><textarea rows="5" style="width: 99%" name="cont"></textarea></td>
+			</tr>
+			<tr>
+				<td>파일 업로드</td>
+				<td><input type="file" name="file"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input type="button" value="등록" id="btnIns" />
+					<button type="button" id="writeBtn" onclick="history.back();">취소</button>
+					<input type="button" value="목록" onclick="location.href='qnalist?page=1'" />
+				</td>
+			</tr>
+		</table>
+	</form>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

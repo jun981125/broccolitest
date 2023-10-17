@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html>
+<head>
+    <title>주문 상세 정보</title>
+    	<link rel="stylesheet" href="/css/orderform.css">
+</head>
+<body>
+	<main>
+    <h1>주문 상세 정보</h1>
+    <table>
+        <tr>
+            <th>상품명</th>
+            <th>수량</th>
+            <th>가격</th>
+            <th>소계</th>
+        </tr>
+        <!-- Thymeleaf를 사용하여 주문 항목들을 반복문으로 표시 -->
+        <tr th:each="orderItem : ${order.orderItems}">
+            <td th:text="${orderItem.product.productName}"></td>
+            <td th:text="${orderItem.orderCount}"></td>
+            <td th:text="${orderItem.product.price}"></td>
+            <td th:text="${orderItem.calculateSubtotal()}"></td>
+        </tr>
+    </table>
+    <p th:text="'총 주문 가격: ' + ${order.calculateTotalPrice()}"></p>
+    <a href="index.html">메인으로</a>
+    </main>
+</body>
+</html>

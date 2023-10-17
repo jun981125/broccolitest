@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/* body 요소에 스타일 추가하여 세로 중앙 정렬 */
+.allcontent{
+	width: 1050px;
+	margin: 0 auto;
+
+	}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 아이디, 비밀번호 찾기 페이지 컨테이너에 스타일 적용 */
+.id-passwd-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 아이디 찾기 페이지 제목 스타일 */
+.id-passwd-title {
+    padding-bottom: 30px;
+    font-weight: 500;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* 입력 폼 스타일 */
+.input-form:not(:first-of-type) {
+    margin-top: 5px;
+}
+
+/* 입력 필드 레이블 스타일 */
+.input-field-labe {
+    padding-bottom: 12px;
+}
+
+/* 입력 필드 레이블 텍스트 스타일 */
+.input-field-text {
+    display: inline-block;
+    padding: 8px 0 11px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    color: #333;
+}
+
+/* 입력 필드 스타일 */
+.input-field {
+    position: relative;
+    height: 38px;
+}
+
+/* 입력 필드 스타일 */
+.input-field-size {
+    width: 100%;
+    height: 46px;
+    padding: 0 11px 1px 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* 입력 필드의 플레이스홀더 스타일 */
+.input-field-size::placeholder {
+    color: #ccc;
+}
+
+/* 입력 필드에 포커스가 있을 때 스타일 */
+.input-field-size:focus {
+    border: 1px solid #333;
+    background: none;
+}
+
+/* 비활성화된 입력 필드 스타일 */
+.input-field-size:disabled {
+    opacity: 1;
+    background-color: #fafafa;
+    color: #999;
+}
+
+/* 비활성화된 입력 필드의 플레이스홀더 스타일 */
+.input-field-size:disabled::placeholder {
+    color: #999;
+}
+
+/* 입력란에 입력이 없을 때 힌트 스타일 */
+.noneinput-hint {
+    font-size: 14px;
+    margin-top: 4px;
+    color: #f00;
+    display: none;
+}
+
+/* 버튼 상단 여백 */
+.button-blank {
+    margin-top: 18px;
+}
+
+/* 버튼 스타일 */
+.button-style {
+    display: block;
+    padding: 0 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+    height: 52px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #5f0080;
+    border: 0 none;
+    margin-bottom: 50px;
+}
+
+/* 버튼 활성화 상태일 때 커서 활성화 */
+.button-style:not([disabled]):hover {
+    cursor: pointer;
+}
+
+/* 비활성화 상태인 확인 버튼 스타일 */
+.button-style:disabled {
+    background-color: #ddd;
+}
+
+/* 버튼 텍스트 스타일 */
+.button-text {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html>
+
+<head>
+	<title>주문 상세 정보</title>
+	<link rel="stylesheet" href="/css/order.css">
+</head>
+
+<body>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="order_title">
+			<h2>주문 상세 정보</h2>
+		</div>
+		<div class="order_list">
+		<div class="product_img_box">
+		 	<img th:src="@{upload/}+${orderItem.product.pimage}" height="100" width="100" /> 
+		</div>
+		<div class="product_text_box">
+			<p class="brd_name" th:text="${orderItem.product.brand}"></p>
+			<p class="prd_name" th:text="${orderItem.product.model}"></p>
+			<p th:text="${#numbers.formatInteger(orderItem.product.price, 3, 'COMMA') + '원'}"></p>
+		</div>
+		<div class="choosen">
+			<span class="material-symbols-outlined">payments</span>&nbsp;&nbsp;
+			<p th:text="${orderItem.Subtotal +'원 /'}"></p>
+			<p th:text="${orderItem.orderCount +' 개'}"></p>
+		</div>
+		<div class="order_info">
+			<span class="material-symbols-outlined">check_circle</span>
+			<p th:text="${orderItem.order.orderStatus}"></p>
+		</div>
+		
+	</div>
+	<a href="index.html"><span class="material-symbols-outlined">house
+				</span></a>
+	</div>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/script.js"></script>
+  <title>Destiny</title>
+</head>
+
+<body>
+  <main class="main">
+    <section class="home">
+      <h1>Welcome to the <span>Admin-Page</span></h1>
+      <button id="sign-in" class="btn">로그인</button>
+      <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2023</a></p>
+    </section>
+
+    <section class="sign-up">
+      <article class="signup-left">
+        <h1>Admin-Page</h1>
+        <div class="wc_message">
+          <h3>Welcome to Admin-Page!</h3>
+          <p>관리자 페이지로 쇼핑몰 관리를 간편하게 하세요!</p>
+        </div>
+        <div class="btn-back">
+          <i class="fas fa-2x fa-angle-left angle-left-color"></i>
+          HOME
+        </div>
+      </article>
+
+      <article class="form-area">
+        <!-- Form area Sign Up -->
+        <div class="organize-form form-area-signup">
+          <h2>SIGN UP</h2>
+          <form class="form">
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" />
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="text" id="email" />
+            </div>
+
+            <div class="form-field">
+              <label for="password">Password</label>
+              <input type="text" id="password" />
+            </div>
+
+            <button class="btn-sign btn-up">Sign Up</button>
+          </form>
+          <p>Have an account? <a href="#" class="link-in">Sign In</a></p>
+
+        </div>
+
+        <!-- Form area Sign In -->
+        <div class="organize-form form-area-signin">
+          <h2>관리자 로그인</h2>
+          <form class="form" action="admin" method="post">
+            <div class="form-field">
+              <label for="email-in">Id</label>
+              <input type="text" name="adminid" id="email-in" />
+            </div>
+
+            <div class="form-field">
+              <label for="password-in">Password</label>
+              <input type="text" name="adminpasswd" id="password-in" />
+            </div>
+
+            <button class="btn-sign btn-in">로그인</button>
+          </form>
+        </div>
+      </article>
+
+      <article class="signup-right">
+        <i class="fas fa-2x fa-bars bars-style"></i>
+        <p><a class="link-copy" href="http://collectui.com/designers/dnes/sign-up" target="_blank">©Copyright 2023</a></p>
+
+      </article>
+    </section>
+  </main>
+</body>
+
+</html>

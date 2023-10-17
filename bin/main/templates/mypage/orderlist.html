@@ -1,0 +1,110 @@
+<!-- mypage/orderlist.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/sub.css" />
+</head>
+
+<body>
+	<th:block th:replace="header :: headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="sub_left">
+			<p class="sub_left_title">마이페이지</p>
+			<ul>
+				<li class="active">
+					<a href="orderlist" class="flex">
+						<p>주문내역</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>내 정보 수정하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="delete">
+						<p>탈퇴하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				<li>
+					<a href="myreview">
+						<p>상품후기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>배송지수정</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>배송지수정</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="sub_right">
+			<div class="sub_right_top"></div>
+			<div class="sub_right_bottom">
+				<div class="sub_right_title">
+					<h2>주문내역</h2>
+					<div class="line"></div>
+				</div>
+
+				<div class="sub_table">
+					<th:block th:each="order : ${orders}">
+						<div class="tit_area flex li_line">
+							<div class="sub_table_title">
+								<span class="s_sub" th:text="${order.orderid}"></span>
+								<span class="s_num" th:text="${order.orderdate}"></span>
+							</div>
+							<a th:href="@{'/orderdetail/' + ${order.orderid}}">상세보기</a>
+						</div>
+						<!-- orderItems가 비어 있지 않은 경우에 대한 처리 -->
+						<th:block th:if="${not #lists.isEmpty(order.orderItems)}"
+							th:each="orderItem : ${order.orderItems}">
+							<div class="sub_table_list flex">
+								<a href="" class="product_info">
+									<div class="product_img_box">
+										<img th:src="@{'/upload/' + ${orderItem.product.pimage}}" alt="상품 이미지">
+									</div>
+								</a>
+								<div class="product_text_box flex">
+									<div class="text_box1">
+										<p class="brd_name" th:text="${orderItem.product.brand}"></p>
+										<p class="prd_name" th:text="${orderItem.product.model}"></p>
+									</div>
+									<p class="pro_pri">
+										<span class="price" th:text="${orderItem.product.price + '원 / '}"></span>
+										<span class="quantity" th:text="${orderItem.quantity + '개'}"></span>
+									</p>
+								</div>
+								<div class="buy_info" th:text="${order.deliverystatus}"></div>
+								<div class="button_info flex">
+									<a href="" class="button01">리뷰쓰기</a>
+									<a href="" class="button02">교환/환불</a>
+									<a href="" class="button03">배송조회</a>
+									<a href="" class="button04">1:1문의</a>
+								</div>
+							</div>
+						</th:block>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 푸터 -->
+	<th:block th:replace="footer :: footerFragment"></th:block>
+
+</body>
+
+</html>

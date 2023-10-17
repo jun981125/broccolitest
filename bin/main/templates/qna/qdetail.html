@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/post.css">
+	<!-- 글 삭제 전 물어보기 -->
+	<script type="text/javascript">
+		function qdelete(num) {
+			if (confirm("정말 삭제하시겠습니까?")) {
+				// 페이지로 삭제 요청 보내기
+				window.location.href = "/qdelete?num=" + num;
+			}
+		}
+	</script>
+</head>
+
+<body>
+		<th:block th:replace="common/header :: headerFragment"></th:block>
+	<h3>* 상세 보기 *</h3>
+	<table>
+		<tr>
+			<td style="text-align: right;">
+				<div th:if="${isSeller}">
+					<a th:href="@{/qreply(num=${data.num},page=${page})}">
+						답글달기
+					</a>
+				</div>
+				<a th:href="@{/qupdate(num=${data.num},page=${page})}">
+					수정하기
+				</a>
+				<a href="#" th:onclick="'qdelete(' + ${data.num} + '); return false;'">삭제하기</a>
+				<a th:href="@{/qlist(page=${page})}">
+					목록보기
+				</a>
+			</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<td>
+				작성자 : [[${data.name}]]
+			</td>
+			<td>작성일 : [[${data.bdate}]]</td>
+			<td>조회수 : [[${data.readcnt}]]</td>
+		</tr>
+		<tr>
+			<td colspan="3">제목 : [[${data.title}]]</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<textarea rows="5" style="width: 98%" readonly="readonly">[[${data.cont}]]</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<th:block th:if="${data.filename != null}">
+					<img th:src="@{upload/} + ${data.filename}" alt="이미지" width="300" height="300">
+				</th:block>
+				<th:block th:unless="${data.filename != null}">
+				</th:block>
+			</td>
+		</tr>
+	</table>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

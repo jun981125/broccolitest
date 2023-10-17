@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="css/base.css" />
+</head>
+
+<body>
+	<th:block th:replace="header :: headerFragment"></th:block>
+
+	<a href="update">내 정보 수정하기</a>
+	<a href="delete">탈퇴하기</a>
+	<a href="orderlist">주문내역</a>
+	<a href="myreview">상품후기</a>
+	<a href="rank">등급 확인</a>
+
+	<a href="productlist">상품리스트</a>
+	<a href="cart">장바구니</a>
+	<a href="orderlist">주문내역</a>
+	<a href="orderdetail">주문상세내역정보</a>
+	<a href="address">배송지목</a>
+	<!-- 푸터 -->
+	<th:block th:replace="footer :: footerFragment"></th:block>
+</body>
+
+</html>

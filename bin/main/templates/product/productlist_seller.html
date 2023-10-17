@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>상품관리 - 판매자</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/product.css" />
+</head>
+
+<body>
+	<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="flex">
+			<div class="sub_left">
+				<p class="sub_left_title">마이페이지</p>
+				<ul>
+					<li class="active">
+						<a href="productlist_seller" class="flex">
+							<p>상품관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="productinsert">
+							<p>상품등록</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="orderlist_seller">
+							<p>주문관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a href="reviewlist_seller">
+							<p>리뷰관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="sub_right">
+				<div class="sub_right_title">
+					<h2>상품관리</h2>
+					<p>* 상품수정, 상품삭제 등은 상품상세페이지에 판매자도구를 이용하세요.</p><br><br>
+
+					<hr>
+				</div>
+				<br>
+				<form th:if="${list.size() > 0}" th:each="data : ${list}">
+					<div class="sub_table_list">
+						<div class="product_img_box">
+							<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
+								<img th:src="@{upload/}+${data.pimage}" />
+							</a>
+						</div>
+						<div class="product_text_box">
+							<p class="brd_name" th:text="${data.brand}" />
+							<p class="cate_name" th:text="${data.category}" />
+							<p class="prd_name" th:text="${data.model}" />
+							<p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
+
+						</div>
+						<div class="prod_inven">
+							<span class="material-symbols-outlined">inventory</span>
+							<p th:text="${#numbers.formatInteger(data.stockquantity, 3, 'COMMA') + '개'}" />
+						</div>
+						<div class="product_info">
+							<span class="material-symbols-outlined">check_circle</span>
+							<p th:text="${data.state}" />
+						</div>
+					</div>
+				</form>
+				<br><br>
+				<!-- paging -->
+				<div class="paging">
+					<span th:each="num : ${#numbers.sequence(1, pagesu)}">
+						<span th:if="${num == page}">
+							<b th:text="${num}">num 표시(현재 페이지는 링크를 걸지 않음)</b>
+						</span>
+						<span th:if="${num != page}">
+							<a th:href="@{productlist_seller(page=${num})}" th:text="${num}">num 표시</a>
+						</span>
+					</span>
+				</div>
+				<!-- 검색 작업 -->
+				<br />
+				<div class="search">
+					<form action="/productsearch" method="get">
+						<select name="searchName"><span class="material-symbols-outlined">expand_more</span>
+							<option value="brand" selected>브랜드</option>
+							<option value="model">모델</option>
+						</select>
+						<input class="search_text" type="text" name="searchValue">
+						<button class="searchicon" type="submit"><span
+								class="material-symbols-outlined">search</span></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+
+</html>

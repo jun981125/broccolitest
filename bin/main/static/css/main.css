@@ -1,0 +1,251 @@
+
+/* layout */
+#section{
+    width: 100%;
+}
+#section .maincon_slider{
+    position: relative;
+    margin: 0 auto;
+}
+#section .maincon_product{
+    width: 1050px;
+    margin: 0 auto;
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+#section .main_brand{
+    width: 1050px;
+    margin: 0 auto;
+}
+#section .main_benefit {
+    width: 1050px;
+    margin: 0 auto;
+    margin-top: 62px;
+    margin-bottom:96px;
+    text-align:center;
+}
+
+
+/* 상품목록 */
+#section .maincon_product .product_category{
+    display: block;
+    padding: 8px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: -0.2px;
+}
+#section .maincon_product .product_category > p{
+    font-size: 16px;
+    color: #999;
+}
+
+/* 상품 리스트 */
+.maincon_product .product_container{
+    width: 22.75%;
+    float: left;
+    margin-right: 3%;
+    overflow: hidden;
+}
+.maincon_product .last{
+    margin-right: 0;
+}
+.maincon_product .product_container .img_container{
+    height: 300px;
+    overflow: hidden;
+}
+.maincon_product .product_container .img_container img{
+    width: 100%;
+}
+.maincon_product .product_container .button_wrapper{
+    border: 1px solid #ddd;
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+.maincon_product .product_container .button_wrapper a{
+    font-size: 15px;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    line-height: 30px;
+}
+
+.maincon_product .product_container .button_wrapper a .cart_btn_title{
+    position:relative;
+ }
+.maincon_product .product_container .button_wrapper .material-cart{
+    font-size: 19px;
+    vertical-align: middle;
+}
+
+.maincon_product .product_container .text_container{
+    margin-top: 8px;
+}
+.maincon_product .product_container .text_container h3,.text_container span{
+    font-size: 16px;
+    color: #333;
+    font-weight: 400;
+    line-height: 24px;
+    padding-top: 8px;
+    text-align: left;
+}
+.maincon_product .product_container .product_price{
+    margin-top: 10px;
+    text-align: left;
+}
+.maincon_product .product_container .dimmed_price{
+    display: block;
+    padding-top: 2px;
+    color: rgb(181, 181, 181);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    text-decoration-line: line-through;
+}
+.maincon_product .product_container .discount_rate, .sales_price{
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.5;
+    white-space: nowrap;
+    color: #fa622f;
+}
+.maincon_product .product_container .sales_price{
+    color: #333;
+}
+.maincon_product .product_container .review_count > *{
+    margin-top: 12px;
+    text-align: left;
+    font-size: 13px;
+    color: #999;
+}
+.maincon_product .product_container .review_count .sms{
+    float: left;
+    padding-top:4px;
+    font-size: 16px;
+    margin:0px 3px 0 0;
+    padding:0px;
+    font-weight: 300;
+}
+
+
+/* 브랜드 배너 */
+.main_brand .main_brand_list {
+    padding-top: 80px;
+    border-top:1px solid #ecedf1
+}
+
+.main_brand .main_brand_list::after {
+    content: "";
+    display: block;
+    clear:both
+}
+
+.main_brand .main_brand_list .main_card {
+    position: relative;
+    float: left;
+    width: calc((100% - 72px) * .25);
+    height: 120px;
+    background-color: #fbfbfb;
+    margin:0 9px 18px
+}
+
+.main_brand .main_brand_list .main_card > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    width: 100%;
+}
+
+/* 사이트 장점 */
+.main_benefit h3 {
+    font-size: 32px;
+    margin-bottom: 32px;
+    padding-top: 70px;
+    text-align: center;
+    border-top:1px solid #ecedf1;
+    color: #222;
+}
+
+.main_benefit .main_benefit_list {
+    display:flex
+}
+
+.main_benefit .main_benefit_list .main_benefit_item {
+    flex: auto;
+    margin:0 32px
+}
+
+.main_benefit .main_benefit_list .main_benefit_item .main_benefit_item_img{
+    background-size: 48px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 48px;
+    margin-bottom:32px
+}
+
+.main_benefit .main_benefit_list .main_benefit_item .main_benefit_item_title {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight:bold;
+    color: #222;
+}
+
+.main_benefit .main_benefit_list .main_benefit_item .main_benefit_item_title_scription {
+    color: #787a87;
+    line-height:22px
+}
+
+
+
+
+.popup {
+    z-index: 1000000;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    min-width: 300px;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 55px -25px rgb(0 0 0 / 100%);
+}
+.popup > .title{
+    border-radius: 15px 15px 0 0;
+    min-height: 40px;
+    color: #fff;
+    background-color: #b66;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+.popup > .content {
+    padding: 20px;
+    box-sizing: border-box;
+}
+.popup > .cmd {
+    bottom: 0;
+    min-height: 40px;
+    padding: 15px 15px;
+    box-sizing: border-box;
+    border-radius: 0 0 15px 15px;
+    min-height: 40px;
+    text-align: right;
+}
+.popup > .cmd .button {
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid #aaa;
+}
+.popup > .cmd .button:hover {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}

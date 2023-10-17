@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/order.css">
+</head>
+<script th:inline="javascript">
+	function showOrderDetail(button) {
+		var orderItemId = button.getAttribute('data-orderItemId');
+		var url = '/orderdetail/' + orderItemId;
+		window.location.href = url; // 올바른 URL로 리다이렉트
+	}
+</script>
+
+<body>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<main>
+		<div id="sub_con">
+			<div class="order_title">
+				<h2>주문이 완료되었습니다!</h2>
+			</div>
+			<div class="order_list" th:each="orderItem : ${orderItems}">
+				<div class="product_img_box">
+					<img th:src="@{upload/}+${orderItem.product.pimage}" height="100" width="100" />
+				</div>
+				<div class="product_text_box">
+					<p class="brd_name" th:text="${orderItem.product.brand}"></p>
+					<p class="prd_name" th:text="${orderItem.product.model}"></p>
+					<p th:text="${#numbers.formatInteger(orderItem.product.price, 3, 'COMMA') + '원'}"></p>
+				</div>
+				<div class="choosen">
+					<span class="material-symbols-outlined">payments</span>&nbsp;&nbsp;
+					<p th:text="${orderItem.Subtotal +'원 /'}"></p>
+					<p th:text="${orderItem.orderCount +' 개'}"></p>
+				</div>
+				<div class="detail_btn">
+					<form th:action="@{/showOrderDetail}" method="post">
+						<input type="hidden" name="orderItemId" th:value="${orderItem.orderItemId}" />
+						<button type="submit">주문내역상세보기</button>
+					</form>
+				</div>
+
+			</div>
+			</table>
+			<a href="/"><span class="material-symbols-outlined">house
+				</span></a>
+		</div>
+	</main>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

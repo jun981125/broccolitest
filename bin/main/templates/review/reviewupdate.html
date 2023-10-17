@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../css/reviewstar.css" rel="stylesheet" />
+<script type="text/javascript">
+window.onload = function(){
+	document.querySelector("#btnUp").onclick = chkUpData;	
+}
+
+function chkUpData(){
+	if(confirm("정말 수정할까요?")){
+		upFrm.submit();
+	}
+}
+</script>
+</head>
+<body>
+<h3>리뷰 수정</h3>
+<form action="reviewupdate" method="post" id="myform" name="upFrm" th:object="${data}" enctype="multipart/form-data">
+	 <input type="hidden" th:field="*{reviewid}" />
+	 <input type="hidden" th:field="*{rimage}" />
+	 <input type="hidden" name="page" th:value="${page}">
+	<table border="1" style="width: 80%">
+		<tr>
+			<span class="text-bold">별점을 선택해주세요</span>
+					<fieldset>
+						<input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+						<input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+						<input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+						<input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+						<input type="radio" name="rating" value="1" id="rate5"><label for="rate5">★</label>
+					</fieldset>
+		</tr>
+		<tr>
+			<td>상품평</td>
+			<td><input type="text" th:field="*{comment}"></td>
+		</tr>
+		<tr>
+			<td>리뷰 이미지</td>
+			<td><input type="file" name="rimagePath"></td>
+		
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				<input type="button" value="수정" id="btnUp" /> 
+				<input type="button" value="목록" th:onclick="|location.href='@{productlist}'|" />
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

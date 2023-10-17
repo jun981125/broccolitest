@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/board.css">
+<script type="text/javascript">
+window.onload = function(){
+	document.querySelector("#btnUp").onclick = chkUpData;	
+}
+
+function chkUpData(){
+	//입력자료 오류
+	
+	if(upFrm.title.value === ""){
+		upFrm.title.focus();
+		alert("제목을 입력하세요");
+		return;
+	}
+		if(upFrm.cont.value === ""){
+		upFrm.cont.focus();
+		alert("내용을 입력하세요");
+		return;
+	}
+	
+	if(confirm("정말 수정할까요?")){
+		upFrm.submit();
+	}
+}
+</script>
+</head>
+<body>
+<h3>* 글 수정 * <br/> 게시글 작성 아이디와 일치해야 글 수정이 가능합니다!</h3>
+<form action="commuupdate" method="post" name="upFrm" th:object="${list}" enctype="multipart/form-data">
+	<input type="hidden" th:field="*{num}">
+	<input type="hidden" name="page" th:value="${page}">
+	<input type="hidden" name="filename" th:value="${filename}">
+	<table border="1" style="width: 80%">
+		<tr>
+			<td>작성자</td>
+			<td>[[${list.customernickname}]]</td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td><input type="text"  style="width: 99%" th:field="*{title}"></td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td>
+			 <textarea rows="5" style="width: 99%" th:field="*{cont}"></textarea>		
+			</td>
+		</tr>
+		<tr>
+			<td>이미지</td>
+			<td> <img th:src="@{upload/} + ${list.filename}"/> </td>
+		</tr>
+		<tr>
+			<td>이미지 수정</td>
+			<td><input type="file" name="file"></td>
+		<tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				<input type="button" value="수정" id="btnUp" /> 
+				<input type="button" value="목록" th:onclick="|location.href='@{commu(page=${page})}'|" />
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

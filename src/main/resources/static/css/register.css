@@ -1,0 +1,423 @@
+/* 회원가입 레이아웃 틀 */
+
+.allcontent{
+	width: 1050px;
+	margin: 0 auto;
+
+	}
+
+
+/* 버튼 여백 */
+.button-blank {
+    margin-top: 18px;
+    margin-bottom: 30px
+}
+
+/* 버튼 스타일 */
+.button-style {
+    display: block;
+    padding: 0 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+    height: 52px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #8CC84B;
+    border: 0 none;
+}
+
+/* 버튼 활성화 상태일 때 커서 활성화 */
+.button-style:not([disabled]):hover {
+    cursor: pointer;
+}
+
+/* 비활성화 상태인 확인 버튼 스타일 */
+.button-style:disabled {
+    background-color: #ddd;
+}
+
+/* 버튼 텍스트 스타일 */
+.button-text {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+
+/* 로고 스타일 */
+#logo {
+    width: 240px;
+    height: 44px;
+    cursor: pointer;
+}
+
+/* 페이지 헤더 스타일 */
+#header {
+    padding-top: 62px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+/* 페이지 래퍼 스타일 */
+#wrapper {
+    position: relative;
+    height: 100%;
+}
+
+/* 컨텐츠 영역 스타일 */
+#content {
+  	
+    left: 50%;
+    width: 460px;
+}
+
+/* 입력폼 스타일 */
+
+/* 입력항목 제목 스타일 */
+h3 {
+    margin: 19px 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* 입력란 스타일 */
+.box {
+    display: block;
+    width: 100%;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    background: #fff;
+    position: relative;
+    border-radius: 5px;
+}
+
+
+/* 입력 필드 스타일 */
+.int {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 29px;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+}
+
+.d_form.mini {
+    width: 7em;
+}
+
+.d_btn {
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin: 0.4em 0.15em;
+    border: 1px solid #ccc;
+    border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
+    cursor: pointer;
+    color: #464646;
+    border-radius: 0.2em;
+    vertical-align: middle;
+    font-size: 1em;
+    line-height: 1.25em;
+   background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f2f2f2));
+
+}
+
+
+.input-container {
+    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+    display: flex; /* 내부 요소들을 가로로 나열하기 위해 flex 레이아웃을 사용합니다. */
+}
+
+
+.d_form1, .d_form {
+ 	margin: 4px auto;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-color: #dbdbdb #d2d2d2 #d0d0d0 #d2d2d3;
+    box-shadow: inset 0.1em 0.1em 0.15em rgba(0,0,0,.1);
+    vertical-align: middle;
+    line-height: 1.25em;
+    outline: 0;
+    width: 430px;
+    border-radius: 5px;
+}
+
+/* 글꼴 스타일 설정 */
+input {
+    font-family: Dotum,'돋움',Helvetica,sans-serif;    
+}
+
+/* 아이디 입력란 스타일 */
+.box.int_id {
+    padding-right: 40px;
+}
+
+/* 비밀번호 입력란 스타일 */
+.box.int_pass {
+    padding-right: 40px;
+}
+
+/* 비밀번호 확인 입력란 스타일 */
+.box.int_pass_check {
+    padding-right: 40px;
+}
+
+/* URL 추가 텍스트 스타일 */
+.step_url {
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* 비밀번호 아이콘 스타일 */
+.pswdImg {
+    width: 18px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin-top: -10px;
+    cursor: pointer;
+}
+
+/* 생년월일 입력란 묶음 스타일 */
+#bir_wrap {
+    display: table;
+    width: 100%;
+}
+
+/* 생년월일 연도 입력란 스타일 */
+#bir_yy {
+    display: table-cell;
+    width: 147px;
+}
+
+/* 생년월일 월 입력란 스타일 */
+#bir_mm {
+    display: table-cell;
+    width: 147px;
+    vertical-align: middle;
+}
+
+/* 생년월일 일 입력란 스타일 */
+#bir_dd {
+    display: table-cell;
+    width: 147px;
+}
+
+/* 월과 일 간격 조정 */
+#bir_mm, #bir_dd {
+    padding-left: 10px;
+}
+
+/* 셀렉트 박스 스타일 */
+select {
+    width: 100%;
+    height: 29px;
+    font-size: 15px;
+    background: #fff url(https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif) 100% 50% no-repeat;
+    background-size: 20px 8px;
+    -webkit-appearance: none;
+    display: inline-block;
+    text-align: start;
+    border: none;
+    cursor: default;
+    font-family: Dotum,'돋움',Helvetica,sans-serif;
+}
+
+.fil{
+   color: red;
+   float: right;
+   font-size: 14px;
+}
+
+/* 기존 버튼 스타일 */
+.register-button,
+.register-button2 {
+    background-color: gray; /* 보라색 */
+    color: #ffffff; /* 텍스트 색상 */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+/* 기존 활성 버튼 스타일 (클래스 .active 추가) */
+.register-button.active,
+.register-button2.active {
+    background-color: #8CC84B; /* 회색 */
+}
+
+
+.centered-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+        }
+        
+        
+/*  비밀번호 확인란  */
+
+    .check-mark-error {
+        color: red;
+    }
+
+    .check-mark-success {
+        color:  blue;
+    }
+
+    .password-message {
+        color: green;
+    }
+.error-message{
+		text-align: right;
+}
+
+
+
+.SMN_effect-13 a {
+  color: coral;
+  text-shadow: none;
+  padding: 10px 0;
+   text-decoration: none;
+}
+
+.SMN_effect-13 a:before {
+  color: #000;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  content: attr(data-hover);
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+
+.SMN_effect-13 a:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  opacity: 0;
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  transform: translateY(5px);
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+
+.SMN_effect-13 a:hover:before, .SMN_effect-13 a:focus:before {
+  opacity: 0;
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+.SMN_effect-13 a:hover:after, .SMN_effect-13 a:focus:after {
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
+}
+     
+     
+.box__seller-type .text__seller-type--title {
+	
+    display: block;
+    height: 68px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 68px;
+    color: #fff;
+    background-color: #8CC84B;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.join_main .box__join-wrap * {
+
+    font-weight: 400;
+}
+  
+ .box__seller-type {
+	 height: 100%;
+	 overflow: hidden;
+ }
+     
+     
+   .box__seller-type .box__type-wrap .box__cell {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 138px;
+}
+.join_main .box__join-wrap * {
+
+    font-weight: 400;
+}
+
+.box__seller-type .box__type-wrap .box__cell .button__submit {
+    position: relative;
+    left: 338px;
+    width: 94px;
+    height: 36px;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1;
+}
+.button__submit {
+	top: -43px;
+    display: block;
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #fff;
+    padding: 12px 0;
+    text-align: center;
+    background-color: #8CC84B;
+    overflow: hidden;
+    border: 0;
+    -webkit-border-radius: 2px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+     
+     
+
+.list-title {
+    font-size: 18px;
+    line-height: 24px;
+    color: #222;
+    font-weight: bold;
+}
+
+.list-data {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #9E9E9E;
+}
+
+.list__type {
+    margin: 48px 0 0 48px;
+}
+
+.duplicationid{
+	font-size:13px
+}

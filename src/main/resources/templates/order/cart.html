@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>장바구니 목록</title>
+	<link rel="stylesheet" href="css/cart.css">
+</head>
+
+<body>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<main>
+		<div id="sub_con">
+			<div class="carttitle">
+				<h2>장바구니<span class="material-symbols-outlined">shopping_cart</span></h2>
+			</div>
+			<div class="cartlist" th:each="cartItem : ${cartItems}">
+
+
+				<div class="product_img_box">
+					<a th:href="@{/showproduct}">
+						<img th:src="@{upload/}+${cartItem.product.pimage}" />
+					</a>
+				</div>
+				<div class="product_text_box">
+					<p class="brd_name" th:text="${cartItem.product.brand}"></p>
+					<p class="prd_name" th:text="${cartItem.product.model}"></p>
+					<p th:text="${#numbers.formatInteger(cartItem.product.price, 3, 'COMMA') + '원'}"></p>
+				</div>
+				<div class="adj_count">
+					<input type="number" th:value="${cartItem.cartCount}" th:min="1" name="orderCount">
+				</div>
+				<div class="total_price" th:text="${cartItem.calculateSubtotal() + '원'}"></div>
+				<div class="delete_cart">
+					<form th:action="@{/removeCartItem}" method="post">
+						<input type="hidden" name="cartItemId" th:value="${cartItem.cartItemId}" />
+						<button class="button gray" type="submit">삭제하기</button>
+					</form>
+				</div>
+
+			</div>
+			<div class="flex2">
+				<form th:action="@{/clearCart}" method="post">
+					<button class="button gray" type="submit">장바구니비우기</button>
+				</form> &nbsp;&nbsp;
+				<form th:action="@{/createOrder}" method="get">
+					<button class="button gray" type="submit">주문하기</button>
+				</form> &nbsp; &nbsp;
+				<a href="index.html"><span class="material-symbols-outlined">house
+					</span></a>
+
+			</div>
+	</main>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

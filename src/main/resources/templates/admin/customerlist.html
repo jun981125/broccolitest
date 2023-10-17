@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>관리자 페이지</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+</head>
+<body>
+<div class="container">
+<h2>일반회원</h2>
+<table border="1" style="text-align: center;" class="rwd-table">
+    <tr>
+        <th>번호</th>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>성별</th>
+        <th>전화번호	</th>
+        <th>판매자여부</th>
+        <th>회원 상세정보</th>
+        <th>회원 추방</th>
+    </tr>
+    <tr th:each="customer: ${customerlist}" th:unless="${customer.isseller}">
+        <td>[[${customer.customernum}]]</td>
+        <td>[[${customer.customerid}]]</td>
+        <td>[[${customer.customername}]]</td>
+        <td>[[${customer.customergen}]]</td>
+        <td>[[${customer.phonenumber}]]</td>
+        <td>일반회원</td>
+        <td>
+            <a th:href="@{|/customer/${customer.customerid}|}">조회</a>
+        </td>
+        <td>
+            <a th:href="@{|/customer/delete/${customer.customerid}|}">추방</a>
+        </td>	
+    </tr>
+</table>
+</div>
+<div class="container">
+<h2>판매자</h2>
+<table border="1" style="text-align: center;" class="rwd-table">
+    <tr>
+        <th>번호</th>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>성별</th>
+        <th>전화번호</th>
+        <th>판매자여부</th>
+        <th>회원 상세정보</th>
+        <th>회원 추방</th>
+    </tr>
+    <tr th:each="customer: ${customerlist}" th:if="${customer.isseller}">
+        <td>[[${customer.customernum}]]</td>
+        <td>[[${customer.customerid}]]</td>
+        <td>[[${customer.customername}]]</td>
+        <td>[[${customer.customergen}]]</td>
+        <td>[[${customer.phonenumber}]]</td>
+        <td>판매자</td>
+        <td>
+            <a th:href="@{|/customer/${customer.customerid}|}">조회</a>
+        </td>
+        <td>
+            <a th:href="@{|/customer/delete/${customer.customerid}|}">추방</a>
+        </td>
+    </tr>
+</table>
+<br/>
+<form th:action="@{/customer/search}" method="get">
+    <input type="text" name="aa" placeholder="아이디 또는 이름 검색">
+    <button type="submit">검색</button>
+</form>
+<br>
+<a href="/adminmain">되돌아가기</a>
+</div>
+</body>
+</html>

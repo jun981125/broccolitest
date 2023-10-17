@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+main {
+    margin: 0 auto;
+    max-width: 1050px; /* 예시: 최대 너비를 지정할 수 있습니다. */
+}

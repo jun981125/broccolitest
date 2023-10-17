@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+/*lay-out*/
+#sub_con {
+	width: 1050px;
+	margin: 0 auto;
+	padding: 50px 0;
+}
+
+#sub_con .flex {
+	display: flex;
+	justify-content: space-between;
+}
+#sub_con .flex2 {
+	display: flex;
+	justify-content: flex-start;
+}
+.order_title h2 {
+   font-weight: 500;
+	font-size: 25px;
+	color: rgb(51, 51, 51);
+	letter-spacing: -0.5px;
+	line-height: 48px;
+	text-align: center;
+	margin-bottom: 20px;
+	padding-bottom: 40px;
+	border-bottom: 2px solid #f2f2f2;
+}
+.order_list {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #f2f2f2;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	width: 1050px;
+}
+.order_list .product_img_box {
+	display: flex;
+	width: 140px;
+	height: 140px;
+	padding-bottom: 0;
+	margin-top: 6px;
+	background-color: antiquewhite;
+}
+
+.order_list .product_img_box img {
+	width: 100%;
+}
+
+.order_list .product_text_box {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex: 1 1 auto;
+	margin-left: 25px;
+	width: 100px;
+	font-weight: 500;
+	padding: 10px 0;
+}
+.order_list .product_text_box .prd_name {
+	font-size: 17px;
+	line-height: 23px;
+	color: #000;
+	;
+	margin-top: 10px;
+	font-weight: 600;
+}
+
+.order_list .product_text_box .brd_name {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+	white-space: normal;
+	font-weight: 400;
+	font-size: 14px;
+}
+.order_list .choosen {
+	width: 150px;
+	display: flex;
+	margin: 0 100px;
+	align-items: center;
+	font-size: 15px;
+	color: #222;	
+}
+.order_list .detail_btn {
+	width: 100px;
+	display: flex;
+	margin: 0 100px;
+	align-items: center;	
+}
+.button {
+	position: relative;
+	padding: 10px 5px;
+	border-radius: 2px;
+	font-size: 10px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+}
+
+.gray {
+	border: 1px solid #a3a1a1;
+	color: #6e6e6e;
+}
+
+.gray:hover {
+	background-color: #a3a1a1;
+	color: #e3dede;
+} 
+.order_info {
+	width: 100px;
+	display: flex;
+	margin: 0 50px;
+	align-items: center;
+	font-size: 18px;
+	color: #222;
+}

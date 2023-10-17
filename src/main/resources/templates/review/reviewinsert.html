@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>리뷰 등록</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/review.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		window.onload = function () {
+			let btnIns = document.getElementById("btnIns");
+			btnIns.addEventListener("click", checkData);
+
+			function checkData() {
+				if (myform.rating.value === "") {
+					alert("별점을 입력하시오");
+					myform.rating.focus();
+					return;
+				}
+
+				if (myform.comment.value === "") {
+					alert("상품평을 입력하시오");
+					myform.comment.focus();
+					return;
+				}
+
+				myform.submit();
+			}
+
+			$("#file").on('change', function () {
+				var fileName = $("#file").val();
+				$(".upload-name").val(fileName);
+			});
+		}
+
+
+	</script>
+</head>
+
+<body>
+	<th:block th:replace="header::headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="sub_left">
+			<p class="sub_left_title">마이페이지</p>
+			<ul>
+				<li class="active">
+					<a href="orderlist" class="flex">
+						<p>주문내역</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>내 정보 수정하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="delete">
+						<p>탈퇴하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				<li>
+					<a href="reviewlist">
+						<p>상품후기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>배송지수정</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="wishlist">
+						<p>찜목록</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="sub_right">
+			<div class="sub_right_title">
+				<h2>리뷰 등록</h2>
+			</div>
+			<br><br>
+	<form class="mb-3" action="reviewinsert" name="myform" id="myform" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="rproductid" th:value="${rproductid}" />
+				<div class="review_update">
+					<span class="text-bold">별점을 선택해주세요</span>
+					<fieldset>
+						<input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+						<input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+						<input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+						<input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+						<input type="radio" name="rating" value="1" id="rate5"><label for="rate5">★</label>
+					</fieldset>
+				</div>
+				<!-- 닉네임 세션에서 받기 -->
+				<div class="flex3 review_table">
+					<h3 class="join_title">
+						<p>제목</p>
+					</h3>
+					<input type="text" name="title" />
+				</div>
+				<div class="flex3 review_table">
+					<h3 class="join_title">
+						<p>상품평</p>
+					</h3>
+					<textarea id="reviewContents" placeholder="상품에 대한 평가를 남겨주세요" type="text" name="comment"></textarea>
+				</div>
+				<div class="filebox">
+					<label for="file">업로드</label>
+					<input type="file" id="file" name="rimagePath">
+					<input class="upload-name upload-name2" value="파일선택">
+				</div>
+				<div class="review_btn mt40">
+					<input class="review_button" type="button" value="등록" id="btnIns" />
+					<input class="review_button" type="button" value="목록" onclick="location.href='reviewlist'" />
+				</div>
+
+	</form>
+		</div>
+	</div>
+<th:block th:replace="footer::footerFragment"></th:block>
+</body>
+
+</html>
