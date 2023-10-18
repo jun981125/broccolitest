@@ -66,15 +66,15 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 #header .header_wrap .header_inner{
     overflow: hidden;
     width: 100%;
+    height: 84px;
     position: relative;
-    margin: 8px 0;
 }
 #header .header_wrap .header_inner > div{
     float: left;
 }
 #header .header_wrap .header_inner .shop_utility{
     float: right;
-    margin-top: 6.5px;
+    padding-top: 23px;
 }
 #header .header_wrap .main_nav{
     width: 900px;
@@ -84,6 +84,8 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 }
 #logo img{
 	width: 150px;
+    padding-top: 8px;
+    box-sizing: border-box;
 }
 
 /* header start */
@@ -119,7 +121,7 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .header_inner .search_box{
     width: 400px;
     margin-left: 100px;
-    padding-top: 8px;
+    padding-top: 17px;
     position: relative;
 }
 .header_inner .search_box input{
@@ -504,6 +506,7 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 
 /* footer start */
 #footer {
+    width: 100%;
     background-color: #f9f9f9; 
    /* border-top: 1px solid rgb(247, 247, 247); */
 }

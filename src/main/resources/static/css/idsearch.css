@@ -8,15 +8,6 @@
 	}
 
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* 세로 중앙 정렬 */
-    align-items: center; /* 가로 중앙 정렬 */
-    min-height: 100vh;
-    margin: 0;
-}
-
 /* 아이디, 비밀번호 찾기 페이지 컨테이너에 스타일 적용 */
 .id-passwd-container {
     width: 100%;
