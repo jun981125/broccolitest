@@ -137,10 +137,9 @@ public class ProductListController {
 		public ArrayList<ProductDto> getbrandListdata(ArrayList<ProductDto> list, int page) {
 			ArrayList<ProductDto> result = new ArrayList<ProductDto>();
 
-			int start = (page - 1) * plist; // 0, 10, 20, ...
+			int start = (page - 1) * bplist; // 0, 10, 20, ...
 
-			int size = plist <= list.size() - start ? plist : list.size() - start;
-
+			int size = bplist <= list.size() - start ? bplist : list.size() - start;
 			for (int i = 0; i < size; i++) {
 				result.add(i, list.get(start + i));
 			}
@@ -162,21 +161,22 @@ public class ProductListController {
 		public String showProductBrandList(@RequestParam(name = "page", defaultValue = "1") int page,
 		        @RequestParam("brand") String brand, Model model) {
 		    // paging 처리
-		    int spage = 0;
+		    int bpage = 0;
 		    try {
-		        spage = page;
+		    	bpage = page;
 		    } catch (Exception e) {
-		        spage = 1;
+		    	bpage = 1;
 		    }
-		    if (spage <= 0)
-		        spage = 1;
+		    if (bpage <= 0)
+		    	bpage = 1;
 
 		    ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectBrnad(brand);
-		    ArrayList<ProductDto> result = getbrandListdata(list, spage);
-
+		    ArrayList<ProductDto> result = getbrandListdata(list, bpage);
+		    
+		    model.addAttribute("brand",brand);
 		    model.addAttribute("list", result);
-		    model.addAttribute("pagesu", getBrandPageSu(brand)); // 수정: getBrandPageSu 메서드를 호출
-		    model.addAttribute("page", spage);
+		    model.addAttribute("pagesu", getBrandPageSu(brand)); 
+		    model.addAttribute("page", bpage);
 		    return "product/productlist_brandshop";
 		}
 

@@ -27,8 +27,8 @@ public class ReviewDao {
 	}
 	
 	// 전체 리뷰 읽기 - 구매자
-	public List<ReviewDto> selectAll(String customerid) {
-		List<ReviewDto> list = reviewMappingInterface.selectAll(customerid);
+	public List<ReviewDto> selectAll(String rcustomerid) {
+		List<ReviewDto> list = reviewMappingInterface.selectAll(rcustomerid);
 		logger.info("읽은 리뷰 수 : " + list.size());
 		return list;
 	}
@@ -58,10 +58,13 @@ public class ReviewDao {
 		return re;
 	}
 
-	public int totalCnt() {
-		return reviewMappingInterface.totalCnt();
+	public int totalCnt(String rcustomerid) {
+		return reviewMappingInterface.totalCnt(rcustomerid);
 	}
 	
+	public int totalsellerCnt(String customerid) {
+		return reviewMappingInterface.totalsellerCnt(customerid);
+	}
 	// 리뷰 수정
 	public boolean update(ReviewBean bean) {
 		boolean b = false;
