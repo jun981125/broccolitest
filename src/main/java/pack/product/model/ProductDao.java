@@ -50,12 +50,16 @@ public class ProductDao {
 		return list;
 	}
 
-	public int totalsellerCnt(String nickname) {
-		return mappingInterface.totalsellerCnt(nickname);
+	public int totalsellerCnt(String customerid) {
+		return mappingInterface.totalsellerCnt(customerid);
 	}
 	
 	public int totalcateCnt(String category) {
 		return mappingInterface.totalcateCnt(category);
+	}
+	
+	public int totalbrandCnt(String brand) {
+		return mappingInterface.totalbrandCnt(brand);
 	}
 
 	// 상품 찾기

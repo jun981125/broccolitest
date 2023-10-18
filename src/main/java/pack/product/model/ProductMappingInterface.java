@@ -40,6 +40,10 @@ public interface ProductMappingInterface {
 	// 카테고리별 총 상품 수 구하기
 	@Select("select count(*) from products where category=#{category}")
 	int totalcateCnt(String category);
+	
+	// 브랜드별 총 상품 수 구하기
+	@Select("select count(*) from products where brand=#{brand}")
+	int totalbrandCnt(String brand);
 
 	// 상품 찾기
 	@Select("select * from products where ${searchName} like concat('%', #{searchValue}, '%')")

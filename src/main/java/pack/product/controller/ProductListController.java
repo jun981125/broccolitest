@@ -43,8 +43,8 @@ public class ProductListController {
 
 	// 총 페이지 수 얻기
 	public int getPageSu(HttpSession session) {
-		String nickname = (String) session.getAttribute("nickname");
-		tot = productDao.totalsellerCnt(nickname);
+		String customerid = (String) session.getAttribute("loginid");
+		tot = productDao.totalsellerCnt(customerid);
 		pagesu = tot / plist;
 		if (tot % plist > 0)
 			pagesu += 1;
@@ -128,11 +128,39 @@ public class ProductListController {
 		    model.addAttribute("page", spage);
 		    return "product/productlist";
 		}
+	
+	// 브랜드별 페이지
+		private int btot; // 전체 레코드 수
+		private int bplist = 16; // 페이지 당 행 수
+		private int bpagesu; // 전체 페이지 수
+
+		public ArrayList<ProductDto> getbrandListdata(ArrayList<ProductDto> list, int page) {
+			ArrayList<ProductDto> result = new ArrayList<ProductDto>();
+
+			int start = (page - 1) * plist; // 0, 10, 20, ...
+
+			int size = plist <= list.size() - start ? plist : list.size() - start;
+
+			for (int i = 0; i < size; i++) {
+				result.add(i, list.get(start + i));
+			}
+			return result;
+		}
+
+		// 총 페이지 수 얻기
+		public int getBrandPageSu(@RequestParam("brand") String brand ) {
+			btot = productDao.totalbrandCnt(brand);
+			bpagesu = btot / bplist;
+			if (btot % bplist > 0)
+				bpagesu += 1;
+			return bpagesu;
+		}
+	
 		
-	// 브랜드별 상품 보기(사용자)
+		// 브랜드별 상품 보기(사용자)
 		@GetMapping("productbrandlist")
 		public String showProductBrandList(@RequestParam(name = "page", defaultValue = "1") int page,
-				@RequestParam("brand") String brand,Model model) {
+		        @RequestParam("brand") String brand, Model model) {
 		    // paging 처리
 		    int spage = 0;
 		    try {
@@ -140,14 +168,14 @@ public class ProductListController {
 		    } catch (Exception e) {
 		        spage = 1;
 		    }
-		    if (page <= 0)
+		    if (spage <= 0)
 		        spage = 1;
 
 		    ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectBrnad(brand);
-		    ArrayList<ProductDto> result = getListCatedata(list, spage);
+		    ArrayList<ProductDto> result = getbrandListdata(list, spage);
 
-		    model.addAttribute("list", result); 
-		    model.addAttribute("pagesu", getCatePageSu(brand));
+		    model.addAttribute("list", result);
+		    model.addAttribute("pagesu", getBrandPageSu(brand)); // 수정: getBrandPageSu 메서드를 호출
 		    model.addAttribute("page", spage);
 		    return "product/productlist_brandshop";
 		}
