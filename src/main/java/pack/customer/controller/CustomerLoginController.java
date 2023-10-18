@@ -87,14 +87,20 @@ public class CustomerLoginController {
             return "redirect:/";
         }
     }
-    
+
     @GetMapping("/update")
-	public String updateForm(HttpSession session, Model model) {
-		String loginid = (String) session.getAttribute("loginid");
-		CustomerDto customerDto = customerService.updateForm(loginid);
-		model.addAttribute("updateMember", customerDto); // "updateMember"로 객체 추가
-		return "mypage/update";
-	}
+    public String updateForm(HttpSession session, Model model) {
+        String loginid = (String) session.getAttribute("loginid");
+
+        // 로그인 세션이 없는 경우 로그인 페이지로 리디렉션
+        if (loginid == null) {
+            return "redirect:/login";
+        }
+
+        CustomerDto customerDto = customerService.updateForm(loginid);
+        model.addAttribute("updateMember", customerDto); // "updateMember"로 객체 추가
+        return "mypage/update";
+    }
 
 	@PostMapping("/update")
 	public String update(@ModelAttribute("updateMember") CustomerDto customerDto, HttpSession session, Model model) {

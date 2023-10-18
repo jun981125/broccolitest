@@ -57,40 +57,41 @@ public class AddressController {
 
 	@PostMapping("/add-address")
 	public String addAddressSubmit(@RequestParam String zipcode, @RequestParam String address, @RequestParam String detailaddress, @RequestParam String reference, HttpSession session, Model model) {
-	    // 현재 로그인한 고객 정보 가져오기
-	    String loginid = (String) session.getAttribute("loginid");
-	    System.out.println("zipcode: " + zipcode);
-	    if (loginid != null) {
-	        // 고객 정보를 주소 엔티티에 연결
-	        Optional<CustomerEntity> customerOptional = customerRepository.findByCustomerid(loginid);
-	        if (customerOptional.isPresent()) {
-	            CustomerEntity customer = customerOptional.get();
-	            Address addressEntity = new Address();
-	            addressEntity.setCustomer(customer);
-	            addressEntity.setZipcode(zipcode);
-	            addressEntity.setAddress(address);
-	            addressEntity.setDetailaddress(detailaddress);
-	            addressEntity.setReference(reference);
-	            
-	            // 추가하는 주소를 기본 배송지로 설정
-	            addressEntity.setIsdefault(true);
-	            
-	            addressService.addAddress(addressEntity);
+		// 현재 로그인한 고객 정보 가져오기
+		String loginid = (String) session.getAttribute("loginid");
+		System.out.println("zipcode: " + zipcode);
+		if (loginid != null) {
+			// 고객 정보를 주소 엔티티에 연결
+			Optional<CustomerEntity> customerOptional = customerRepository.findByCustomerid(loginid);
+			if (customerOptional.isPresent()) {
+				CustomerEntity customer = customerOptional.get();
+				Address addressEntity = new Address();
+				addressEntity.setCustomer(customer);
+				addressEntity.setZipcode(zipcode);
+				addressEntity.setAddress(address);
+				addressEntity.setDetailaddress(detailaddress);
+				addressEntity.setReference(reference);
 
-	            // 추가된 주소 목록을 다시 조회
-	            List<Address> addresses = addressService.getAddressesByCustomerid(loginid);
-	            model.addAttribute("addresses", addresses);
-	        } else {
-	            // 고객 정보가 없을 경우 처리 (예: 에러 페이지로 리다이렉트)
-	            return "redirect:/login"; // 에러 페이지 경로로 수정하세요.
-	        }
-	    }
-	    return "redirect:/address"; // 주소 목록 페이지로 이동
+				// 추가하는 주소를 기본 배송지로 설정
+				addressEntity.setIsdefault(true);
+
+				addressService.addAddress(addressEntity);
+
+				// 추가된 주소 목록을 다시 조회
+				List<Address> addresses = addressService.getAddressesByCustomerid(loginid);
+				model.addAttribute("addresses", addresses);
+			} else {
+				// 고객 정보가 없을 경우 처리 (예: 에러 페이지로 리다이렉트)
+				return "redirect:/login"; // 에러 페이지 경로로 수정하세요.
+			}
+		}
+		return "redirect:/address"; // 주소 목록 페이지로 이동
 	}
-	
-	
-	
-	
+
+
+
+
+
 	@GetMapping("/get-address/{addressid}")
 	@ResponseBody
 	public Map<String, String> getAddress(@RequestParam("addressid") int addressid, Model model) {
