@@ -40,8 +40,9 @@ public class ReviewListController {
 	}
 
 	// 총 페이지 수 얻기
-	public int getPageSu() {
-		tot = reviewDao.totalCnt();
+	public int getPageSu(HttpSession session) {
+		String rcustomerid = (String) session.getAttribute("loginid");
+		tot = reviewDao.totalCnt(rcustomerid);
 		pagesu = tot / plist;
 		if (tot % plist > 0)
 			pagesu += 1;
@@ -53,7 +54,7 @@ public class ReviewListController {
 	public String showReviewList(@RequestParam(name = "page", defaultValue = "1") int page,
 			HttpSession session ,Model model) {
 		
-		String customerid = (String) session.getAttribute("loginid");
+		String rcustomerid = (String) session.getAttribute("loginid");
 		
 	    // paging 처리
 	    int spage = 0;
@@ -65,13 +66,38 @@ public class ReviewListController {
 	    if (page <= 0)
 	        spage = 1;
 
-	    ArrayList<ReviewDto> list = (ArrayList<ReviewDto>) reviewDao.selectAll(customerid);
+	    ArrayList<ReviewDto> list = (ArrayList<ReviewDto>) reviewDao.selectAll(rcustomerid);
 	    ArrayList<ReviewDto> result = getListdata(list, spage);
 
 	    model.addAttribute("list", result); 
-	    model.addAttribute("pagesu", getPageSu());
+	    model.addAttribute("pagesu", getPageSu(session));
 	    model.addAttribute("page", spage);
 	    return "review/reviewlist";
+	}
+	
+	private int stot; // 전체 레코드 수
+	private int splist = 10; // 페이지 당 행 수
+	private int spagesu; // 전체 페이지 수
+	
+	public ArrayList<ReviewDto> getSellerListdata(ArrayList<ReviewDto> list, int page) {
+		ArrayList<ReviewDto> result = new ArrayList<ReviewDto>();
+
+		int start = (page - 1) * splist; // 0, 10, 20, ...
+		int size = splist <= list.size() - start ? splist : list.size() - start;
+		for (int i = 0; i < size; i++) {
+			result.add(i, list.get(start + i));
+		}
+		return result;
+	}
+
+	// 총 페이지 수 얻기
+	public int getSellerPageSu(HttpSession session) {
+		String customerid = (String) session.getAttribute("loginid");
+		stot = reviewDao.totalsellerCnt(customerid);
+		spagesu = stot / splist;
+		if (stot % splist > 0)
+			spagesu += 1;
+		return spagesu;
 	}
 	
 	// 리뷰 리스트 보기 - 판매자
@@ -92,10 +118,10 @@ public class ReviewListController {
 	        spage = 1;
 
 	    ArrayList<ReviewDto> list = (ArrayList<ReviewDto>) reviewDao.selectSellerAll(customerid);
-	    ArrayList<ReviewDto> result = getListdata(list, spage);
+	    ArrayList<ReviewDto> result = getSellerListdata(list, spage);
 
 	    model.addAttribute("list", result); 
-	    model.addAttribute("pagesu", getPageSu());
+	    model.addAttribute("pagesu", getSellerPageSu(session));
 	    model.addAttribute("page", spage);
 	    return "review/reviewlist_seller";
 	}

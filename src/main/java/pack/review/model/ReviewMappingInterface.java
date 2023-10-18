@@ -20,12 +20,20 @@ public interface ReviewMappingInterface {
 	// 리뷰 목록 보기 - 구매자 별(자신이 남긴 리뷰)
 	// products table의 model,brand를 가져오기 위해 join 사용
 	@Select("select rproductid, reviewid, rnickname, title, pimage  ,model, brand, rating, comment, reviewdate from reviews left outer join products on rproductid = productid where rcustomerid = #{rcustomerid} order by reviewid desc")
-	List<ReviewDto> selectAll(String customerid);
+	List<ReviewDto> selectAll(String rcustomerid);
 	
 	// 판매자 별(자신의 상품에 대한 리뷰)
 	@Select("select rproductid, reviewid, rnickname, title, pimage ,model, brand, rating, comment, reviewdate from reviews a left outer join products b on rproductid = productid where b.customerid = #{customerid} order by reviewid desc")
 	List<ReviewDto> selectSellerAll(String customerid);
+	
+	// 총 리뷰 수 구하기 (페이징 처리를 위해) - 구매자
+	@Select("select count(*) from reviews where rcustomerid = #{rcustomerid}")
+	int totalCnt(String rcustomerid);
 
+	// 총 리뷰 수 구하기 (페이징 처리를 위해) - 판매자
+	@Select("select count(*) from reviews left outer join products on rproductid = productid where customerid = #{customerid}")
+	int totalsellerCnt(String customerid);
+	
 	// 해당 리뷰 자세히 보기
 	@Select("select rproductid, reviewid, rnickname, title, pimage, model, brand, rating, comment, reviewdate, rimage from reviews left outer join products on rproductid = productid where reviewid = #{reviewid}")
 	ReviewDto selectOne(int reviewid);
@@ -40,10 +48,6 @@ public interface ReviewMappingInterface {
 			+ "WHERE rproductid = #{rpoductid};\r\n"
 			+ "")
 	int avgreviewstar(int rpoductid);
-	
-	// 총 리뷰 수 구하기 (페이징 처리를 위해)
-	@Select("select count(*) from reviews")
-	int totalCnt();
 
 	// 리뷰 수정
 	@Update("update reviews set title=#{title}, rating=#{rating}, comment=#{comment}, reviewdate=#{reviewdate}, rimage=#{rimage} where reviewId=#{reviewid}")

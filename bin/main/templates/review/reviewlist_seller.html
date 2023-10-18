@@ -91,7 +91,7 @@
 						<b th:text="${num}">num 표시(현재 페이지는 링크를 걸지 않음)</b>
 					</span>
 					<span th:if="${num != page}">
-						<a th:href="@{reviewlist(page=${num})}" th:text="${num}">num 표시</a>
+						<a th:href="@{reviewlist_seller(page=${num})}" th:text="${num}">num 표시</a>
 					</span>
 				</span>
 			</div>
