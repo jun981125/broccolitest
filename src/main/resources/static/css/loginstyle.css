@@ -227,6 +227,6 @@
 	display: flex;
 }
 
-#rc-anchor-container{
+.rc-anchor-normal{
 	width: 340px !important;
 }
