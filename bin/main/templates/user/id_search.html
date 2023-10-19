@@ -1,90 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>아이디 찾기</title>
-<link rel="stylesheet" type="text/css" href="css/idsearch.css">
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // 이름 입력 필드와 힌트 엘리먼트 가져오기
-    let nameInput = document.getElementById("customername");
-    let nameHint = document.getElementById("nameHint");
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" type="text/css" href="css/idsearch.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 이름 입력 필드와 힌트 엘리먼트 가져오기
+            let nameInput = document.getElementById("customername");
+            let nameHint = document.getElementById("nameHint");
 
-    // 휴대전화번호 입력 필드와 힌트 엘리먼트 가져오기
-    let phonenumberInput = document.getElementById("phonenumber");
-    let phonenumberHint = document.getElementById("phonenumberHint");
+            // 휴대전화번호 입력 필드와 힌트 엘리먼트 가져오기
+            let phonenumberInput = document.getElementById("phonenumber");
+            let phonenumberHint = document.getElementById("phonenumberHint");
 
-    // 확인 버튼 엘리먼트 가져오기
-    let findIdButton = document.getElementById("findIdButton");
+            // 확인 버튼 엘리먼트 가져오기
+            let findIdButton = document.getElementById("findIdButton");
 
-    // 입력 필드에 이벤트 리스너를 추가하는 함수
-    function setInputListeners(input, hint) {
-        input.addEventListener("input", updateButtonState);
-        input.addEventListener("blur", function () {
-            if (input.value.trim() === "") {
-                hint.style.display = "block"; // 입력이 없으면 힌트 메시지 표시
-            } else {
-                hint.style.display = "none"; // 입력이 있으면 힌트 메시지 숨기기
+            // 입력 필드에 이벤트 리스너를 추가하는 함수
+            function setInputListeners(input, hint) {
+                input.addEventListener("input", updateButtonState);
+                input.addEventListener("blur", function () {
+                    if (input.value.trim() === "") {
+                        hint.style.display = "block"; // 입력이 없으면 힌트 메시지 표시
+                    } else {
+                        hint.style.display = "none"; // 입력이 있으면 힌트 메시지 숨기기
+                    }
+                    updateButtonState(); // 버튼 상태 업데이트
+                });
             }
-            updateButtonState(); // 버튼 상태 업데이트
+
+            // 한글 이름 유효성 검사 함수
+            function validateKoreanName(name) {
+                let koreanNamePattern = /^[가-힣]{2,10}$/; // 한글 2글자 이상 10글자 이하
+                return koreanNamePattern.test(name);
+            }
+
+            // 휴대전화번호 유효성 검사 함수
+            function validatePhoneNumber(phonenumber) {
+                let phonenumberPattern = /^\d{10,11}$/; // 10자리 또는 11자리 숫자
+                return phonenumberPattern.test(phonenumber);
+            }
+
+            // 입력 상태에 따라 버튼 활성화/비활성화 업데이트하는 함수
+            function updateButtonState() {
+                let nameValue = nameInput.value.trim();
+                let phonenumberValue = phonenumberInput.value.trim();
+
+                // 이름이 한글로만 구성되고 2글자 이상 10글자 이하이며 휴대전화번호가 유효한 경우
+                if (validateKoreanName(nameValue) && validatePhoneNumber(phonenumberValue)) {
+                    findIdButton.removeAttribute("disabled"); // 버튼 활성화
+                } else {
+                    findIdButton.setAttribute("disabled", "disabled"); // 버튼 비활성화
+                }
+            }
+
+            setInputListeners(nameInput, nameHint);
+            setInputListeners(phonenumberInput, phonenumberHint);
         });
-    }
-
-    // 한글 이름 유효성 검사 함수
-    function validateKoreanName(name) {
-        let koreanNamePattern = /^[가-힣]{2,10}$/; // 한글 2글자 이상 10글자 이하
-        return koreanNamePattern.test(name);
-    }
-    
-    // 휴대전화번호 유효성 검사 함수
-    function validatePhoneNumber(phonenumber) {
-        let phonenumberPattern = /^\d{10,11}$/; // 10자리 또는 11자리 숫자
-        return phonenumberPattern.test(phonenumber);
-    }
-
-    // 입력 상태에 따라 버튼 활성화/비활성화 업데이트하는 함수
-    function updateButtonState() {
-        let nameValue = nameInput.value.trim();
-        let phonenumberValue = phonenumberInput.value.trim();
-
-        // 이름이 한글로만 구성되고 2글자 이상 10글자 이하이며 휴대전화번호가 유효한 경우
-        if (validateKoreanName(nameValue) && validatePhoneNumber(phonenumberValue)) {
-            findIdButton.removeAttribute("disabled"); // 버튼 활성화
-        } else {
-            findIdButton.setAttribute("disabled", "disabled"); // 버튼 비활성화
-        }
-    }
-
-    setInputListeners(nameInput, nameHint);
-    setInputListeners(phonenumberInput, phonenumberHint);
-});
-</script>
+    </script>
 </head>
 <div>
-	<th:block th:replace="common/header :: headerFragment"></th:block>
-	<div class="allcontent">
- <div class="id-passwd-container"> <!-- 아이디 찾기 페이지 -->
-        <div class="id-passwd-title">아이디 찾기</div>
+    <th:block th:replace="common/header :: headerFragment"></th:block>
+    <div class="allcontent">
+        <div class="id-passwd-container"> <!-- 아이디 찾기 페이지 -->
+            <div class="id-passwd-title">아이디 찾기</div>
             <div id="phoneForm" class="css-s3iz85">
                 <div class="input-form">
                     <div class="input-field-labe"> <!-- 이름 입력 필드 -->
                         <label for="name" class="input-field-text">이름</label>
-                      	  <div class="input-field">
-								<form action="/findIdByPhone" method="get">
-                            <input type="text" data-testid="input-box" id="customername" name="customername" 
-                           	 placeholder="이름을 입력해 주세요" class="input-field-size">
+                        <div class="input-field">
+                            <form action="/findIdByPhone" method="get">
+                                <input type="text" data-testid="input-box" id="customername" name="customername"
+                                       placeholder="이름을 입력해 주세요" class="input-field-size">
                         </div>
                     </div>
                     <p class="noneinput-hint" id="nameHint">가입 시 등록한 이름을 입력해 주세요.</p> <!-- 이름 입력 힌트 -->
                 </div>
                 <div class="input-form">
                     <div class="input-field-labe">
-						<label for="phonenumber" class="input-field-text">휴대전화번호</label> <!-- 휴대전화번호 입력 필드 -->
-							<div class="input-field">
-                            	<input data-testid="input-box" id="phonenumber" name="phonenumber"
-                            	placeholder="휴대전화번호를 입력해 주세요" type="tel" class="input-field-size">
-                        	</div>
-                    </div>                
+                        <label for="phonenumber" class="input-field-text">휴대전화번호</label> <!-- 휴대전화번호 입력 필드 -->
+                        <div class="input-field">
+                            <input data-testid="input-box" id="phonenumber" name="phonenumber"
+                                   placeholder="휴대전화번호를 입력해 주세요" type="tel" class="input-field-size">
+                        </div>
+                    </div>
                     <p class="noneinput-hint" id="phonenumberHint">가입 시 등록한 휴대전화번호를 입력해 주세요.</p> <!-- 휴대전화번호 입력 힌트 -->
                 </div>
                 <div class="button-blank">
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </div>
     </div>
-    </div>
-    <th:block th:replace="common/footer :: footerFragment"></th:block>
+</div>
+<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 </html>
