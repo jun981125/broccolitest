@@ -542,10 +542,10 @@ td {
 }
 /* 평균 별점 */
 .avgstar {
-	font-size: 22px;
+	font-size: 24px;
 	color: tomato;
 	display: inline-block;
-	margin-right: 2px;
+	letter-spacing: -2px;
 }
 
 #review .pr_date{
