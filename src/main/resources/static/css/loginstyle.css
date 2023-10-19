@@ -227,6 +227,6 @@
 	display: flex;
 }
 
-.rc-anchor-normal{
+.g-recaptcha > div{
 	width: 340px !important;
 }
