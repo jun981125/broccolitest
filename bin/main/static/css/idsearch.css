@@ -113,7 +113,7 @@
     height: 52px;
     border-radius: 4px;
     color: #fff;
-    background-color: #5f0080;
+    background-color: #8CC84B;
     border: 0 none;
     margin-bottom: 50px;
 }
@@ -133,4 +133,5 @@
     display: inline-block;
     font-size: 16px;
     font-weight: 500;
+    color: #fff;
 }

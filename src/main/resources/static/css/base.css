@@ -1,7 +1,7 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 @import url('https://fonts.cdnfonts.com/css/jost');
 /* base */
-*{ padding: 0; margin: 0; font-family: 'Jost*','AppleSDGothicNeo', 'Pretendard', sans-serif; font-size: 13px; color: #666; }
+*{ padding: 0; margin: 0; font-family: 'Jost*','AppleSDGothicNeo', 'Pretendard', sans-serif; font-size: 13px; color: #444; -webkit-font-smoothing: antialiased; }
 input, select, textarea, button, label{font-size: 14px; vertical-align: middle; }
 textarea{padding: 5px 10px; box-sizing: border-box; }
 li{ list-style: none; padding: 0; margin: 0;}
@@ -13,6 +13,7 @@ fieldset{ border: none; }
 legend{ position: absolute; left: -999em; }
 input[type=button], input[type=submit], input[type=reset], input[type=image], button{ cursor: pointer; border: 0px; } 
 label.away{ position: absolute; left: -999em; }
+input::placeholder {color:#666; font-size: 14px; font-weight: 300;}
 caption{text-indent: -9999em; width: 1px; height: 1px; margin-top: -1px; line-height: 1px; overflow: hidden; }
 body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relative;}
 
@@ -45,12 +46,12 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 /* header layout */
 #header{
     width: 100%;
-    height: 175px;
+    height: 135px;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 4px 0px;
 }
 #header .header_wrap{
     width: 1050px;
-    height: 175px;
+    height: 135px;
     margin: 0 auto;
     position: relative;
 }
@@ -66,7 +67,7 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 #header .header_wrap .header_inner{
     overflow: hidden;
     width: 100%;
-    height: 84px;
+    height: 85px;
     position: relative;
 }
 #header .header_wrap .header_inner > div{
@@ -74,17 +75,17 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 }
 #header .header_wrap .header_inner .shop_utility{
     float: right;
-    padding-top: 23px;
+    padding-top: 24px;
 }
 #header .header_wrap .main_nav{
     width: 900px;
     margin: 0 auto;
-    height: 55px;
+    height: 50px;
     position: relative;
 }
 #logo img{
 	width: 150px;
-    padding-top: 8px;
+    padding-top: 16px;
     box-sizing: border-box;
 }
 
@@ -121,13 +122,13 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .header_inner .search_box{
     width: 330px;
     margin-left: 200px;
-    padding-top: 15px;
+    padding-top: 20px;
     position: relative;
 }
 .header_inner .search_box input{
     width: 330px;
-    height: 48px;
-    padding-left: 1px;
+    height: 45px;
+    padding-left: 5px;
     border: none;
     border-bottom: 1px solid #222;
     box-sizing: border-box;
@@ -160,8 +161,14 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
     height: 100%;
 }
 .header_inner .shop_utility .fs35{
-    font-size: 34px;
+    font-size: 35px;
     color: #222;
+}
+.header_inner .shop_utility .fs40{
+    font-size: 38px;
+}
+.header_inner  .bi{
+    font-size: 30px;
 }
 
 
@@ -173,7 +180,7 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 #gnb ul li a{
     display: block;
     width: 100%;
-    line-height: 55px;
+    line-height: 50px;
     font-size: 16px;
     color: #000;
     text-align: center;
@@ -209,15 +216,16 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 
 .gnb .gnb_menu {
     width: 1050px;
-    /* overflow: hidden; */
-    height: 56px;
+    height: 50px;
     margin: 0 auto;
     position: relative;
+    display: flex;
+    justify-content: space-between;
 }
 
 .gnb .gnb_menu .list {
-    float: left;
-    width: 20%;
+    /* float: left;
+    width: 16.66666667%; */
 }
 .gnb .gnb_menu .list:hover .link > span{
     color: #8CC84B;
@@ -236,9 +244,9 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
     /* overflow: hidden; */
     float: left;
     display: block;
-    height: 56px;
+    height: 50px;
     width: 100%;
-    line-height: 56px;
+    line-height: 55px;
     font-size: 16px;
     text-align: center;
 }
@@ -254,9 +262,9 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
     margin: 4px 14px 0 0;
 }
 .gnb_menu .link .txt {
-    font-weight: 500;
-    font-size: 16px;
-    color: #333;
+    font-weight: 400;
+    font-size: 15px;
+    color: #1b1b1b;
 }
 
 /* .gnb_main {
