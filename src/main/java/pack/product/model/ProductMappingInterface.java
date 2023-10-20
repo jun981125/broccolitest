@@ -12,7 +12,11 @@ import pack.product.controller.ProductBean;
 
 @Mapper
 public interface ProductMappingInterface {
-	// 전체 상품 읽기 - 상품관리 (판매자) //  isseller = TRUE 
+	// 전체 상품 읽기 - 메인페이지
+	@Select("select * from products order by productid desc")
+	List<ProductDto> selectMain();
+	
+	// 상품관리 (판매자) 
 	@Select("SELECT * FROM products where customerid=#{customerid} ORDER BY productid DESC")
 	List<ProductDto> selectAll(String nickname);
 
@@ -27,12 +31,23 @@ public interface ProductMappingInterface {
 	// 브랜드 별 상품 보기(사용자)
 	@Select("select * from products where brand=#{brand} and state='승인'")
 	List<ProductDto> selectBrand(String brand);
-
+	
+	// 메인페이지에 최신순으로 8개만 상품 보이게
+	@Select("SELECT *\n"
+			+ "FROM products\n"
+			+ "ORDER BY productid DESC\n"
+			+ "LIMIT 8;")
+	List<ProductDto> selecteight();
+	
 	// 상품 등록  
 	@Insert("INSERT INTO products (customerid, category, brand, model, price, stockquantity,pimage, dimage)\r\n"
 			+ "VALUES (#{customerid}, #{category}, #{brand}, #{model}, #{price}, #{stockquantity}, #{pimage},#{dimage})")
 	int insertProduct(ProductBean bean);
-
+	
+	// 총 상품 수 구하기
+	@Select("select count(*) from products")
+	int totalallCnt();
+	
 	// 판매자별 총 상품 수 구하기
 	@Select("select count(*) from products where customerid=#{customerid}")
 	int totalsellerCnt(String customerid);

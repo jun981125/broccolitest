@@ -22,8 +22,15 @@ public class ProductDao {
 
 	@Autowired
 	private ProductMappingInterface mappingInterface;
+	
+	// 상품 전체 보기
+	public List<ProductDto> selectMain() {
+		List<ProductDto> list = mappingInterface.selectMain();
+		logger.info("읽은 상품 수 : " + list.size());
+		return list;
+	}
 
-	// 전체 상품 읽기 - 판매자
+	// 상품 관리 - 판매자
 	public List<ProductDto> selectAll(String customerid) {
 		List<ProductDto> list = mappingInterface.selectAll(customerid);
 		logger.info("읽은 상품 수 : " + list.size());
@@ -49,7 +56,17 @@ public class ProductDao {
 		logger.info("읽은 브랜드 별 상품 수 : " +list.size());
 		return list;
 	}
-
+	
+	// 메인페이지에 상품 
+	public List<ProductDto> selecteight() {
+		List<ProductDto> list = mappingInterface.selecteight();
+		return list;
+	}
+	
+	public int totalallCnt() {
+		return mappingInterface.totalallCnt();
+	}
+	
 	public int totalsellerCnt(String customerid) {
 		return mappingInterface.totalsellerCnt(customerid);
 	}

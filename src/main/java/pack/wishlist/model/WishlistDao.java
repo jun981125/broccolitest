@@ -31,8 +31,8 @@ public class WishlistDao {
 		return list;
 	}
 	
-	public int totalCnt() {
-		return wishmappingInterface.totalCnt();
+	public int totalCnt(String customerid) {
+		return wishmappingInterface.totalCnt(customerid);
 	}
 	
 	// 찜삭제
