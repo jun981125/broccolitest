@@ -22,6 +22,68 @@ public class ProductListController {
 	@Autowired
 	ReviewDao reviewDao;
 	
+	// 전체 상품 - 메인페이지
+	
+	private int atot; // 전체 레코드 수
+	private int aplist = 16; // 페이지 당 행 수
+	private int apagesu; // 전체 페이지 수
+
+	public ArrayList<ProductDto> getListAlldata(ArrayList<ProductDto> list, int page) {
+		ArrayList<ProductDto> result = new ArrayList<ProductDto>();
+
+		int start = (page - 1) * aplist; 
+
+		int size = aplist <= list.size() - start ? aplist : list.size() - start;
+
+		for (int i = 0; i < size; i++) {
+			result.add(i, list.get(start + i));
+		}
+		return result;
+	}
+
+	// 총 페이지 수 얻기
+	public int getAllPageSu() {
+		atot = productDao.totalallCnt(); 
+		apagesu = atot / aplist;
+	    if (atot % aplist > 0)
+	    	apagesu += 1;
+	    return apagesu;
+	}
+	
+	@GetMapping("productlist_all")
+	public String showallproduct (@RequestParam(name = "page", defaultValue = "1") int page,Model model) {
+	
+	// paging 처리
+	int spage = 0;
+		try {
+	        spage = page;
+	    } catch (Exception e) {
+	        spage = 1;
+	    }
+	    if (page <= 0)
+	        spage = 1;
+
+	    ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectMain();
+	    ArrayList<ProductDto> result = getListAlldata(list, spage);
+
+	    model.addAttribute("list", result); 
+	    model.addAttribute("pagesu", getAllPageSu());
+	    model.addAttribute("page", spage);
+	
+	
+	return "product/productlist_all";
+	}
+	
+	// 메인페이지에 상품 8개
+	@GetMapping("index")
+	public String showeight(Model model) {
+		ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selecteight();
+		
+		model.addAttribute("list",list);
+		
+		return "index";
+	}
+	
 	// 판매자 페이지
 
 	private int tot; // 전체 레코드 수

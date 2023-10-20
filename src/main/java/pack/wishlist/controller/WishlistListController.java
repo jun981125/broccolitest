@@ -19,7 +19,7 @@ public class WishlistListController {
 	private WishlistDao dao;
 	
 	private int tot; // 전체 레코드 수
-	private int plist = 10; // 페이지 당 행 수
+	private int plist = 16; // 페이지 당 행 수
 	private int pagesu; // 전체 페이지 수
 	
 	public ArrayList<WishlistDto> getListdata(ArrayList<WishlistDto> list, int page) {
@@ -36,8 +36,9 @@ public class WishlistListController {
 	}
 	
 	// 총 페이지 수 얻기
-		public int getPageSu() {
-			tot = dao.totalCnt();  
+		public int getPageSu(HttpSession session) {
+			String customerid = (String) session.getAttribute("loginid");
+			tot = dao.totalCnt(customerid);  
 			pagesu = tot / plist;
 			if (tot % plist > 0)
 				pagesu += 1;
@@ -64,7 +65,7 @@ public class WishlistListController {
 		    ArrayList<WishlistDto> result = getListdata(list, spage);
 
 		    model.addAttribute("list", result); 
-		    model.addAttribute("pagesu", getPageSu());
+		    model.addAttribute("pagesu", getPageSu(session));
 		    model.addAttribute("page", spage);
 		    return "wishlist/wishlist";
 		}

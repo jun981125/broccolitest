@@ -23,8 +23,8 @@ public interface WishlistMappingInterface {
 	List<WishlistDto> selectAll(String customerid);
 	
 	// 총 찜 수 구하기 (페이징 처리를 위해)
-	@Select("select count(*) from wishlist")
-	int totalCnt();
+	@Select("select count(*) from wishlist where customerid=#{customerid}")
+	int totalCnt(String customerid);
 	
 	// 찜 삭제
 	@Delete("delete from wishlist where wishlistid = ${wishlistid}")

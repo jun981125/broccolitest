@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("td.rating").each(function () {
+            $("p.rating").each(function () {
                 var rating = parseInt($(this).text());
                 var stars = "";
                 for (var i = 1; i <= 5; i++) {
@@ -169,8 +169,8 @@
 				</div>
 			</div>
 		</div>
-		<div> <!-- th:if="${seller}"-->
-		<h5>댓글등록</h5>
+		<div > 
+		<h5>댓글등록</h5> 
 		<div class="comment_store">
 			<form th:action="@{/reviewreplyinsert}" name="replyform" id="replyform" class="flex4" method="post">
 				<input type="hidden" name="reviewno" th:value="${data.reviewid}" />
