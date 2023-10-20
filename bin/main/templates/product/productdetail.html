@@ -136,7 +136,18 @@ function addToOrderfromProduct(productId, quantity) {
                 <img th:src="@{upload/}+${data.pimage}" />
             </div>
             <div class="text_area">
-                <h2>[[${data.model}]]</h2>
+                <p class="brand">[[${data.brand}]]</p>
+                <div class="flex">
+                    <h2>[[${data.model}]]</h2>
+                    <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined">favorite</span></button>
+                </div>
+                <div class="flex">
+                    <span th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></span>
+                    <span class="point">포인트</span>
+                </div>
+                <div class="pro_count">
+                    <input type="number" id="quantity" min="1" value="1" />
+                </div>
                 <table>
                     <caption>
                         <details class="hide">
@@ -171,8 +182,8 @@ function addToOrderfromProduct(productId, quantity) {
                         </tr>
                     </tbody>
                 </table>
-                <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined">favorite</span></button>&nbsp;
-                <input class="button gray" type="button" value="장바구니" id="addToCart"></input>&nbsp;&nbsp;
+                
+                <input class="button gray" type="button" value="장바구니" id="addToCart"></input>
                 <input class="button gray" type="button" value="구매하기" id="createOrderfromProduct"></input>
                 
                 <form action="/createOrderfromProduct" method="post" id="orderForm">

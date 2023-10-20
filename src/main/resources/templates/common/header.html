@@ -36,7 +36,7 @@
 						data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true">
 					</div>
 					<!-- <a href="" class="quick01"><span class="material-symbols-outlined">sms</span></a> -->
-					<a href="" class="quick02"><span class="material-symbols-outlined">inventory</span></a>
+					<a href="anmt" class="quick02"><span class="material-symbols-outlined">inventory</span></a>
 				</div>
 				<div class="aside_con aside_con2" id="toTop">
 					<a href="#header" class="quick03"><span
@@ -48,35 +48,6 @@
 
 		<div id="header">
 			<div class="header_wrap">
-
-
-				<div class="top_nav_wrap">
-					<div class="top_nav">
-						<ul>
-							<!-- 세션에 로그인 아이디가 있을 때, 로그아웃 표시 -->
-							<li class="items" th:if="${session.loginid}">
-								<a href="#">[[${session.nickname}]] 님</a>
-							</li>
-							<li><a href="" class="nav_bar" th:if="${session.loginid}"></a></li>
-
-							<li class="items" th:if="${session.loginid}">
-								<a href="/logout">로그아웃</a>
-							</li>
-
-
-							<!-- 세션에 로그인 아이디가 없을 때, 로그인과 회원가입  표시 -->
-							<li class="items" th:unless="${session.loginid}">
-								<a href="register">회원가입</a>
-							</li>
-							<li><a href="" class="nav_bar" th:unless="${session.loginid}"></a></li>
-							<li class="items" th:unless="${session.loginid}">
-								<a href="login">로그인</a>
-							</li>
-
-						</ul>
-					</div>
-				</div>
-
 				<div class="header_inner">
 					<div id="logo">
 						<a href="/"><img src="images/logo.png" alt="로고"></a>
@@ -93,13 +64,22 @@
 					</div>
 					<div class="shop_utility">
 						<ul>
-							<li>
-								<a href="update"><span class="material-symbols-outlined fs35"> person</span></a>
+							<li th:unless="${session.loginid}">
+								<a href="login"><span class="material-symbols-outlined fs35">login</span></a>
+							</li>
+							<li th:if="${session.loginid}">
+								<a href="logout"><span class="material-symbols-outlined fs35">logout</span></a>
+							</li>
+							<li th:unless="${session.loginid}">
+								<a href=""><span class="material-symbols-outlined fs35">person_add</span></a>
 							</li>
 							<li>
+								<a href="update"><span class="material-symbols-outlined fs40"> person</span></a>
+							</li>
+							<li th:if="${session.loginid}">
 								<a href=""><span class="material-symbols-outlined fs35">favorite</span></a>
 							</li>
-							<li class="last">
+							<li class="last" th:if="${session.loginid}">
 								<a href="cart">
 									<span class="material-symbols-outlined material-cart fs35"> shopping_cart</span>
 								</a>
@@ -112,85 +92,34 @@
 
 					<!-- gnb = global nav bar = 최상위 메뉴  -->
 					<ul class="gnb_menu">
-						<li class="list gnb_main">
-							<a href="#" class="link">
-								<span class="material-symbols-outlined material-menu">menu</span>
-								<span class="txt">전체 카테고리</span>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=핸드폰" class="link">
+								<span class="txt">스마트폰</span>
 							</a>
-							<div class="gnb_sub">
-								<ul class="menu">
-									<li class="current">
-										<a href="productcategorylist?page=1&category=핸드폰" class="main_item">
-											<span class="ico">
-												<span class="material-symbols-outlined">phone_iphone</span>
-											</span>
-											<span class="tit">
-												<span class="txt">핸드폰</span>
-												<span class="ico_new" alt="new"></span>
-											</span>
-										</a>
-									</li>
-									<li class="current">
-										<a href="productcategorylist?page=1&category=태블릿" class="main_item">
-											<span class="ico">
-												<span class="material-symbols-outlined">tablet_android</span>
-											</span>
-											<span class="tit">
-												<span class="txt">태블릿</span>
-											</span>
-										</a>
-									</li>
-									<li class="current">
-										<a href="productcategorylist?page=1&category=헤드셋/이어폰" class="main_item">
-											<span class="ico">
-												<span class="material-symbols-outlined">headphones</span>
-											</span>
-											<span class="tit">
-												<span class="txt">헤드셋/이어폰</span>
-											</span>
-										</a>
-									</li>
-									<li class="current">
-										<a href="productcategorylist?page=1&category=스마트워치/밴드" class="main_item">
-											<span class="ico">
-												<span class="material-symbols-outlined material-watch">watch_wake</span>
-											</span>
-											<span class="tit">
-												<span class="txt">스마트워치/밴드</span>
-											</span>
-										</a>
-									</li>
-									<li class="current">
-										<a href="productcategorylist?page=1&category=악세사리" class="main_item">
-											<span class="ico">
-												<span class="material-symbols-outlined">earbuds</span>
-											</span>
-											<span class="tit">
-												<span class="txt">악세사리</span>
-											</span>
-										</a>
-									</li>
-								</ul>
-							</div>
 						</li>
 						<li class="list">
-							<a href="productlist_seller" class="link">
-								<span class="txt">베스트</span>
+							<a href="productcategorylist?page=1&category=태블릿" class="link">
+								<span class="txt">태블릿</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=헤드셋/이어폰" class="link">
+								<span class="txt">음향기기</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=스마트워치/밴드" class="link">
+								<span class="txt">스마트워치</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=악세사리" class="link">
+								<span class="txt">악세사리</span>
 							</a>
 						</li>
 						<li class="list">
 							<a href="commu" class="link">
 								<span class="txt">중고거래</span>
-							</a>
-						</li>
-						<li class="list">
-							<a href="#brand_shop" class="link">
-								<span class="txt">브랜드샵</span>
-							</a>
-						</li>
-						<li class="list">
-							<a href="anmt" class="link">
-								<span class="txt">공지사항 / 이벤트</span>
 							</a>
 						</li>
 					</ul>
