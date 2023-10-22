@@ -29,8 +29,7 @@ public class CustomerEntity {
     
     @Column(unique = true)
     private String customerid;
-    
-    
+
     private String customername;
     
     private String customernickname;

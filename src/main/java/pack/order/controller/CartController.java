@@ -1,31 +1,22 @@
 package pack.order.controller;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.List;
-
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
-
-import pack.order.model.CartItemRepository;
 import pack.order.model.CartItem;
-import pack.order.controller.CartItemService;
-import pack.order.controller.CartService;
-import pack.order.controller.OrderItemService;
-import pack.order.controller.OrderService;
-import pack.order.controller.ProductService;
+import pack.order.model.CartItemRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CartController {
+	public static final String REDIRECT_CART = "redirect:/cart";
 
 	@Autowired
 	private CartService cartService;
@@ -47,15 +38,22 @@ public class CartController {
 
 	// 장바구니에 상품 추가하는 요청 처리
 	@PostMapping("/addToCartItem")
-	public String addToCart(@RequestParam("productid") int productid, @RequestParam("quantity") int quantity) {
-		cartService.addToCart(productid, quantity);
-		return "redirect:/cart";
+	public String addToCart(@RequestParam("productid") int productid, @RequestParam("quantity") int quantity,
+							HttpSession session) {
+		String loginid = (String) session.getAttribute("loginid");
+		if(loginid!=null) {
+			cartService.addToCart(productid, quantity, loginid);
+			return REDIRECT_CART;
+		}else {
+			return "redirect:/login";
+		}
 	}
 
 	// 장바구니 화면 표시
 	@GetMapping("/cart")
-	public String viewCart(Model model) {
-		List<CartItem> cartItems = cartService.getCartItemsCartByCartItemIdDesc();
+	public String viewCart(Model model, HttpSession session) {
+		String loginid = (String) session.getAttribute("loginid");
+		List<CartItem> cartItems = cartService.getcartitem(loginid);
 		model.addAttribute("cartItems", cartItems);
 		return "order/cart";
 	}
@@ -64,7 +62,7 @@ public class CartController {
 	@PostMapping("/clearCart")
 	public String clearCart() {
 		cartItemRepository.deleteAll();
-		return "redirect:/cart";
+		return REDIRECT_CART;
 	}
 
 	// 선택상품 삭제
@@ -72,14 +70,14 @@ public class CartController {
 	@PostMapping("/removeCartItem")
 	public String removeCartItem(@RequestParam("cartItemId") int cartItemId) {
 		cartItemService.removeCartItem(cartItemId);
-		return "redirect:/cart";
+		return REDIRECT_CART;
 	}
 	
-	@RequestMapping(value = "/updateCartCount", method = RequestMethod.POST)
+	@PostMapping(value = "/updateCartCount")
 	public String updateCartCount(@RequestParam("orderCount") int updateCount,@RequestParam("cartItemId") int cartItemId) {
 	    CartItem cartItem=cartItemRepository.findCartItemByCartItemId(cartItemId);
-	    cartItem.setCartCount(updateCount); 
-	    return "redirect:/cart"; // 다시 카트 페이지로 리다이렉트
+	    cartItem.setCartCount(updateCount);
+		return REDIRECT_CART; // 다시 카트 페이지로 리다이렉트
 	}
 
 	// 장바구니에서 주문 페이지로 넘어가기
@@ -98,7 +96,8 @@ public class CartController {
 	@PostMapping("/createOrderfromProduct")
 	public String addToOrderfromProduct(@RequestParam("productid") int productid,
 			@RequestParam("quantity") int quantity, Model model, HttpSession session) {
-		cartService.addToCart(productid, quantity);
+		String loginid = (String) session.getAttribute("loginid");
+		cartService.addToCart(productid, quantity, loginid);
 		ArrayList<CartItem> cartItemlist = (ArrayList<CartItem>) cartService.getDataAll();
         double totalSubtotal = cartItemlist.stream().mapToDouble(CartItem::calculateSubtotal).sum();
         System.out.println("Total Subtotal: " + totalSubtotal); // 이 부분을 추가합니다.
