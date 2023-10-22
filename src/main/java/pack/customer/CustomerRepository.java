@@ -28,8 +28,5 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Intege
 	void deleteByCustomerid(String customerid);
 	
 	List<CustomerEntity> findByCustomernameContaining(String aa);
-	
-	
-	
-	 
+
 }

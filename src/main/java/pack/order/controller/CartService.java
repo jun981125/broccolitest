@@ -1,42 +1,38 @@
 package pack.order.controller;
 
-import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pack.customer.CustomerEntity;
+import pack.customer.CustomerRepository;
+import pack.order.model.*;
 
-import lombok.RequiredArgsConstructor;
-import pack.order.model.Cart;
-import pack.order.model.CartItem;
-import pack.order.model.Product;
-import pack.order.model.CartItemRepository;
-import pack.order.model.CartRepository;
-import pack.order.model.ProductRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
 
+	private final ProductRepository productRepository;
 
 	private final CartItemRepository cartItemRepository;
 
+	private final CustomerRepository customerRepository;
 
-	private final ProductRepository productRepository;
-
-
-	private final CartRepository cartRepository;
-	
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
 	@Transactional
 	// 장바구니에 상품 추가
-	public void addToCart(int productId, int quantity) {
+	public void addToCart(int productId, int quantity, String loginid) {
 		Product product = productRepository.findById(productId).orElse(null);
+		Optional<CustomerEntity> customerOptional = customerRepository.findByCustomerid(loginid);
 
-		if (product != null) {
+
+		if (product != null && customerOptional.isPresent()) {
 			CartItem existingCartItem = getCartItemByProduct(product);
 
 			if (existingCartItem != null) {
@@ -45,6 +41,8 @@ public class CartService {
 				CartItem cartItem = new CartItem();
 				cartItem.setProduct(product);
 				cartItem.setCartCount(quantity);
+				CustomerEntity customerid = customerOptional.get();
+				cartItem.setCustomers(customerid);
 				cartItemRepository.save(cartItem);
 			}
 		}
@@ -62,14 +60,10 @@ public class CartService {
 	}
 
 	// CartItem을 CartItemId의 역순으로 반환
-	public List<CartItem> getCartItemsCartByCartItemIdDesc() {
-		return cartItemRepository.findAllByOrderByCartItemIdDesc();
+	public List<CartItem> getcartitem(String customerid){
+		return cartItemRepository.findByCustomersCustomeridOrderByCartItemIdDesc(customerid);
 	}
 
-	// Cart 생성 및 반환
-	public Cart createCart(Cart cart) {
-		return cartRepository.save(cart);
-	}
 
 	// 전체 자료 읽기
 	public List<CartItem> getDataAll() {
