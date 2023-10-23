@@ -50,6 +50,7 @@ public class CartController {
 	}
 
 	// 장바구니 화면 표시
+	// 테스트 ~~ 주석 지워주세요
 	@GetMapping("/cart")
 	public String viewCart(Model model, HttpSession session) {
 		String loginid = (String) session.getAttribute("loginid");
