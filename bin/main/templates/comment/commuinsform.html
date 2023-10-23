@@ -35,9 +35,9 @@
 </head>
 
 <body>
-		<th:block th:replace="common/header :: headerFragment"></th:block>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div class="sub_con" id="sub">
 	** 글 쓰기 **
-	<p />
 	<form action="insertCommu" method="post" name="frm" enctype="multipart/form-data">
 		<table style="width: 80%">
 			<tr>
@@ -65,6 +65,7 @@
 			</tr>
 		</table>
 	</form>
+	</div>
 	<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 

@@ -35,7 +35,8 @@
 					<div id="kakao-talk-channel-chat-button" data-channel-public-id="_XdjxlG" data-title="consult"
 						data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true">
 					</div>
-					<!-- <a href="" class="quick01"><span class="material-symbols-outlined">sms</span></a> -->
+					<!-- 수정된 코드 -->
+					<a href="productlist_seller" class="quick01" th:if="${session.isseller}"><span class="material-symbols-outlined">assignment_ind</span></a>
 					<a href="anmt" class="quick02"><span class="material-symbols-outlined">inventory</span></a>
 				</div>
 				<div class="aside_con aside_con2" id="toTop">
@@ -65,23 +66,39 @@
 					<div class="shop_utility">
 						<ul>
 							<li th:unless="${session.loginid}">
-								<a href="login"><span class="material-symbols-outlined fs35">login</span></a>
+								<a href="login">
+									<span class="icon icon_login"></span>
+									<span>LOGIN</span>
+								</a>
 							</li>
 							<li th:if="${session.loginid}">
-								<a href="logout"><span class="material-symbols-outlined fs35">logout</span></a>
+								<a href="logout">
+									<span class="icon icon_logout"></span>
+									<span>LOGOUT</span>
+								</a>
 							</li>
 							<li th:unless="${session.loginid}">
-								<a href=""><span class="material-symbols-outlined fs35">person_add</span></a>
+								<a href="register">
+									<span class="icon icon_join"></span>
+									<span>JOIN</span>
+								</a>
 							</li>
 							<li>
-								<a href="update"><span class="material-symbols-outlined fs40"> person</span></a>
+								<a href="update">
+									<span class="icon icon_my"></span>
+									<span>MY</span>
+								</a>
 							</li>
 							<li th:if="${session.loginid}">
-								<a href=""><span class="material-symbols-outlined fs35">favorite</span></a>
+								<a href="wishlist">
+									<span class="icon icon_heart"></span>
+									<span>HEART</span>
+								</a>
 							</li>
 							<li class="last" th:if="${session.loginid}">
 								<a href="cart">
-									<span class="material-symbols-outlined material-cart fs35"> shopping_cart</span>
+									<span class="icon icon_cart"></span>
+									<span>CART</span>
 								</a>
 							</li>
 						</ul>

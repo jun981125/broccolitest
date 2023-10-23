@@ -29,7 +29,7 @@
 		<div class="sub_left">
 			<p class="sub_left_title">마이페이지</p>
 			<ul>
-				<li class="active">
+				<li>
 					<a href="orderlist" class="flex">
 						<p>주문내역</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
@@ -46,21 +46,33 @@
 						<p>탈퇴하기</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
-				<li>
+				<li class="active">
 					<a href="reviewlist">
 						<p>상품후기</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
 				<li>
-					<a href="update">
+					<a href="address">
 						<p>배송지수정</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
 				<li>
+					<a href="point">
+						<p>포인트내역</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
 					<a href="wishlist">
-						<p>찜목록</p>
+						<p>찜한 상품</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/commu/search(searchName='customernickname', page=${page}, searchValue=${nickname})}">
+						<p>문의글</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>

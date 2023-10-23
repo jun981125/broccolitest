@@ -1,10 +1,10 @@
 /* 회원가입 레이아웃 틀 */
 
 .allcontent{
-	width: 1050px;
-	margin: 0 auto;
+	width: 1000px;
+	margin: 50px auto;
 
-	}
+}
 
 
 /* 버튼 여백 */
@@ -53,12 +53,6 @@
     cursor: pointer;
 }
 
-/* 페이지 헤더 스타일 */
-#header {
-    padding-top: 62px;
-    padding-bottom: 20px;
-    text-align: center;
-}
 
 /* 페이지 래퍼 스타일 */
 #wrapper {

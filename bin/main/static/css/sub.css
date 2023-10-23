@@ -451,8 +451,8 @@ select {
 	flex-basis: 60px;
 }
 .address_table .address_title{
-	padding-bottom: 30px;
-	margin-bottom: 30px;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
 	border-bottom: 1px solid #555;
 }
 .address_table .address_title div{
@@ -460,8 +460,8 @@ select {
 	color: #1b1b1b;
 }
 .address_list{
-	padding-bottom: 30px;
-	margin-bottom: 30px;
+	padding-bottom: 25px;
+	margin-bottom: 25px;
 	border-bottom: 1px solid #ddd;
 }
 .address_table .flex div span.material-symbols-outlined{
