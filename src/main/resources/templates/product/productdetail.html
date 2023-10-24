@@ -152,13 +152,15 @@
         });
 
 
+
         // 상세보기 버튼 클릭 이벤트 처리
         $(document).ready(function () {
             $("#detail_button").click(function () {
                 $("#detailimage").toggleClass("expanded");
                 $(this).hide()
             });
-        });  
+        });
+
         
         // 포인트 금액 계산처리
         $(document).ready(function () {
@@ -285,13 +287,18 @@ function addToOrderfromProduct(productId, quantity) {
             </div>
         </div>
     <div class="tab-bar tab-content">
-        <a class="tab-button active" href="#detailimage">DETAIL</a>
-        <a class="tab-button" href="#review">REVIEW</a>
+        <a class="tab-button active" id="detail_scroll">DETAIL</a> <!--   href="#detailimage"    -->
+        <a class="tab-button"id="review_scroll">REVIEW</a>
     </div>
+        <section id='section1'>
+
     <div class="detailimage" id="detailimage">
         <img th:src="@{upload/}+${data.dimage}" />
         <button id="detail_button"><span>상품설명 더보기</span><span class="material-symbols-outlined fs35">expand_more</span></button>
     </div>
+
+        </section>
+    <section id='section2'>
     <div class="review" id="review">
         <div class="flex3">
             <h2>상품리뷰<span></span></h2>
@@ -315,10 +322,25 @@ function addToOrderfromProduct(productId, quantity) {
             </div>
         </div>
     </div>
+    </section>
     </div>
     </div>
 
     <th:block th:replace="common/footer::footerFragment"></th:block>
 </body>
+<script>
+    // 상세보기 탭 클릭 이벤트 처리
+    const btn_detail = document.getElementById('detail_scroll');
+    const section1 = document.getElementById('section1');
 
+    btn_detail.addEventListener('click', () => {
+        section1.scrollIntoView({ behavior: 'smooth' });
+    });
+    const btn_review = document.getElementById('review_scroll');
+    const section2 = document.getElementById('section2');
+
+    btn_review.addEventListener('click', () => {
+        section2.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
 </html>
