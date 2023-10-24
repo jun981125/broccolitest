@@ -215,6 +215,8 @@
             <p class="rating rating2 rating3" th:text="${avgstar}"></p>
             <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></p>
             <p class="point">p (1% 적립)</p>
+            <p th:if="${data.stockquantity <= 5}" class="stock-alert">품절임박 [[${data.stockquantity}]]개 남음.</p>
+            
             <div class="quantity flex">
                 <p class="model">[[${data.model}]]</p>
                 <div class="quantity-nav flex">
@@ -232,43 +234,6 @@
                 <input type="hidden" id="productIdInput" name="productid" value="">
                 <input type="hidden" id="quantityInput" name="quantity" value="">
             </form>
-            <!--
-            <table>
-                <caption>
-                    <details class="hide">
-                        <summary>상품정보</summary>
-                        카테고리, 브랜드, 재고량
-                    </details>
-                </caption>
-                <colgroup>
-                    <col style="width:px;">
-                    <col>
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th>카테고리</th>
-                        <td>[[${data.category}]]</td>
-                    </tr>
-                    <tr>
-                        <th>브랜드</th>
-                        <td>[[${data.brand}]]</td>
-                    </tr>
-                    <tr>
-                        <th>재고량</th>
-                        <td th:text="${#numbers.formatInteger(data.stockquantity, 3, 'COMMA') + '개'}"></td>
-                    </tr>
-                    <tr>
-                        <th>판매가</th>
-                        <td th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></td>
-                    </tr>
-                    <tr>
-                        <th>구매수량</th>
-                        <td><input type="number" id="quantity" min="1" value="1" /></td>
-                    </tr>
-                </tbody>
-            </table>
-            -->
-
 
         </div>
     </div>
