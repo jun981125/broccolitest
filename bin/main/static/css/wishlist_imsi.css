@@ -57,7 +57,7 @@
 .sub_left ul li a p{
     font-size: 14px;
 }
-.arrow_icon{
+#sub_con .arrow_icon{
     font-size: 14px;
 }
 .active, .sub_left ul li:hover {

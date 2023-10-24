@@ -29,6 +29,38 @@
                 }
             });
 
+            jQuery('.quantity').each(function() {
+            var spinner = jQuery(this),
+                input = spinner.find('input[type="number"]'),
+                btnUp = spinner.find('.quantity-up'),
+                btnDown = spinner.find('.quantity-down'),
+                min = input.attr('min'),
+                max = input.attr('max');
+
+            btnUp.click(function() {
+                var oldValue = parseFloat(input.val());
+                if (oldValue >= max) {
+                var newVal = oldValue;
+                } else {
+                var newVal = oldValue + 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+
+            btnDown.click(function() {
+                var oldValue = parseFloat(input.val());
+                if (oldValue <= min) {
+                var newVal = oldValue;
+                } else {
+                var newVal = oldValue - 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+
+            });
+
             $("#btnZZim").click(function () {
                 if (nickname) {
                     $.ajax({
@@ -56,13 +88,11 @@
                 addToCart(/*[[${data.productid}]]*/, quantity);
             });
 
-    
             $("#createOrderfromProduct").click(function () {
-    var quantity = document.getElementById("quantity").value;
-    var productid = /*[[${data.productid}]]*/;
-    addToOrderfromProduct(productid, quantity);
-});
-
+                var quantity = document.getElementById("quantity").value;
+                var productid = /*[[${data.productid}]]*/;
+                addToOrderfromProduct(productid, quantity);
+            });
         });
         /*]]>*/
     </script>
@@ -97,6 +127,45 @@
                 }
                 $(this).html(stars);
             });
+        });
+
+
+        $(document).ready(function () {
+            var tabBar = $(".tab-bar");
+            var tabBarOffset = tabBar.offset().top;
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= tabBarOffset) {
+                    tabBar.addClass("fixed");
+                } else {
+                    tabBar.removeClass("fixed");
+                }
+            });
+        });
+
+        // 탭 버튼 클릭 이벤트 처리
+        $(document).ready(function () {
+            $(".tab-button").click(function (e) {
+                $(".tab-button").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+
+
+        // 상세보기 버튼 클릭 이벤트 처리
+        $(document).ready(function () {
+            $("#detail_button").click(function () {
+                $("#detailimage").toggleClass("expanded");
+                $(this).hide()
+            });
+        });  
+        
+        // 포인트 금액 계산처리
+        $(document).ready(function () {
+            var orderAmount = parseFloat([[${data.price}]]);
+
+            var point = orderAmount * 0.01;
+            $(".point").text(point.toFixed(0) + "p" + " (1% 적립)"); // 소수점 두 자리까지 표시
         });
     </script>
 
@@ -139,15 +208,29 @@ function addToOrderfromProduct(productId, quantity) {
                 <p class="brand">[[${data.brand}]]</p>
                 <div class="flex">
                     <h2>[[${data.model}]]</h2>
-                    <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined">favorite</span></button>
+                    <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined fs35">favorite</span></button>
                 </div>
-                <div class="flex">
-                    <span th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></span>
-                    <span class="point">포인트</span>
+                <p class="rating rating2 rating3" th:text="${avgstar}"></p>
+                <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></p>
+                <p class="point">p (1% 적립)</p>
+                <div class="quantity flex">
+                    <p class="model">[[${data.model}]]</p>
+                    <div class="quantity-nav flex">
+                        <div class="quantity-button quantity-down"><span class="material-symbols-outlined">remove</span></div>
+                        <div class="quantity-button quantity-num"><input type="number" id="quantity" min="1" value="1" /></div>
+                        <div class="quantity-button quantity-up"><span class="material-symbols-outlined">add</span></div>
+                    </div>
                 </div>
-                <div class="pro_count">
-                    <input type="number" id="quantity" min="1" value="1" />
+                <div class="pro_button flex">
+                    <input class="button button_out" type="button" value="장바구니" id="addToCart"></input>
+                    <input class="button button_in" type="button" value="구매하기" id="createOrderfromProduct"></input>
                 </div>
+                
+                <form action="/createOrderfromProduct" method="post" id="orderForm">
+   					 <input type="hidden" id="productIdInput" name="productid" value="">
+				    <input type="hidden" id="quantityInput" name="quantity" value="">
+				</form>
+                <!--
                 <table>
                     <caption>
                         <details class="hide">
@@ -182,14 +265,8 @@ function addToOrderfromProduct(productId, quantity) {
                         </tr>
                     </tbody>
                 </table>
+                -->
                 
-                <input class="button gray" type="button" value="장바구니" id="addToCart"></input>
-                <input class="button gray" type="button" value="구매하기" id="createOrderfromProduct"></input>
-                
-                <form action="/createOrderfromProduct" method="post" id="orderForm">
-   					 <input type="hidden" id="productIdInput" name="productid" value="">
-				    <input type="hidden" id="quantityInput" name="quantity" value="">
-				</form>
 				
             </div>
         </div>
@@ -207,14 +284,13 @@ function addToOrderfromProduct(productId, quantity) {
                 </div>
             </div>
         </div>
-    </div>
-    <div class="tab-content">
-        <a class="tab-button active" href="#detailimage">상품상세</a>
-        <a class="tab-button" href="#review">리뷰</a>
+    <div class="tab-bar tab-content">
+        <a class="tab-button active" href="#detailimage">DETAIL</a>
+        <a class="tab-button" href="#review">REVIEW</a>
     </div>
     <div class="detailimage" id="detailimage">
-        <h2>상품 상세</h2>
         <img th:src="@{upload/}+${data.dimage}" />
+        <button id="detail_button"><span>상품설명 더보기</span><span class="material-symbols-outlined fs35">expand_more</span></button>
     </div>
     <div class="review" id="review">
         <div class="flex3">

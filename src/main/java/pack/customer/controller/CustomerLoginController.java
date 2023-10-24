@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import pack.admin.AdminService;
 import pack.customer.CustomerDto;
 import pack.customer.RecaptchaConfig;
 import pack.customer.RecaptchaService;
@@ -19,6 +20,7 @@ public class CustomerLoginController {
 
     private final CustomerService customerService;
     private final RecaptchaService recaptchaService;
+    private final AdminService adminService;
 
     
     // 로그인 페이지 표시
@@ -41,6 +43,7 @@ public class CustomerLoginController {
                 if (loginResult != null) {
                     session.setAttribute("loginid", loginResult.getCustomerid());
                     session.setAttribute("nickname", loginResult.getCustomernickname());
+                    session.setAttribute("isseller", loginResult.getIsseller());
 
                     String previousPage = (String) session.getAttribute("previousPage");
 
@@ -149,6 +152,7 @@ public class CustomerLoginController {
 		// 확인 페이지 또는 홈 페이지로 리디렉션
 		return "mypage/deleteok"; // 삭제 확인 페이지를 만들 수 있습니다.
 	}
+
 
 
 }

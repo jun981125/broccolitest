@@ -18,6 +18,33 @@
     letter-spacing: -0.5px;
 }
 
+#sub_con .flex{ 
+    display: flex;
+    justify-content: space-between;
+}
+#sub_con .flex2{ 
+    display: flex;
+    justify-content: center;
+    padding: 12px 0px;
+}
+#sub_con .flex3{ 
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+#sub_con .line{
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #222;
+}
+#sub_con .li_line{
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
 .review_title{
    font-size: 16px;
 }
