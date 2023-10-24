@@ -27,9 +27,6 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .ml10 {margin-left:10px !important;}
 .ml15 {margin-left:15px !important;}
 
-.fs35{font-size: 35px;}
-.fs45{font-size: 45px;}
-.fs50{font-size: 50px;}
 
 /* icons */
 .material-symbols-outlined {
@@ -39,7 +36,6 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
   'GRAD' 0,
   'opsz' 24
 }
-
 .material-symbols-outlined:hover {
     color: #8CC84B !important;
 }
@@ -154,15 +150,14 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 /* shop_utility */
 .header_inner .shop_utility ul li{
     float: left;
-    margin-right: 10px;  
+    margin-right: 20px;  
 }
 .header_inner .shop_utility ul li.last{
     margin-right: 0px;
 }
 .header_inner .shop_utility ul li a {
     display: block;
-    text-align: center;
-    width: 50px;
+    width: 100%;
     height: 100%;
 }
 .header_inner .shop_utility .fs35{
@@ -175,45 +170,6 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .header_inner  .bi{
     font-size: 30px;
 }
-.shop_utility a span{
-    color: #222;
-    font-size: 12px;
-    letter-spacing: 0.1px;
-    font-weight: 500;
-}
-.shop_utility .icon{
-    height: 22px;
-    margin-bottom: 6px;
-    display: block;
-}
-.shop_utility .icon_login{
-    height: 21px;
-    background: url(../images/icon01.png) no-repeat center center;
-    background-size: contain;
-}
-.shop_utility .icon_logout{
-    height: 21px;
-    background: url(../images/icon02.png) no-repeat center center;
-    background-size: contain;
-}
-.shop_utility .icon_join{
-    background: url(../images/icon03.png) no-repeat center center;
-    background-size: contain;
-}
-.shop_utility .icon_my{
-    background: url(../images/icon04.png) no-repeat center center;
-    background-size: contain;
-}
-.shop_utility .icon_cart{
-    height: 23px;
-    background: url(../images/icon05.png) no-repeat center center;
-    background-size: contain;
-}
-.shop_utility .icon_heart{
-    background: url(../images/icon06.png) no-repeat center center;
-    background-size: contain;
-}
-
 
 
 /* #header .header_wrap .main_nav */
