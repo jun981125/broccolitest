@@ -22,7 +22,7 @@ public class CartService {
 
 	private final CustomerRepository customerRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
 	@Transactional
@@ -60,7 +60,7 @@ public class CartService {
 	}
 
 	// CartItem을 CartItemId의 역순으로 반환
-	public List<CartItem> getcartitem(String customerid){
+	public List<CartItem> getcartitem(String customerid) {
 		return cartItemRepository.findByCustomersCustomeridOrderByCartItemIdDesc(customerid);
 	}
 
@@ -72,4 +72,13 @@ public class CartService {
 		return cartItemlist;
 	}
 
+	public CartItem getCartItemById(int cartItemId) {
+		Optional<CartItem> cartItemOptional = cartItemRepository.findById(cartItemId);
+		return cartItemOptional.orElse(null);
+	}
+
+	public void saveCartItem(CartItem cartItem) {
+		cartItemRepository.save(cartItem);
+	}
 }
+

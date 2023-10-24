@@ -5,9 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pack.order.model.CartItem;
 import pack.order.model.CartItemRepository;
 
@@ -82,15 +80,18 @@ public class CartController {
 
 	// 장바구니에서 주문 페이지로 넘어가기
 	@GetMapping("/createOrder")
-	public String createOrder(Model model) {
-		ArrayList<CartItem> cartItemlist = (ArrayList<CartItem>) cartService.getDataAll();
-		model.addAttribute("cartItems", cartItemlist);
-        double totalSubtotal = cartItemlist.stream().mapToDouble(CartItem::calculateSubtotal).sum();
-        System.out.println("Total Subtotal: " + totalSubtotal); // 이 부분을 추가합니다.
-		model.addAttribute("cartItems", cartItemlist);
+	public String createOrder(Model model, HttpSession session) {
+		String loginid = (String) session.getAttribute("loginid");
+		List<CartItem> cartItems = cartService.getcartitem(loginid);
+		model.addAttribute("cartItems", cartItems);
+        double totalSubtotal = cartItems.stream().mapToDouble(CartItem::calculateSubtotal).sum();
 		model.addAttribute("totalSubtotal", totalSubtotal);
 		return "order/cartform"; // 주문 확인 페이지로 이동
 	}
+
+
+
+
 
 	// 상품정보에서 주문페이지로 넘어가기
 	@PostMapping("/createOrderfromProduct")
