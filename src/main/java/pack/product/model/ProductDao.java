@@ -63,6 +63,14 @@ public class ProductDao {
 		return list;
 	}
 	
+	// 카테고리 & 브랜드 상품 목록
+	public List<ProductDto> selectCateBran(String category, String brand) {
+	    List<ProductDto> list = mappingInterface.selectCateBran(category, brand); // 메서드 이름 수정
+	    logger.info("읽은 카테고리 별 브랜드 별 상품 수 : " + list.size());
+	    return list;
+	}
+
+	
 	public int totalallCnt() {
 		return mappingInterface.totalallCnt();
 	}
@@ -77,6 +85,10 @@ public class ProductDao {
 	
 	public int totalbrandCnt(String brand) {
 		return mappingInterface.totalbrandCnt(brand);
+	}
+	
+	public int totalcatebranCnt(String category, String brand) {
+		return mappingInterface.totalcatebranCnt(category, brand);
 	}
 
 	// 상품 찾기

@@ -10,8 +10,61 @@
 
 <body>
 	<th:block th:replace="common/header::headerFragment"></th:block>
-	<div id="sub_con">
-			<div class="prod_list ">
+		<div id="sub_con">
+		<div class="sub_left">
+			<p class="sub_left_title">브랜드</p>
+			<ul>
+					<li class="active">
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=Apple'" class="flex">
+							<p>Apple</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=삼성'">
+							<p>삼성</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=LG'">
+							<p>LG</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=모토로라'">
+							<p>MOTOROLA</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=샤오미'">
+							<p>샤오미</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=레노버'">
+							<p>Lenovo</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=소니'">
+							<p>SONY</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="'prodcatebranlist?category=' + ${category} + '&brand=기타'">
+							<p>기타</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+		</div>
+		<div class="sub_right">
+			<div class="cprod_list">
 				<form th:if="${list.size() > 0}" th:each="data : ${list}" class="list_con"> 
 					<div class="prod_img">
 						<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
@@ -24,6 +77,7 @@
 				</form>
 			</div>
 
+		<br><br><br>
 		<!-- paging -->
 		<div class="paging">
 			<span th:each="num : ${#numbers.sequence(1, pagesu)}">
@@ -49,7 +103,7 @@
 			</form>
 		</div>
 	</div>
-
+		</div>
 	<th:block th:replace="common/footer::footerFragment"></th:block>
 </body>
 

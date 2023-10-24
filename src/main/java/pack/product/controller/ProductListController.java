@@ -75,13 +75,12 @@ public class ProductListController {
 	}
 	
 	// 메인페이지에 상품 8개
-	@GetMapping("index")
+	@GetMapping("/")
 	public String showeight(Model model) {
 		ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selecteight();
-		
 		model.addAttribute("list",list);
 		
-		return "index";
+		return "index.html";
 	}
 	
 	// 판매자 페이지
@@ -142,7 +141,7 @@ public class ProductListController {
 	// 카테고리 별 페이지
 	
 	private int stot; // 전체 레코드 수
-	private int splist = 16; // 페이지 당 행 수
+	private int splist = 18; // 페이지 당 행 수
 	private int spagesu; // 전체 페이지 수
 
 	public ArrayList<ProductDto> getListCatedata(ArrayList<ProductDto> list, int page) {
@@ -188,10 +187,30 @@ public class ProductListController {
 		    model.addAttribute("list", result); 
 		    model.addAttribute("pagesu", getCatePageSu(category));
 		    model.addAttribute("page", spage);
+		    model.addAttribute("category",category);
 		    return "product/productlist";
 		}
+		
 	
-	// 브랜드별 페이지
+
+		@GetMapping("prodcatebranlist")
+		public String showProductCategBranddList(
+		        @RequestParam("category") String category,
+		        @RequestParam("brand") String brand, Model model) {
+		  
+
+		    ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectCateBran(category, brand); // 메서드 이름 수정
+		   
+
+		    model.addAttribute("list", list);
+		    model.addAttribute("category",category);
+		    
+		    return "product/cbproductlist";
+		}
+
+	
+			
+		// 브랜드별 페이지
 		private int btot; // 전체 레코드 수
 		private int bplist = 16; // 페이지 당 행 수
 		private int bpagesu; // 전체 페이지 수
@@ -199,7 +218,7 @@ public class ProductListController {
 		public ArrayList<ProductDto> getbrandListdata(ArrayList<ProductDto> list, int page) {
 			ArrayList<ProductDto> result = new ArrayList<ProductDto>();
 
-			int start = (page - 1) * bplist; // 0, 10, 20, ...
+			int start = (page - 1) * bplist; 
 
 			int size = bplist <= list.size() - start ? bplist : list.size() - start;
 			for (int i = 0; i < size; i++) {
@@ -241,6 +260,7 @@ public class ProductListController {
 		    model.addAttribute("page", bpage);
 		    return "product/productlist_brandshop";
 		}
+	
 
 
 	// 선택한 상품 자세히 보기

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -39,6 +40,10 @@ public interface ProductMappingInterface {
 			+ "LIMIT 8;")
 	List<ProductDto> selecteight();
 	
+	// 카테고리에서 브랜드 선택한 상품 목록
+	@Select("select * from products where category=#{category} and brand=#{brand}")
+	List<ProductDto> selectCateBran(@Param("category") String category, @Param("brand") String brand);
+	
 	// 상품 등록  
 	@Insert("INSERT INTO products (customerid, category, brand, model, price, stockquantity,pimage, dimage)\r\n"
 			+ "VALUES (#{customerid}, #{category}, #{brand}, #{model}, #{price}, #{stockquantity}, #{pimage},#{dimage})")
@@ -59,6 +64,10 @@ public interface ProductMappingInterface {
 	// 브랜드별 총 상품 수 구하기
 	@Select("select count(*) from products where brand=#{brand}")
 	int totalbrandCnt(String brand);
+	
+	// 카테고리별 브랜드별 총 상품 수 구하기
+	@Select("select count(*) from products where category=#{category} and brand=#{brand} ")
+	int totalcatebranCnt(String category, String brand);
 
 	// 상품 찾기
 	@Select("select * from products where ${searchName} like concat('%', #{searchValue}, '%')")
