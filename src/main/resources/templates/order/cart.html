@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>장바구니 목록</title>
     <link rel="stylesheet" href="css/cart.css">
+    <!-- 주문하기 버튼을 눌렀을 때의 JavaScript 코드 -->
+
 </head>
 
 <body>
@@ -14,11 +16,11 @@
         <div class="carttitle">
             <h2>장바구니<span class="material-symbols-outlined">shopping_cart</span></h2>
         </div>
-        <form input type="checkbox">
+        <form action="/createOrder" method="get">
             <div class="cartlist" th:each="cartItem, rowStat : ${cartItems}">
                 <div class="product_img_box">
                     <a th:href="@{/showproduct}">
-                        <img th:src="@{upload/}+${cartItem.product.pimage}"/>
+                        <img th:src="@{upload/}+${cartItem.product.pimage}" />
                     </a>
                 </div>
                 <div class="product_text_box">
@@ -29,16 +31,19 @@
                 </div>
                 <div class="adj_count">
                     <input type="number" th:value="${cartItem.cartCount}" th:min="1" name="orderCount"
-                           class="order-count-input" data-cartitemid="${cartItem.cartItemId}"/>
+                           class="order-count-input" data-cartitemid="${cartItem.cartItemId}" />
                 </div>
                 <div class="total_price">
                     <input type="text" name="totalprice" class="total-price-output" readonly>
                 </div>
+                <div>
+                    <input type="checkbox" th:id="'checkbox' + ${rowStat.index}" th:name="selectedItems"
+                           th:value="${cartItem.cartItemId}" />
+                </div>
             </div>
+            <button class="button gray" id="deleteproduct">삭제하기</button>
+            <button class="button gray" id="payready" type="submit">주문하기</button>
         </form>
-        <button class="button gray" id="deleteproduct">삭제하기</button>
-        <button class="button gray" id="payready" type="submit">주문하기</button>
-
         <div class="flex2">
             <form th:action="@{/clearCart}" method="post">
                 <button class="button gray" type="submit">장바구니비우기</button>
@@ -48,7 +53,7 @@
     </div>
 </main>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         var orderCountInputs = document.querySelectorAll(".order-count-input");
         var totalPriceOutputs = document.querySelectorAll(".total-price-output");
         var productPrices = document.querySelectorAll(".product-price");
@@ -68,12 +73,11 @@
         // 초기 계산
         updateTotalPrice();
 
-        orderCountInputs.forEach(function (input) {
+        orderCountInputs.forEach(function(input) {
             input.addEventListener("input", updateTotalPrice);
         });
     });
 </script>
-
 <th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 
