@@ -4,7 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>커뮤니티(중고거래)</title>
-	<link rel="stylesheet" href="css/commu.css" />
+	<link th:href="@{/css/commu.css}" rel="stylesheet" />
+	<base th:href="@{/}" />
+
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css"
@@ -16,11 +18,11 @@
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-	
+
 </head>
 
 <body>
-	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<th:block th:replace="~{common/header :: headerFragment}"></th:block>
 	<div class="container">
 		<div class="top">
 			<h1>커뮤니티(중고거래)</h1>
@@ -83,7 +85,7 @@
 					<span>[[${list.customernickname}]]</span>
 					<span>[[${list.cdate}]]</span>
 					<span>[[${list.readcnt}]]</span>
-								
+
 
 				<span th:if="${list.filename != null}">
 					<img th:src="@{images/showimage.png}" alt="" width="25" height="25">
@@ -113,7 +115,7 @@
 	</div>
 	<p />
 
-	<th:block th:replace="common/footer :: footerFragment"></th:block>
+	<th:block th:replace="~{common/footer :: footerFragment}"></th:block>
 
 </body>
 
