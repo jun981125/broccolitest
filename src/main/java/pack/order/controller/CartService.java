@@ -3,6 +3,7 @@ package pack.order.controller;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pack.customer.CustomerEntity;
@@ -80,5 +81,22 @@ public class CartService {
 	public void saveCartItem(CartItem cartItem) {
 		cartItemRepository.save(cartItem);
 	}
+
+	public void updateCartItem(CartItem cartItem) {
+		// 이 메서드에서 cartItem 업데이트 작업을 수행합니다.
+		// 주어진 cartItem을 ID를 사용하여 DB에서 불러옵니다.
+		CartItem existingCartItem = cartItemRepository.findById(cartItem.getCartItemId()).orElse(null);
+
+		if (existingCartItem != null) {
+			// 만약 DB에서 해당 cartItem을 찾았다면 업데이트 작업을 수행합니다.
+			existingCartItem.setCartCount(cartItem.getCartCount());
+
+			// 변경 사항을 DB에 저장합니다.
+			cartItemRepository.save(existingCartItem);
+		}
+		// 만약 해당 cartItem이 DB에 없으면 에러 처리를 할 수 있습니다.
+	}
+
+
 }
 
