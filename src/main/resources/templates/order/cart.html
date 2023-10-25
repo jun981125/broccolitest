@@ -80,7 +80,9 @@
                     <input type="text" name="totalprice" class="total-price-output" readonly>
                 </div>
             </div>
-            <button class="button gray" id="deleteproduct">삭제하기</button>
+        <form action="clearCart" method="post">
+            <input class="button gray" id="deleteproduct" type="submit">삭제하기</input>
+        </form>
         <form action="createOrder">
             <input class="button gray"  type="submit" id="createOrder" value="주문하기">
         </form>
