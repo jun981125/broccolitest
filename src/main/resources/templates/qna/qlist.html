@@ -59,16 +59,17 @@
             <span>[[${b.num}]]</span>
             <!-- 답글 들여쓰기 준비 -->
             <th:block th:each="count : ${#numbers.sequence(0, b.nested)}">  <!-- 0부터 nested 만큼 반복 -->
-                <th:with var="tab">&nbsp;</th:with>
+                <th:with var="tab" th:utext="${'&nbsp;'}"></th:with>
+                [[${tab}]]
             </th:block>
-            [[${tab}]]
+
             <label class="label ttitle">
 				<span class="basis-200">[[${b.title}]]
 						</span>
-                <span>[[${b.name}]]</span>
-                <span>[[${b.bdate}]]</span>
-                <span>[[${b.readcnt}]]</span>
-            </label>
+                    <span>[[${b.name}]]</span>
+                    <span>[[${b.bdate}]]</span>
+                    <span>[[${b.readcnt}]]</span>
+                </label>
         </a>
 
         <p class="btn_wrap"><a class="button" th:href="@{/qlist}">최근목록</a></p>

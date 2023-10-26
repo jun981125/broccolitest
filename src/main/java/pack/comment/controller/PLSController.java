@@ -52,7 +52,7 @@ public class PLSController {
 		if (page <= 0)
 			spage = 1;
 
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginid");
 		String nickname = (String) session.getAttribute("nickname");
 	    // 관리자 여부를 가져오고, 값이 없을 경우 false로 설정
 	       Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -87,7 +87,7 @@ public class PLSController {
 			spage = 1;
 		}
 
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginid");
 		String nickname = (String) session.getAttribute("nickname");
 
 		ArrayList<CommuDto> list = (ArrayList<CommuDto>) comDao.search(bean);
