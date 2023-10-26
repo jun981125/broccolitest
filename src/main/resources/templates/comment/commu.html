@@ -77,7 +77,7 @@
         <a th:each="list:${list}" class="card card-content"
            th:href="@{/commudetail(num=${list.num},page=${page})}">
             <label class="label ttitle">
-                < class="basis-200">[[${list.title}]]
+                <span class="basis-200">[[${list.title}]]</span>
                 <span th:if="${list.commentcount > 0}">
 							(댓글 : <span th:text="${list.commentcount}"></span>)
 						</span>
