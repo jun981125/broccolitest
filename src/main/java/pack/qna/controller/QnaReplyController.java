@@ -82,7 +82,11 @@ public class QnaReplyController {
 		// onum 갱신
 		bean.setOnum(bean.getOnum() + 1);
 		daoImpl.updateOnum(bean);
-		
+
+		String id = (String) session.getAttribute("loginid");
+		String name = (String) session.getAttribute("nickname");
+		bean.setName(name);
+		bean.setId(id);
 		// 답글 저장
 		bean.setBdate();
 		bean.setNum(daoImpl.currentNum() + 1);
