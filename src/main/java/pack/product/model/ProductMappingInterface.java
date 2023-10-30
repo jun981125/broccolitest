@@ -100,18 +100,48 @@ public interface ProductMappingInterface {
 	// 특정 상품에 관한 리뷰 전체 삭제
 	@Delete("delete from reviews where productid = #{productid}")
 	int deletereviewfromproduct(int productid);
-	
-	// 전체 판매자 상품 읽기 - 승인대기중만 해당(관리자)
-		@Select("SELECT * FROM products ORDER BY productid")
-		List<ProductDto> selectAllProducts();
-			
-		// 전체 판매자 상품 읽기 - 승인대기중만 해당(관리자)
-		@Select("SELECT * FROM products where state = '승인대기중' ORDER BY productid")
-		List<ProductDto> selectWaitProducts();
-			
-		// 판매자 상품 상태 변경 - 관리자
-		@Update("UPDATE products SET state = #{state} WHERE productid = #{productid}")
-		int updateProductState(ProductBean bean);
+
+
+
+	// 판매자 상품 상태 변경 - 관리자
+	@Update("UPDATE products SET state = #{state} WHERE productid = #{productid}")
+	int updateProductState(ProductBean bean);
+
+	// 모든 상품을 페이지별로 가져오기 - 관리자
+	@Select("SELECT * FROM products ORDER BY productid DESC LIMIT #{start}, #{size}")
+	List<ProductDto> selectAllPagingList(@Param("start") int start, @Param("size") int size);
+
+	// 모든 상품의 총 수를 반환 - 관리자
+	@Select("SELECT COUNT(*) FROM products")
+	int getTotalProductCount();
+
+	// 승인 대기 중인 상품 목록을 페이지별로 가져오기 - 관리자
+	@Select("SELECT * FROM products WHERE state = '승인대기중' ORDER BY productid DESC LIMIT #{start}, #{size}")
+	List<ProductDto> selectWaitProductsPaging(@Param("start") int start, @Param("size") int size);
+
+	// 승인 대기 중인 상품의 총 수를 반환 - 관리자
+	@Select("SELECT COUNT(*) FROM products WHERE state = '승인대기중'")
+	int getTotalWaitProductCount();
+
+	//  판매자가 등록한 상품 목록을 페이지별로 가져오기 - 관리자
+	@Select("SELECT * FROM products WHERE customerid = #{customerid} ORDER BY productid DESC LIMIT #{start}, #{size}")
+	List<ProductDto> searchByIdPaging(@Param("customerid") String customerid, @Param("start") int start, @Param("size") int size);
+
+	// 검색한 판매자가 등록한 상품 목록을 페이지별로 가져오기 - 관리자
+	@Select("SELECT * FROM products WHERE customerid = #{seller} ORDER BY productid DESC LIMIT #{start, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}")
+	List<ProductDto> selectProductsBySellerPaging(@Param("seller") String seller, @Param("start") int start, @Param("size") int size);
+
+	// 판매자가 등록한 상품의 총 수를 반환 - 관리자
+	@Select("SELECT COUNT(*) FROM products WHERE customerid = #{seller}")
+	int getTotalProductCountBySeller(@Param("seller") String seller);
+
+	// 승인 대기 중인 판매자의 상품을 페이지별로 가져오기 - 관리자
+	@Select("SELECT * FROM products WHERE state = '승인대기중' AND customerid = #{seller} ORDER BY productid DESC LIMIT #{start}, #{size}")
+	List<ProductDto> selectWaitProductsBySellerPaging(@Param("seller") String seller, @Param("start") int start, @Param("size") int size);
+
+	// 승인 대기 중인 판매자의 상품의 총 수를 반환 - 관리자
+	@Select("SELECT COUNT(*) FROM products WHERE state = '승인대기중' AND customerid = #{seller}")
+	int getTotalWaitProductCountBySeller(String seller);
 
 
 	

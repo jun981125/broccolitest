@@ -330,35 +330,129 @@ public class ProductListController {
          model.addAttribute("page", "1");
           return "product/productlist";
      }
-        
-     // 전체 판매자의 전체 상품 리스트 보기 - 관리자
-    	@GetMapping("/all_productlist")
-    	public String AllList(Model model) {
-    		List<ProductDto> productList = productDao.selectAllProducts();
-    		model.addAttribute("productList", productList);
-    		return "admin/all_productlist"; 
-    	}
-    		
-    	// 대기중인 상품 리스트 보기 - 관리자
-    	@GetMapping("/waiting_productlist")
-    	public String WaitList(Model model) {
-    		List<ProductDto> productList = productDao.selectWaitProducts();
-    		model.addAttribute("productList", productList);
-    		return "admin/waiting_productlist"; 
-    		    }
-    	
-    	// 판매자 아이디 검색하기 - 관리자
-    	@GetMapping("/seller/search")
-    	public String searchById(@RequestParam("search") String seller, Model model) {
-    	    if (seller == null || seller.isEmpty()) {
-    	        // 아이디 검색어가 없을 경우 전체 상품 목록을 불러옴
-    	        List<ProductDto> productList = productDao.selectAllProducts();
-    	        model.addAttribute("productList", productList);
-    	    } else {
-    	        // 아이디 검색 수행
-    	        List<ProductDto> productList = productDao.selectAll(seller);
-    	        model.addAttribute("productList", productList);
-    	    }
-    	    return "admin/all_productlist"; // all_productlist.html 페이지로 이동
-    	}
+
+	// 전체 판매자의 전체 상품 리스트 & 페이징 처리 - 관리자
+	@GetMapping("all_productlist")
+	public String showAllProductList(@RequestParam(name = "page", defaultValue = "1") int page, Model model,
+									 @RequestParam(value = "search", required = false) String search) {
+		int itemsPerPage = 10; // 페이지당 상품 수
+		int totalProductCount;
+		List<ProductDto> productList;
+		int totalPages;
+
+		if (search != null && !search.isEmpty()) {
+			// 아이디 검색 입력시 검색 수행
+			productList = productDao.searchByIdPaging(search, page, itemsPerPage);
+			totalProductCount = productDao.getTotalProductCount(); // 모든 상품 수
+		} else {
+			// 검색 입력값이 없을 경우 전체 상품 목록을 불러옴
+			productList = productDao.selectAllPagingList((page - 1) * itemsPerPage, itemsPerPage);
+			totalProductCount = productDao.getTotalProductCount(); // 모든 상품 수
+		}
+
+		totalPages = (int) Math.ceil((double) totalProductCount / itemsPerPage);
+
+		if (page < 1) {
+			page = 1;
+		} else if (page > totalPages) {
+			page = totalPages;
+		}
+
+		model.addAttribute("productList", productList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+
+		return "admin/all_productlist";
+	}
+
+	// 판매자 검색시 해당 판매자 전체 상품 불러오기 - 관리자
+	@GetMapping("/seller/search")
+	public String searchById(@RequestParam(name = "search", required = false) String seller,
+							 @RequestParam(name = "page", defaultValue = "1") int page,
+							 Model model) {
+		int itemsPerPage = 10; // 페이지당 상품 수
+		int start = (page - 1) * itemsPerPage;
+
+		List<ProductDto> productList;
+		int totalProductCount;
+
+		if (seller == null || seller.isEmpty()) {
+			// 아이디 검색어가 없을 경우 전체 상품 목록을 불러옴
+			productList = productDao.selectAllPagingList(start, itemsPerPage);
+			totalProductCount = productDao.getTotalProductCount(); // 전체 상품 수
+		} else {
+			// 아이디 검색 수행
+			productList = productDao.selectProductsBySellerPaging(seller, start, itemsPerPage);
+			totalProductCount = productDao.getTotalProductCountBySeller(seller); // 판매자에 대한 상품 수
+		}
+
+		int totalPages = (int) Math.ceil((double) totalProductCount / itemsPerPage);
+
+		model.addAttribute("productList", productList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("search", seller);
+
+		return "admin/all_productlist";
+	}
+
+
+
+	// 승인대기중 상품 리스트 & 페이징 처리 - 관리자
+	@GetMapping("/waiting_productlist")
+	public String WaitList(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+		int itemsPerPage = 10; // 페이지당 상품 수
+
+		int totalWaitProductCount = productDao.getTotalWaitProductCount(); // 승인 대기 중인 상품 수
+		int totalPages = (int) Math.ceil((double) totalWaitProductCount / itemsPerPage);
+
+		if (page < 1) {
+			page = 1;
+		} else if (page > totalPages) {
+			page = totalPages;
+		}
+
+		int start = (page - 1) * itemsPerPage; // 시작 인덱스 계산
+		int size = itemsPerPage;
+
+		List<ProductDto> productList = productDao.selectWaitProductsPaging(start, size);
+
+		model.addAttribute("productList", productList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+
+		return "admin/waiting_productlist";
+	}
+
+
+	// 승인대기중 판매자 검색시 해당 판매자 상품 목록 불러오기 - 관리자
+	@GetMapping("/waiting/search")
+	public String searchBySeller(@RequestParam("search") String seller,
+								 @RequestParam(name = "page", defaultValue = "1") int page,
+								 Model model) {
+		int itemsPerPage = 10; // 페이지당 상품 수
+		int start = (page - 1) * itemsPerPage;
+
+		List<ProductDto> productList;
+		int totalProductCount;
+
+		if (seller == null || seller.isEmpty()) {
+			// 검색어가 없을 경우 전체 승인대기중인 상품 목록을 불러옴
+			productList = productDao.selectWaitProductsPaging(start, itemsPerPage);
+			totalProductCount = productDao.getTotalWaitProductCount();
+		} else {
+			// 아이디 검색 수행
+			productList = productDao.selectWaitProductsBySellerPaging(seller, start, itemsPerPage);
+			totalProductCount = productDao.getTotalWaitProductCountBySeller(seller);
+		}
+
+		int totalPages = (int) Math.ceil((double) totalProductCount / itemsPerPage);
+
+		model.addAttribute("productList", productList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("search", seller);
+
+		return "admin/waiting_productlist";
+	}
 }
