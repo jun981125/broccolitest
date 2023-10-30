@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/adminmain.css}">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminmain.css}">
 </head>
 <body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" style="background-color:#F6F6F6">
-    <div class="menu" >
-      <nav class="clearfix">
+<div class="menu" >
+    <nav class="clearfix">
         <ul class="clearfix">
-관리자 : <span th:text="${session.admin}"></span><br/><br/>
-          <li><a href="customerlist">회원 목록</a></li> 
-          <li><a href="all_productlist">전체 상품 목록</a></li> 
-          <li><a href="waiting_productlist">판매자 상품 승인대기 목록</a></li> 
-          <li><a href="commu">커뮤니티 게시판</a></li>
-          <li><a href="anmt">공지사항 게시판</a></li>
-          <li><a href="adminlogout">로그아웃</a></li>
-      </ul>
+            관리자 : <span th:text="${session.admin}"></span><br/><br/>
+            <li><a href="customerlist">일반회원 목록</a></li>
+            <li><a href="customerlist_seller">판매회원 목록</a></li>
+            <li><a href="all_productlist">전체 상품 목록</a></li>
+            <li><a href="waiting_productlist">판매자 상품 승인대기 목록</a></li>
+            <li><a href="commu">커뮤니티 게시판</a></li>
+            <li><a href="anmt">공지사항 게시판</a></li>
+            <li><a href="board">관리자 페이지</a></li>
+            <li><a href="adminlogout">로그아웃</a></li>
+        </ul>
     </nav>
-    </div>
+</div>
 </body>
 </html>
