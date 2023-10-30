@@ -24,20 +24,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("/board")
-    public String adminmain_pge() {
-        return "board";
-    }
-    // 관리자 메인 페이지
-    @GetMapping("/a")
-    public String adminmain_page() {
-        return "a";
-    }
-    // 관리자 메인 페이지
-    @GetMapping("/homepage")
-    public String homepage() {
-        return "index.html";
-    }
+
     // 관리자 메인 페이지
     @GetMapping("/adminmain")
     public String adminmain() {
@@ -59,7 +46,7 @@ public class AdminController {
         if (adminEntity != null) {
             session.setAttribute("admin", adminEntity.getAdminname());
             session.setAttribute("isAdmin", true); // 관리자로 로그인한 경우 "isAdmin"을 true로 설정
-            return "a";
+            return "admin/adminmain";
 
         } else {
             model.addAttribute("error", "아이디 또는 비밀번호가 일치하지 않습니다.");
