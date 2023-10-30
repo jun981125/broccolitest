@@ -89,4 +89,9 @@ public class QnaDaoImpl {
 			b = true;
 		return b;
 	}
+
+	public int searchCnt(String searchName, String searchValue) {
+		return dataInterface.searchCnt(searchName, searchValue);
+	}
+
 }

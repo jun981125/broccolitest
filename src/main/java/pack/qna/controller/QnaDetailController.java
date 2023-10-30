@@ -20,14 +20,14 @@ public class QnaDetailController {
 		// 조회수 증가 선행
 		daoImpl.updateReadcnt(num);
 		  // 관리자 여부를 가져오고, 값이 없을 경우 false로 설정
-	       Boolean isSeller = (Boolean) session.getAttribute("isSeller");
-	       if (isSeller == null) {
-	    	   isSeller = false;
+	       Boolean isseller = (Boolean) session.getAttribute("isseller");
+	       if (isseller == null) {
+	    	   isseller = false;
 	       }
 		
 		model.addAttribute("data", daoImpl.detail(num));
 		model.addAttribute("page", page);
-		model.addAttribute("isSeller", isSeller); // 판매자 여부를 모델에 추가, qna상세보기에서 판매자 여부로 '답글달기'버튼 보임
+		model.addAttribute("isseller", isseller); // 판매자 여부를 모델에 추가, qna상세보기에서 판매자 여부로 '답글달기'버튼 보임
 		
 		return "qna/qdetail";
 	}

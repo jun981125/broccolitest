@@ -102,6 +102,7 @@ public class CustomerLoginController {
 
         CustomerDto customerDto = customerService.updateForm(loginid);
         model.addAttribute("updateMember", customerDto); // "updateMember"로 객체 추가
+        model.addAttribute("nickname", customerDto.getCustomernickname());
         return "mypage/update";
     }
 

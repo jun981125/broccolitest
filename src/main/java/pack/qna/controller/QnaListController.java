@@ -65,14 +65,28 @@ public class QnaListController {
 	}
 	
 	@GetMapping("qsearch")
-	public String searchProcess(QnaBean bean, Model model,HttpSession session) {
-		//System.out.println(bean.getSearchName() + " " + bean.getSearchValue());
-		ArrayList<QnaDto> list = (ArrayList<QnaDto>)daoImpl.search(bean);
-		
-		model.addAttribute("data", list);
-		model.addAttribute("pagesu", getPageSu());
-		model.addAttribute("page", "1");
+	public String searchProcess(QnaBean bean, Model model,@RequestParam(name = "page", defaultValue = "1") int page, HttpSession session) {
+		int spage = page;
+		if (page <= 0) {
+			spage = 1;
+		}
+
+		String loginId = (String) session.getAttribute("loginId");
 		String nickname = (String) session.getAttribute("nickname");
+
+		ArrayList<QnaDto> list = (ArrayList<QnaDto>)daoImpl.search(bean);
+		ArrayList<QnaDto> result = getListdata(list, spage);
+
+		int searchPagesu = daoImpl.searchCnt(bean.getSearchName(), bean.getSearchValue()) / plist;
+		if (daoImpl.searchCnt(bean.getSearchName(), bean.getSearchValue()) % plist > 0) {
+			searchPagesu += 1;
+		}
+
+		model.addAttribute("data", result);
+		model.addAttribute("pagesu", searchPagesu);
+		model.addAttribute("page", spage);
+		model.addAttribute("page", "1");
+		model.addAttribute("customerid",loginId);
 		model.addAttribute("nickname",nickname);
 		return "qna/qlist";
 	}

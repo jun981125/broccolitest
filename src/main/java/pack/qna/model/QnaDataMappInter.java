@@ -2,11 +2,7 @@ package pack.qna.model;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import pack.qna.controller.QnaBean;
 
@@ -46,5 +42,10 @@ public interface QnaDataMappInter {
     @Insert("insert into qna (id, title, cont, bdate, gnum,onum,nested,name)\r\n"
     		+ " values (#{id}, #{title}, #{cont}, #{bdate}, #{gnum},#{onum},#{nested},#{name})")
     int insertReData(QnaBean bean);
+
+    @Select("select count(*) from qna\r\n"
+            + "      where ${searchName} like concat('%',#{searchValue},'%') order by gnum desc, onum asc")
+    int searchCnt(@Param("searchName") String searchName, @Param("searchValue") String searchValue);
+
 
 }

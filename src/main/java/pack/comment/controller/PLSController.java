@@ -26,7 +26,7 @@ public class PLSController {
 	private int pagesu; // 전체 페이지 수
 
 	public ArrayList<CommuDto> getListdata(ArrayList<CommuDto> list, int page) {
-		ArrayList<CommuDto> result = new ArrayList<CommuDto>();
+		ArrayList<CommuDto> result = new ArrayList<>();
 
 		int start = (page - 1) * plist; // 0, 10, 20, ...
 
@@ -51,8 +51,8 @@ public class PLSController {
 		int spage = page;
 		if (page <= 0)
 			spage = 1;
-		session.removeAttribute("msg");
-		String loginId = (String) session.getAttribute("loginId");
+
+		String loginId = (String) session.getAttribute("loginid");
 		String nickname = (String) session.getAttribute("nickname");
 	    // 관리자 여부를 가져오고, 값이 없을 경우 false로 설정
 	       Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -79,25 +79,39 @@ public class PLSController {
 	}
 
 	@GetMapping("/commu/search")
-	public String searchProcess(CommuBean bean, Model model,@RequestParam("page")int page,HttpSession session) {
+	public String searchProcess(CommuBean bean, Model model,@RequestParam(name = "page", defaultValue = "1") int page,HttpSession session) {
 		// System.out.println(bean.getSearchName() + " " + bean.getSearchValue());
 
 		int spage = page;
-		if (page <= 0)
+		if (page <= 0) {
 			spage = 1;
-		
+		}
+
+		String loginId = (String) session.getAttribute("loginid");
+		String nickname = (String) session.getAttribute("nickname");
+
 		ArrayList<CommuDto> list = (ArrayList<CommuDto>) comDao.search(bean);
 		ArrayList<CommuDto> result = getListdata(list, spage);
+		ArrayList<AnmtDto> alist =(ArrayList<AnmtDto>) dao.Aselect();
 
-		 int searchPagesu = comDao.searchCnt(bean.getSearchName(), bean.getSearchValue()) / plist;
-		    if (comDao.searchCnt(bean.getSearchName(), bean.getSearchValue()) % plist > 0)
-		        searchPagesu += 1;
-		    
+		Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+		if (isAdmin == null) {
+			isAdmin = false;
+		}
+
+		int searchPagesu = comDao.searchCnt(bean.getSearchName(), bean.getSearchValue()) / plist;
+		if (comDao.searchCnt(bean.getSearchName(), bean.getSearchValue()) % plist > 0) {
+				searchPagesu += 1;
+			}
+
+		model.addAttribute("alist",alist);
 		model.addAttribute("list", result);
 		model.addAttribute("pagesu", searchPagesu);
 		model.addAttribute("page", spage);
-		String nickname = (String) session.getAttribute("nickname");
 		model.addAttribute("nickname",nickname);
+		model.addAttribute("customerid",loginId);
+		model.addAttribute("isAdmin", isAdmin);
+
 		return "comment/commu";
 	}
 

@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel="stylesheet" type="text/css" href="/css/post.css">
+	<link rel="stylesheet" href="css/commudetail.css" />
 	<!-- 글 삭제 전 물어보기 -->
 	<script type="text/javascript">
 		function qdelete(num) {
@@ -18,11 +19,11 @@
 
 <body>
 		<th:block th:replace="common/header :: headerFragment"></th:block>
-	<h3>* 상세 보기 *</h3>
+	<h3>상세 보기</h3>
 	<table>
 		<tr>
 			<td style="text-align: right;">
-				<div th:if="${isSeller}">
+				<div th:if="${isseller}">
 					<a th:href="@{/qreply(num=${data.num},page=${page})}">
 						답글달기
 					</a>
