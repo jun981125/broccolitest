@@ -79,13 +79,6 @@
                         <span>[[${notice.adminname}]]</span>
                         <span class="date" th:text="${notice.cdate}"></span>
                         <span>-</span>
-                        <!--
-                        <span th:if="${notice.filename != null}">
-                            <img th:src="@{images/showimage.png}" alt="이미지" width="25" height="25">
-                        </span>
-                        <span th:unless="${notice.filename != null}">
-                        </span>
-                        -->
                     </label>
                 </a>
 
@@ -110,17 +103,9 @@
                         <span>[[${list.customernickname}]]</span>
                         <span>[[${list.cdate}]]</span>
                         <span>[[${list.readcnt}]]</span>
-						<div th:if="${isAdmin}">
+						<span th:if="${isAdmin}">
 							<a th:href="@{/deletePost(num=${notice?.num})}">삭제</a>
-						</div>
-
-                        <!--
-                        <span th:if="${list.filename != null}">
-                            <img th:src="@{images/showimage.png}" alt="" width="25" height="25">
-                        </span>
-                        <span th:unless="${list.filename != null}">
-                        </span>
-                        -->
+						</span>
                     </label>
                 </a>
 
