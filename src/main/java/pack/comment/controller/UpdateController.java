@@ -31,7 +31,7 @@ public class UpdateController {
 		
 		// 수정 대상 자료 읽기
 		CommuDto dto = comDao.detail(num);
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginid");
 		String customerid = dto.getCustomerid();
 
 		if (customerid.equals(loginId)) {
