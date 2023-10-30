@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/flexslider.css"/>
     <link rel="stylesheet" href="css/main.css"/>
-    <link rel="stylesheet" href="css/product.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -38,7 +37,7 @@
 
 
    <div class="popup">
-        <div class="title">집에가고싶다</div>
+        <div class="title">허준호 바보</div>
         <div class="content">
             <p>
                 추석 연휴 기간 동안 팀장의 연락과 지원이 중지됩니다.<br>
@@ -81,16 +80,30 @@
                 
                 
                 <!-- 상품영역 시작 -->
-            	 <div class="prod_list ">
+            	 <div class="product_container">
 				<form th:if="${list.size() > 0}" th:each="data : ${list}" class="list_con">
-					<div class="prod_img">
+					<div class="img_container">
 						<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
 							<img th:src="@{upload/}+${data.pimage}" /></a>
 					</div>
-					<p class="brd_name" th:text="${data.brand}" />
-					<p class="prd_name" th:text="${data.model}" />
+                    <div class="text_container">
+                        <h3>
+                            <span class="brand_name" th:text="${data.brand}"></span>
+                            <h3 class="prd_name" th:text="${data.model}"></h3>
+                        </h3>
+                    </div>
 					<p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
-
+                    <div class="mt20 flex2">
+                        <span class="heart_count flex2" style="gap: 2px;">
+                            <span class="material-symbols-outlined">favorite </span>
+                            <span class="count"> 0</span>
+                        </span>
+                        <span style="font-size: 12px; color: #ccc;">|</span>
+                        <span class="review_count flex2" style="gap: 4px;">
+                            <span class="material-symbols-outlined">chat_bubble</span>
+                            <span class="count"> 0</span>
+                        </span>
+                    </div>
 				</form>
 				</div>
                 <a href="productlist_all"><span class="material-symbols-outlined">add</span>상품전체보기</a>
@@ -98,7 +111,7 @@
             </div>
 
             <!-- 브랜드 배너 시작 -->
-            <div id="brand_shop" class="main_brand">
+            <div class="main_brand">
                 <div class="main_brand_list">
                     <a class="main_card" href="productbrandlist?page=1&brand=Apple">
                         <img src="images/brand_img01.png" alt="Apple" />

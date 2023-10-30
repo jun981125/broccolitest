@@ -611,38 +611,45 @@ input[type=number]
 .prod_list {
 	display: flex;
 	flex-wrap: wrap;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	gap: 60px 40px;
-	left: -16px;
+	gap: 60px 4%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	border: 0;
 }
 .prod_list .list_con{
-	width: 232.5px;
+	width: 22%;
+}
+.cprod_list .list_con{
+	width: 30%;
 }
 .prod_img img {
-	width: 232.5px;
-	height: 220px;
+	width: 100%;
 }
 
-.prod_list .prd_name {
-	font-size: 17px;
-	line-height: 23px;
-	color: #000;
-	margin-top: 10px;
-	font-weight: 600;
-}
-
-.prod_list .brd_name {
-	display: -webkit-box;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	word-break: break-all;
-	white-space: normal;
-	font-weight: 400;
+.prod_list .prd_name, .cprod_list .prd_name {
 	font-size: 14px;
+    color: #222;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    margin: 5px 20px 0 0;
+}
+
+.prod_list .brd_name, .cprod_list .brd_name {
+	font-size: 14px;
+    color: #222;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    margin-top: 10px;
+}
+.prod_list .price, .cprod_list .price{
+margin-top: 8px;
+color: #000;
+font-size: 15px;
+font-weight: 700;
+text-align: left;
 }
 
 /* productlist for user end*/
@@ -757,11 +764,14 @@ input[type=number]
 .cprod_list {
 	display: flex;
 	flex-wrap: wrap;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 60px 40px;
-	left: -16px;
+	gap: 60px 5%;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	border: 0;
 }
+
+.stock-alert{
+	font-size: 15px;
+	color: red;
+ }

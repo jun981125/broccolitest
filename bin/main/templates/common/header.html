@@ -77,16 +77,16 @@
 									<span>LOGOUT</span>
 								</a>
 							</li>
-							<li th:unless="${session.loginid}">
-								<a href="register">
-									<span class="icon icon_join"></span>
-									<span>JOIN</span>
-								</a>
-							</li>
 							<li>
 								<a href="update">
 									<span class="icon icon_my"></span>
 									<span>MY</span>
+								</a>
+							</li>
+							<li class="last" th:unless="${session.loginid}">
+								<a href="register">
+									<span class="icon icon_join"></span>
+									<span>JOIN</span>
 								</a>
 							</li>
 							<li th:if="${session.loginid}">
@@ -136,7 +136,7 @@
 						</li>
 						<li class="list">
 							<a href="commu" class="link">
-								<span class="txt">중고거래</span>
+								<span class="txt">커뮤니티</span>
 							</a>
 						</li>
 					</ul>

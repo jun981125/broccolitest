@@ -30,34 +30,34 @@
             });
 
             jQuery('.quantity').each(function() {
-            var spinner = jQuery(this),
-                input = spinner.find('input[type="number"]'),
-                btnUp = spinner.find('.quantity-up'),
-                btnDown = spinner.find('.quantity-down'),
-                min = input.attr('min'),
-                max = input.attr('max');
+                var spinner = jQuery(this),
+                    input = spinner.find('input[type="number"]'),
+                    btnUp = spinner.find('.quantity-up'),
+                    btnDown = spinner.find('.quantity-down'),
+                    min = input.attr('min'),
+                    max = input.attr('max');
 
-            btnUp.click(function() {
-                var oldValue = parseFloat(input.val());
-                if (oldValue >= max) {
-                var newVal = oldValue;
-                } else {
-                var newVal = oldValue + 1;
-                }
-                spinner.find("input").val(newVal);
-                spinner.find("input").trigger("change");
-            });
+                btnUp.click(function() {
+                    var oldValue = parseFloat(input.val());
+                    if (oldValue >= max) {
+                        var newVal = oldValue;
+                    } else {
+                        var newVal = oldValue + 1;
+                    }
+                    spinner.find("input").val(newVal);
+                    spinner.find("input").trigger("change");
+                });
 
-            btnDown.click(function() {
-                var oldValue = parseFloat(input.val());
-                if (oldValue <= min) {
-                var newVal = oldValue;
-                } else {
-                var newVal = oldValue - 1;
-                }
-                spinner.find("input").val(newVal);
-                spinner.find("input").trigger("change");
-            });
+                btnDown.click(function() {
+                    var oldValue = parseFloat(input.val());
+                    if (oldValue <= min) {
+                        var newVal = oldValue;
+                    } else {
+                        var newVal = oldValue - 1;
+                    }
+                    spinner.find("input").val(newVal);
+                    spinner.find("input").trigger("change");
+                });
 
             });
 
@@ -152,32 +152,35 @@
         });
 
 
+
         // 상세보기 버튼 클릭 이벤트 처리
         $(document).ready(function () {
             $("#detail_button").click(function () {
                 $("#detailimage").toggleClass("expanded");
                 $(this).hide()
             });
-        });  
-        
+        });
+
+
         // 포인트 금액 계산처리
         $(document).ready(function () {
             var orderAmount = parseFloat([[${data.price}]]);
 
             var point = orderAmount * 0.01;
-            $(".point").text(point.toFixed(0) + "p" + " (1% 적립)"); // 소수점 두 자리까지 표시
+            var formattedPoint = point.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+            $(".point").text(formattedPoint + "p (1% 적립)");
         });
     </script>
 
     <script>
-function addToOrderfromProduct(productId, quantity) {
-        // Set values in the hidden form fields
-        document.getElementById("productIdInput").value = productId;
-        document.getElementById("quantityInput").value = quantity;
+        function addToOrderfromProduct(productId, quantity) {
+            // Set values in the hidden form fields
+            document.getElementById("productIdInput").value = productId;
+            document.getElementById("quantityInput").value = quantity;
 
-        // Submit the form
-        document.getElementById("orderForm").submit();
-    }
+            // Submit the form
+            document.getElementById("orderForm").submit();
+        }
 
 
 
@@ -198,127 +201,148 @@ function addToOrderfromProduct(productId, quantity) {
 </head>
 
 <body>
-    <th:block th:replace="common/header::headerFragment"></th:block>
-    <div id="sub_con">
-        <div class="productdetail flex">
-            <div class="img">
-                <img th:src="@{upload/}+${data.pimage}" />
+<th:block th:replace="common/header::headerFragment"></th:block>
+<div id="sub_con">
+    <div class="productdetail flex">
+        <div class="img">
+            <img th:src="@{upload/}+${data.pimage}" />
+        </div>
+        <div class="text_area">
+            <p class="brand">[[${data.brand}]]</p>
+            <div class="flex">
+                <h2>[[${data.model}]]</h2>
+                <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined fs35">favorite</span></button>
             </div>
-            <div class="text_area">
-                <p class="brand">[[${data.brand}]]</p>
-                <div class="flex">
-                    <h2>[[${data.model}]]</h2>
-                    <button class="btnZZim" id="btnZZim"><span class="material-symbols-outlined fs35">favorite</span></button>
+            <p class="rating rating2 rating3" th:text="${avgstar}"></p>
+            <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></p>
+            <p class="point">p (1% 적립)</p>
+            <div class="quantity flex">
+                <p class="model">[[${data.model}]]</p>
+                <div class="quantity-nav flex">
+                    <div class="quantity-button quantity-down"><span class="material-symbols-outlined">remove</span></div>
+                    <div class="quantity-button quantity-num"><input type="number" id="quantity" min="1" value="1" /></div>
+                    <div class="quantity-button quantity-up"><span class="material-symbols-outlined">add</span></div>
                 </div>
-                <p class="rating rating2 rating3" th:text="${avgstar}"></p>
-                <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></p>
-                <p class="point">p (1% 적립)</p>
-                <div class="quantity flex">
-                    <p class="model">[[${data.model}]]</p>
-                    <div class="quantity-nav flex">
-                        <div class="quantity-button quantity-down"><span class="material-symbols-outlined">remove</span></div>
-                        <div class="quantity-button quantity-num"><input type="number" id="quantity" min="1" value="1" /></div>
-                        <div class="quantity-button quantity-up"><span class="material-symbols-outlined">add</span></div>
-                    </div>
-                </div>
-                <div class="pro_button flex">
-                    <input class="button button_out" type="button" value="장바구니" id="addToCart"></input>
-                    <input class="button button_in" type="button" value="구매하기" id="createOrderfromProduct"></input>
-                </div>
-                
-                <form action="/createOrderfromProduct" method="post" id="orderForm">
-   					 <input type="hidden" id="productIdInput" name="productid" value="">
-				    <input type="hidden" id="quantityInput" name="quantity" value="">
-				</form>
-                <!--
-                <table>
-                    <caption>
-                        <details class="hide">
-                            <summary>상품정보</summary>
-                            카테고리, 브랜드, 재고량
-                        </details>
-                    </caption>
-                    <colgroup>
-                        <col style="width:px;">
-                        <col>
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>카테고리</th>
-                            <td>[[${data.category}]]</td>
-                        </tr>
-                        <tr>
-                            <th>브랜드</th>
-                            <td>[[${data.brand}]]</td>
-                        </tr>
-                        <tr>
-                            <th>재고량</th>
-                            <td th:text="${#numbers.formatInteger(data.stockquantity, 3, 'COMMA') + '개'}"></td>
-                        </tr>
-                        <tr>
-                            <th>판매가</th>
-                            <td th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></td>
-                        </tr>
-                        <tr>
-                            <th>구매수량</th>
-                            <td><input type="number" id="quantity" min="1" value="1" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-                -->
-                
-				
+            </div>
+            <div class="pro_button flex">
+                <input class="button button_out" type="button" value="장바구니" id="addToCart"></input>
+                <input class="button button_in" type="button" value="구매하기" id="createOrderfromProduct"></input>
+            </div>
+
+            <form action="/createOrderfromProduct" method="post" id="orderForm">
+                <input type="hidden" id="productIdInput" name="productid" value="">
+                <input type="hidden" id="quantityInput" name="quantity" value="">
+            </form>
+            <!--
+            <table>
+                <caption>
+                    <details class="hide">
+                        <summary>상품정보</summary>
+                        카테고리, 브랜드, 재고량
+                    </details>
+                </caption>
+                <colgroup>
+                    <col style="width:px;">
+                    <col>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>카테고리</th>
+                        <td>[[${data.category}]]</td>
+                    </tr>
+                    <tr>
+                        <th>브랜드</th>
+                        <td>[[${data.brand}]]</td>
+                    </tr>
+                    <tr>
+                        <th>재고량</th>
+                        <td th:text="${#numbers.formatInteger(data.stockquantity, 3, 'COMMA') + '개'}"></td>
+                    </tr>
+                    <tr>
+                        <th>판매가</th>
+                        <td th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></td>
+                    </tr>
+                    <tr>
+                        <th>구매수량</th>
+                        <td><input type="number" id="quantity" min="1" value="1" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            -->
+
+
+        </div>
+    </div>
+    <!-- 주문내역에서 리뷰쓰는거 만들면 지울 예정 -->
+    <a th:href="@{/reviewinsert(rproductid=${data.productid})}">리뷰쓰기</a>
+    <div th:if="${#strings.equals(data.customerid, customerid)}"}> <!-- 자신이 등록한 상품만 수정, 삭제 등 가능하도록 -->
+        <div class="dropdown-menu">
+            <span>판매자 도구<span class="material-symbols-outlined">arrow_drop_down</span></span>
+            <div class="dropdown-content">
+                <a th:href="@{/productupdate(productid=${data.productid},page=${page},pimage=${data.pimage},dimage=${data.dimage})}">상품
+                    수정</a></td>
+                <a id="btnDel">상품삭제</a>
+                <a th:href="@{/pimagedelete(productid=${data.productid})}">상품이미지 삭제</a>
+                <a th:href="@{/dimagedelete(productid=${data.productid})}">상세이미지 삭제</a>
             </div>
         </div>
-        <!-- 주문내역에서 리뷰쓰는거 만들면 지울 예정 -->
-        <a th:href="@{/reviewinsert(rproductid=${data.productid})}">리뷰쓰기</a>
-        <div th:if="${#strings.equals(data.customerid, customerid)}"}> <!-- 자신이 등록한 상품만 수정, 삭제 등 가능하도록 -->
-            <div class="dropdown-menu">
-                <span>판매자 도구<span class="material-symbols-outlined">arrow_drop_down</span></span>
-                <div class="dropdown-content">
-                    <a th:href="@{/productupdate(productid=${data.productid},page=${page},pimage=${data.pimage},dimage=${data.dimage})}">상품
-                        수정</a></td>
-                    <a id="btnDel">상품삭제</a>
-                    <a th:href="@{/pimagedelete(productid=${data.productid})}">상품이미지 삭제</a>
-                    <a th:href="@{/dimagedelete(productid=${data.productid})}">상세이미지 삭제</a>
-                </div>
-            </div>
-        </div>
+    </div>
     <div class="tab-bar tab-content">
-        <a class="tab-button active" href="#detailimage">DETAIL</a>
-        <a class="tab-button" href="#review">REVIEW</a>
+        <a class="tab-button active" id="detail_scroll">DETAIL</a> <!--   href="#detailimage"    -->
+        <a class="tab-button"id="review_scroll">REVIEW</a>
     </div>
-    <div class="detailimage" id="detailimage">
-        <img th:src="@{upload/}+${data.dimage}" />
-        <button id="detail_button"><span>상품설명 더보기</span><span class="material-symbols-outlined fs35">expand_more</span></button>
-    </div>
-    <div class="review" id="review">
-        <div class="flex3">
-            <h2>상품리뷰<span></span></h2>
-            <p class="avgstar" th:text="${avgstar}"> <!--평점-->
+    <section id='section1'>
+
+        <div class="detailimage" id="detailimage">
+            <img th:src="@{upload/}+${data.dimage}" />
+            <button id="detail_button"><span>상품설명 더보기</span><span class="material-symbols-outlined fs35">expand_more</span></button>
         </div>
-        <div class="line"></div>
-        <div class="noreview" th:if="${list.size() == 0}" th:text="${noReviews}"></div>
-        <div th:if="${list.size() > 0}" th:each="rdata : ${list}">
-            <div class="yesreview2">
-                <div class="review_left flex2">
-                    <p class="rating rating2" th:text="${rdata.rating}" />
-                    <p th:text="${rdata.rnickname}"></p>
-                    <p class="pr_date" th:text="${rdata.reviewdate}" />
-                </div>
-                <div class="review_right flex2">
-                    <textarea th:text="${rdata.comment}" readonly="readonly"></textarea>
-                    <div class="pr_date">
-                        <a th:href="@{/showreview(reviewid=${rdata.reviewid},page=${page})}" class="review_button2" th:text="상세보기"></a>
+
+    </section>
+    <section id='section2'>
+        <div class="review" id="review">
+            <div class="flex3">
+                <h2>상품리뷰<span></span></h2>
+                <p class="avgstar" th:text="${avgstar}"> <!--평점-->
+            </div>
+            <div class="line"></div>
+            <div class="noreview" th:if="${list.size() == 0}" th:text="${noReviews}"></div>
+            <div th:if="${list.size() > 0}" th:each="rdata : ${list}">
+                <div class="yesreview2">
+                    <div class="review_left flex2">
+                        <p class="rating rating2" th:text="${rdata.rating}" />
+                        <p th:text="${rdata.rnickname}"></p>
+                        <p class="pr_date" th:text="${rdata.reviewdate}" />
+                    </div>
+                    <div class="review_right flex2">
+                        <textarea th:text="${rdata.comment}" readonly="readonly"></textarea>
+                        <div class="pr_date">
+                            <a th:href="@{/showreview(reviewid=${rdata.reviewid},page=${page})}" class="review_button2" th:text="상세보기"></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
+    </section>
+</div>
+</div>
 
-    <th:block th:replace="common/footer::footerFragment"></th:block>
+<th:block th:replace="common/footer::footerFragment"></th:block>
 </body>
+<script>
+    // 상세보기 탭 클릭 이벤트 처리
+    const btn_detail = document.getElementById('detail_scroll');
+    const section1 = document.getElementById('section1');
 
+    btn_detail.addEventListener('click', () => {
+        section1.scrollIntoView({ behavior: 'smooth' });
+    });
+    const btn_review = document.getElementById('review_scroll');
+    const section2 = document.getElementById('section2');
+
+    btn_review.addEventListener('click', () => {
+        section2.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
 </html>
+

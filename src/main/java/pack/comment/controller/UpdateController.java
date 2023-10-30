@@ -31,7 +31,7 @@ public class UpdateController {
 		
 		// 수정 대상 자료 읽기
 		CommuDto dto = comDao.detail(num);
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("loginid");
 		String customerid = dto.getCustomerid();
 
 		if (customerid.equals(loginId)) {
@@ -63,7 +63,7 @@ public class UpdateController {
 			try {
 				inputStream = file.getInputStream();
 				File newFile = new File(
-						"/Users/heojunho/work/shop/shop/broccoli/src/main/resources/static/upload/"
+						"/Users/kim-yejin/git/shopproject/src/main/resources/static/upload"
 				+ filename); // 절대경로로 찍기
 				if (!newFile.exists()) {
 					newFile.createNewFile();

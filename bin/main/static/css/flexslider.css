@@ -12,7 +12,7 @@
 /* ====================================================================================================================
  * FONT-FACE
  * ====================================================================================================================*/
- @font-face {
+@font-face {
   font-family: 'flexslider-icon';
   src: url('fonts/flexslider-icon.eot');
   src: url('fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'), url('fonts/flexslider-icon.woff') format('woff'), url('fonts/flexslider-icon.ttf') format('truetype'), url('fonts/flexslider-icon.svg#flexslider-icon') format('svg');
@@ -51,9 +51,9 @@
 }
 .flexslider .slides img {
   width: 100%;
- /* height: 370px; */
+  /* height: 370px; */
   display: block;
-   margin: 0 auto; 
+  margin: 0 auto;
 }
 .flexslider .slides:after {
   content: "\0020";
@@ -83,7 +83,7 @@ html[xmlns] .flexslider .slides {
   zoom: 1;
 }
 .flexslider .slides img { /* 이미지 높이 처리 */
- /* height: 370px; */
+  /* height: 370px; */
   -moz-user-select: none;
 }
 .flex-viewport {
@@ -106,11 +106,11 @@ html[xmlns] .flexslider .slides {
 .flex-direction-nav a {
   text-decoration: none;
   display: block;
-  width: 45px; /* 이미지의 폭 */
-  height: 70px; /* 이미지의 높이 */
+  width: 20vw; /* 이미지의 폭 */
+  height: 24vw; /* 이미지의 높이 */
   margin: -20px 0 0;
   position: absolute;
-  top: 50%;
+  top: 10%;
   z-index: 10;
   overflow: hidden;
   opacity: 0;
@@ -123,13 +123,13 @@ html[xmlns] .flexslider .slides {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-.flex-direction-nav a:before { 
+.flex-direction-nav a:before {
   /* font-family: "flexslider-icon";
   font-size: 40px; */
   display: inline-block;
   width:  45px;
   height: 70px;
-  
+
   /* content: '\f001';
   color: rgba(0, 0, 0, 0.8);
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3); */
@@ -137,12 +137,10 @@ html[xmlns] .flexslider .slides {
 .flex-direction-nav a.flex-prev:before { /* 이전버튼 */
   content: '\f002';
   text-indent: -999em; /* 글자를 왼쪽으로 999배 날림 */
-  background-image: url(../images/ms_prev.png);
 }
 .flex-direction-nav a.flex-next:before { /* 다음버튼 */
   content: '\f002';
   text-indent: 999em; /* 글자를 오른쪽으로 999배 날림 */
-  background-image: url(../images/ms_next.png);
 }
 .flex-direction-nav .flex-prev { /* 버튼의 처음 위치 */
   left: 10px;
