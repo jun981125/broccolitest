@@ -11,6 +11,7 @@
 <body>
 	<th:block th:replace="common/header::headerFragment"></th:block>
 		<div id="sub_con">
+			<div class="flex">
 		<div class="sub_left">
 			<p class="sub_left_title">브랜드</p>
 			<ul>
@@ -89,12 +90,12 @@
 						표시</a>
 				</span>
 			</span>
-
+			
 		</div>
 		<br />
 		<div class="search">
 			<form action="/buyproductsearch" method="get">
-				<select name="searchName"><span class="material-symbols-outlined">expand_more</span>
+				<select name="searchName"><span class="material-symbols-outlined fs300">expand_more</span>
 					<option value="brand" selected>브랜드</option>
 					<option value="model">모델</option>
 				</select>
@@ -102,6 +103,7 @@
 				<button class="searchicon" type="submit"><span class="material-symbols-outlined">search</span></button>
 			</form>
 		</div>
+	</div>
 	</div>
 		</div>
 	<th:block th:replace="common/footer::footerFragment"></th:block>

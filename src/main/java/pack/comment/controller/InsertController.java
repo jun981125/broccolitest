@@ -59,7 +59,7 @@ public class InsertController {
 			try {
 				inputStream = file.getInputStream();
 				File newFile = new File(
-						"/Users/heojunho/work/shop/shop/broccoli/src/main/resources/static/upload/"
+						"/Users/kim-yejin/git/shopproject/src/main/resources/static/upload/"
 								+ filename); // 절대경로로 찍기
 				if (!newFile.exists()) {
 					newFile.createNewFile();

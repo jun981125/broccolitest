@@ -16,13 +16,17 @@ public class CommuDeleteController {
 	private CommuDao comDao;
 
 	@GetMapping("commudelete")
-	public String edit(@RequestParam("num") String num, Model model,HttpSession session) {
+	public String edit(@RequestParam("num") String num, Model model, HttpSession session) {
 		CommuDto dto = comDao.detail(num);
 		String loginId = (String) session.getAttribute("loginid");
 		String customerid = dto.getCustomerid();
-        boolean isAdmin = (boolean) session.getAttribute("isAdmin"); // 관리자 여부 확인
+		Boolean isAdmin = (Boolean) session.getAttribute("isAdmin"); // 관리자 여부 확인
 
-        if (isAdmin || customerid.equals(loginId)) { // 관리자 또는 작성자인 경우에만 삭제 권한 부여
+		if (isAdmin == null) {
+			isAdmin = false; // isAdmin이 null일 경우 false로 초기화
+		}
+
+		if (isAdmin || customerid.equals(loginId)) { // 관리자 또는 작성자인 경우에만 삭제 권한 부여
 			boolean b = comDao.delete(num);
 			if (b) {
 				return "redirect:commu";

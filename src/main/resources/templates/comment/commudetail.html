@@ -122,7 +122,7 @@
 			<div class="line"></div>
 		</div>
 
-		<div th:if="${#strings.equals(list.customernickname, nickname)}" }>
+		<div th:if="${#strings.equals(list.customernickname, nickname)}">
 			<div class="rbutton flex2">
 				<a class="review_button" th:href="@{/commuupdate(num=${list.num},page=${page})}">수정하기</a>
 				<a class="review_button" href="#"

@@ -1,7 +1,7 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
 @import url('https://fonts.cdnfonts.com/css/jost');
 /* base */
-*{ padding: 0; margin: 0; font-family: 'Jost*','AppleSDGothicNeo', 'Pretendard', sans-serif; font-size: 13px; color: #444; -webkit-font-smoothing: antialiased; }
+*{ padding: 0; margin: 0; font-family: 'Pretendard', sans-serif; font-size: 13px; color: #444; -webkit-font-smoothing: antialiased; }
 input, select, textarea, button, label{font-size: 14px; vertical-align: middle; }
 textarea{padding: 5px 10px; box-sizing: border-box; }
 li{ list-style: none; padding: 0; margin: 0;}
@@ -13,7 +13,7 @@ fieldset{ border: none; }
 legend{ position: absolute; left: -999em; }
 input[type=button], input[type=submit], input[type=reset], input[type=image], button{ cursor: pointer; border: 0px; } 
 label.away{ position: absolute; left: -999em; }
-input::placeholder {color:#666; font-size: 14px; font-weight: 300;}
+input::placeholder {color:#888; font-size: 14px; font-weight: 300;}
 caption{text-indent: -9999em; width: 1px; height: 1px; margin-top: -1px; line-height: 1px; overflow: hidden; }
 body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relative;}
 
@@ -21,12 +21,16 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .mt0 {margin-top:0 !important;}
 .mt5 {margin-top:5px !important;}
 .mt10 {margin-top:10px !important;}
+.mt15 {margin-top:15px !important;}
 .mt20 {margin-top:20px !important;}
 .mt25 {margin-top:20px !important;}
 .mt40 {margin-top:40px !important;}
 .ml10 {margin-left:10px !important;}
 .ml15 {margin-left:15px !important;}
 
+.fs35{font-size: 35px;}
+.fs45{font-size: 45px;}
+.fs50{font-size: 50px;}
 
 /* icons */
 .material-symbols-outlined {
@@ -36,6 +40,16 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
   'GRAD' 0,
   'opsz' 24
 }
+
+.flex2 .material-symbols-outlined{
+    font-size: 16px;
+    font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 16
+}
+
 .material-symbols-outlined:hover {
     color: #8CC84B !important;
 }
@@ -75,7 +89,7 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 }
 #header .header_wrap .header_inner .shop_utility{
     float: right;
-    padding-top: 24px;
+    padding-top: 20px;
 }
 #header .header_wrap .main_nav{
     width: 900px;
@@ -150,14 +164,15 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 /* shop_utility */
 .header_inner .shop_utility ul li{
     float: left;
-    margin-right: 20px;  
+    margin-right: 10px;  
 }
 .header_inner .shop_utility ul li.last{
     margin-right: 0px;
 }
 .header_inner .shop_utility ul li a {
     display: block;
-    width: 100%;
+    text-align: center;
+    width: 50px;
     height: 100%;
 }
 .header_inner .shop_utility .fs35{
@@ -170,6 +185,45 @@ body{font-family: 'AppleSDGothicNeo', 'Pretendard', sans-serif; position: relati
 .header_inner  .bi{
     font-size: 30px;
 }
+.shop_utility a span{
+    color: #222;
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    font-weight: 500;
+}
+.shop_utility .icon{
+    height: 22px;
+    margin-bottom: 8px;
+    display: block;
+}
+.shop_utility .icon_login{
+    height: 21px;
+    background: url(../images/icon01.png) no-repeat center center;
+    background-size: contain;
+}
+.shop_utility .icon_logout{
+    height: 21px;
+    background: url(../images/icon02.png) no-repeat center center;
+    background-size: contain;
+}
+.shop_utility .icon_join{
+    background: url(../images/icon03.png) no-repeat center center;
+    background-size: contain;
+}
+.shop_utility .icon_my{
+    background: url(../images/icon04.png) no-repeat center center;
+    background-size: contain;
+}
+.shop_utility .icon_cart{
+    height: 23px;
+    background: url(../images/icon05.png) no-repeat center center;
+    background-size: contain;
+}
+.shop_utility .icon_heart{
+    background: url(../images/icon06.png) no-repeat center center;
+    background-size: contain;
+}
+
 
 
 /* #header .header_wrap .main_nav */

@@ -167,7 +167,8 @@
             var orderAmount = parseFloat([[${data.price}]]);
 
             var point = orderAmount * 0.01;
-            $(".point").text(point.toFixed(0) + "p" + " (1% 적립)"); // 소수점 두 자리까지 표시
+            var formattedPoint = point.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
+            $(".point").text(formattedPoint + "p (1% 적립)");
         });
     </script>
 
@@ -216,7 +217,6 @@
             <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></p>
             <p class="point">p (1% 적립)</p>
             <p th:if="${data.stockquantity <= 5}" class="stock-alert">품절임박 [[${data.stockquantity}]]개 남음.</p>
-            
             <div class="quantity flex">
                 <p class="model">[[${data.model}]]</p>
                 <div class="quantity-nav flex">

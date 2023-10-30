@@ -32,39 +32,128 @@
 			frm.submit();
 		}
 	</script>
+	<script>
+		function getImageFiles(e) {
+		  const imagePreview = document.querySelector('.image-preview');
+		  const files = e.currentTarget.files;
+	
+		  if (files.length === 1) { // 이미지를 하나만 선택하도록 변경
+			const file = files[0];
+	
+			if (!file.type.match("image/.*")) {
+			  alert('이미지 파일만 업로드가 가능합니다.');
+			  return;
+			}
+	
+			const reader = new FileReader();
+			reader.onload = (e) => {
+			  const preview = createElement(e, file);
+			  imagePreview.innerHTML = ''; // 이미지 미리보기를 덮어쓰기 위해 innerHTML 초기화
+			  imagePreview.appendChild(preview);
+			};
+			reader.readAsDataURL(file);
+		  } else {
+			alert('이미지는 하나만 업로드 가능합니다.');
+		  }
+		}
+	
+		function createElement(e, file) {
+		  const li = document.createElement('li');
+		  const img = document.createElement('img');
+		  img.setAttribute('src', e.target.result);
+		  img.setAttribute('data-file', file.name);
+		  li.appendChild(img);
+	
+		  return li;
+		}
+	</script>
 </head>
 
 <body>
 	<th:block th:replace="common/header :: headerFragment"></th:block>
 	<div class="sub_con" id="sub">
-	** 글 쓰기 **
-	<form action="insertCommu" method="post" name="frm" enctype="multipart/form-data">
-		<table style="width: 80%">
-			<tr>
-				<td>작성자</td>
-				<td  th:text="${nickname}"></td> 
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title" style="width: 99%"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea rows="5" style="width: 99%" name="cont"></textarea></td>
-			</tr>
-			<tr>
-				<td>파일 업로드</td>
-				<td><input type="file" name="file"></td>
-			</tr>
-			<tr>
-				<td colspan="2" style="text-align: center;">
-					<input type="button" value="등록" id="btnIns" />
-					<button type="button" id="writeBtn" onclick="history.back();">취소</button>
-					<input type="button" value="목록" onclick="location.href='commu?page=1'" />
-				</td>
-			</tr>
-		</table>
-	</form>
+		<div class="flex">
+			<div class="sub_left flex3">
+			<p class="sub_left_title">커뮤니티</p>
+			<ul>
+				<li class="active">
+					<a th:href="commu" class="flex">
+						<p>중고거래</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
+						<p>공지사항</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='2')}">
+						<p>이벤트</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="sub_right">
+			<div class="sub_right_title">
+				<h2>중고거래 글쓰기</h2>
+				<div class="line"></div>
+			</div>
+			<form action="insertCommu" method="post" name="frm" enctype="multipart/form-data">
+				<div class="ins_con">
+					<p>작성자</p>
+					<span style="padding: 0 10px;" th:text="${nickname}"></span> 
+				</div>
+				<div class="ins_con">
+					<p>제목</p>
+					<span><input type="text" name="title" placeholder="제목을 입력해 주세요"></span>
+				</div>
+				<div class="ins_con">
+					<p>내용</p>
+					<span><textarea name="cont" placeholder="내용을 입력해 주세요"></textarea></span>
+				</div>
+				<div class="ins_con">
+					<p>이미지첨부</p>
+					<input type="file" class="real-upload" accept="image/*" name="file" multiple>
+					<div class="upload">
+						<ul class="image-preview"></ul>
+						<span class="material-symbols-outlined img_icon">add</span>
+					</div>
+					<script>
+						const realUpload = document.querySelector('.real-upload');
+						const upload = document.querySelector('.upload');
+						
+						// 이미지를 선택했을 때 "삭제" 버튼 및 이미지 추가 아이콘 표시
+						realUpload.addEventListener('change', (e) => {
+						  const imageFiles = e.currentTarget.files;
+						  const imgIcon = upload.querySelector('.img_icon');
+						
+						  if (imageFiles.length > 0) {
+							imgIcon.style.display = 'none';
+						  } else {
+							imgIcon.style.display = 'block';
+						  }
+						
+						  getImageFiles(e);
+						});
+						
+						upload.addEventListener('click', () => realUpload.click());
+						
+						realUpload.addEventListener('change', getImageFiles);
+					</script>					  
+				</div>
+				<div class="ins_btn btn_wrap">
+					<input type="button" class="button" value="등록" id="btnIns" />
+					<button type="button" class="button" id="writeBtn" onclick="history.back();">취소</button>
+					<input type="button" class="button" value="목록" onclick="location.href='commu?page=1'" />
+				</div>
+			</form>
+		</div>
+		</div>
+		</div>
+		<!-- sub_right end -->
 	</div>
 	<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
