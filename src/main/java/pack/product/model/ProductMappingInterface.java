@@ -107,7 +107,7 @@ public interface ProductMappingInterface {
 
 	// 전체 상품 읽기 - 페이지에 따라 8개씩 읽기
 	// OFFSET에 해당하는 pagenum이라는 값부터 총 8개는 출력함
-	@Select("SELECT * FROM products WHERE productid >= #{pagenum} ORDER BY productid LIMIT 12 OFFSET #{pagenum}")
+	@Select("SELECT * FROM products ORDER BY productid LIMIT 12 OFFSET #{pagenum}")
 	List<ProductDto> selectMainProducts(@Param("pagenum") int pagenum);
 
 	// 전체 판매자 상품 읽기 - 승인대기중만 해당(관리자)

@@ -1,4 +1,5 @@
 // 메인 슬라이더 설정
+var scrollPosition = 1;
 $(document).ready(function () {
     $('.flexslider').flexslider({
         animation: 'slide',
@@ -30,7 +31,8 @@ function productLoad() {
     $.ajax({
         type: "GET",
         url: "/loadProducts",
-        data: { scrollPosition: parseInt($(window).scrollTop()) },  // 스크롤 위치 전달
+     //   data: { scrollPosition: parseInt($(window).scrollTop()) },  // 스크롤 위치 전달
+        data: { scrollPosition: scrollPosition},  // 스크롤 위치 전달
         // 가끔 실수로 전송되어, parseInt로 casting
 
             success: function (response) {
@@ -65,7 +67,7 @@ function productLoad() {
                 // 받은 데이터를 JSON 문자열로 변환하여 출력
                 console.log(JSON.stringify(response));
 
-
+                scrollPosition += 12;
         },
 
         error: function () {
