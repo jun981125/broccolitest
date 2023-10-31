@@ -1,7 +1,6 @@
 package pack.product.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.ResponseBody;
 import pack.product.model.ProductDao;
 import pack.product.model.ProductDto;
 import pack.review.model.ReviewDao;
@@ -361,4 +361,74 @@ public class ProductListController {
     	    }
     	    return "admin/all_productlist"; // all_productlist.html 페이지로 이동
     	}
+
+
+
+
+	@GetMapping("/loadProducts")
+	@ResponseBody
+	public  Map<String, Object> loadProducts(@RequestParam(name = "scrollPosition", defaultValue = "0") int scrollPosition, Model model) {
+		try {
+			// 스크롤 위치를 페이지 번호로 변환
+			int pageNum = calculatePageNum(scrollPosition);
+
+			// 페이지에 맞는 일부 데이터만 가져오기
+			ArrayList<ProductDto> list = loadPartialData(pageNum);
+
+			// 응답 데이터를 담을 Map 생성
+			Map<String, Object> response = new HashMap<>();
+
+			// 현재 페이지 번호가 1인 경우는 초기 로딩이므로, 기존 데이터를 삭제하지 않음
+			if (pageNum > 1) {
+				response.put("list", list);
+			} else {
+				response.put("list", list); // 기존 데이터를 삭제하지 않음
+			}
+
+			response.put("currentPage", pageNum / 8 + 1);
+
+			// Thymeleaf fragment를 통해 productlistFragment 업데이트
+			return response;
+		}catch (Exception e) {
+			e.printStackTrace(); // 에러가 발생하면 콘솔에 출력
+			return Collections.singletonMap("error", "An error occurred"); // 에러 페이지로 이동
+		}
+	}
+
+	// 스크롤 위치를 페이지 번호로 변환하는 메서드
+	private int calculatePageNum(int scrollPosition) {
+		// 스크롤 위치를 기반으로 페이지 번호 계산 로직 추가
+		return (scrollPosition / 8) + 1; // 한 페이지에 8개씩
+	}
+
+	// 초기 데이터 로딩 메서드
+	private ArrayList<ProductDto> loadPartialData(int pageNum) {
+		// 해당 페이지의 데이터 가져오기
+		// 페이지 번호를 기반으로 offset을 계산하여 데이터를 불러옴
+		System.out.println(pageNum);
+		ArrayList<ProductDto> newData = (ArrayList<ProductDto>) productDao.selectMainProducts(pageNum * 8);
+
+		// 기존 데이터와 새로운 데이터를 합침
+		ArrayList<ProductDto> currentData = getCurrentData();
+		currentData.addAll(newData);
+
+		return currentData;
+	}
+
+	// 현재 데이터를 가져오는 메서드
+	private ArrayList<ProductDto> getCurrentData() {
+		// 현재 페이지 번호를 기반으로 현재 데이터를 가져옴
+		int currentPageNum = calculatePageNum(0); // 0을 기준으로 현재 페이지 번호 계산
+		return (ArrayList<ProductDto>) productDao.selectMainProducts(currentPageNum * 8);
+	}
+
+
+
+
+
+
+
+
+
 }
+

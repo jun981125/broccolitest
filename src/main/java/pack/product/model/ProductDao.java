@@ -2,6 +2,7 @@ package pack.product.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -166,8 +167,20 @@ public class ProductDao {
 		public List<ProductDto> selectAllProducts() {
 			return mappingInterface.selectAllProducts();
 		}
-				
-		// 전체 판매자의 전체 상품 리스트
+
+	// ProductDao
+
+
+
+	public List<ProductDto> selectMainProducts(int pagenum) {
+		List<ProductDto> a = mappingInterface.selectMainProducts(pagenum);
+		return a;
+	}
+
+
+
+
+	// 전체 판매자의 전체 상품 리스트
 		public List<ProductDto> selectWaitProducts() {
 			return mappingInterface.selectWaitProducts();
 		}
