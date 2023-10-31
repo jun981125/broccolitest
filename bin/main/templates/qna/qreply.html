@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <link rel="stylesheet" type="text/css" href="/css/board.css">
-    <script type="text/javascript">
-        window.onload = function () {
-            document.querySelector("#btnReply").onclick = chk;
-        }
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/board.css">
+<script type="text/javascript">
+window.onload = function(){
+	document.querySelector("#btnReply").onclick = chk;	
+}
 
-        function chk() {
+function chk(){
 
-            if (reFrm.title.value === "") {
-                reFrm.title.focus();
-                alert("제목을 입력하세요");
-                return;
-            }
-
-            if (reFrm.cont.value === "") {
-                reFrm.cont.focus();
-                alert("내용을 입력하세요");
-                return;
-            }
-
-            reFrm.submit();
-        }
-    </script>
+	if(reFrm.title.value === ""){
+		reFrm.title.focus();
+		alert("제목을 입력하세요");
+		return;
+	}
+	
+	if(reFrm.cont.value === ""){
+		reFrm.cont.focus();
+		alert("내용을 입력하세요");
+		return;
+	}
+	
+	reFrm.submit();
+}
+</script>
 </head>
 <body>
-<th:block th:replace="~{common/header :: headerFragment}"></th:block>
-<h3>문의 답글 쓰기</h3>
+		<th:block th:replace="common/header :: headerFragment"></th:block>
+<h3>* 문의 답글 쓰기 *</h3>
 <form action="qreply" method="post" name="reFrm" th:object="${data}" enctype="multipart/form-data">
-    <input type="hidden" name="page" th:value="${page}">
-    <input type="hidden" th:field="*{gnum}">
-    <input type="hidden" th:field="*{onum}">
-    <input type="hidden" th:field="*{nested}">
-
-    <table border="1" style="width: 80%">
-        <tr>
-            <td>작성자</td>
-            <td th:text="${nickname}"></td>
-        </tr>
-        <tr>
-            <td>제목</td>
-            <td>
-                <!-- 2글자만 출력
-                    <input type="text" style="width: 99%" name="title"
-                            th:value="|RE:*{#strings.substring(title,0,2)}|" />
-                -->
-                <!-- 4글자 이하 출력 -->
-                <input type="text" style="width: 99%" name="title" readonly
-                       th:value="|답변완료 : *{title}|"/>
-            </td>
-        </tr>
-        <tr>
-            <td>내용</td>
-            <td><textarea rows="5" style="width: 99%" name="cont"></textarea></td>
-        </tr>
-        <tr>
-            <td>파일 업로드</td>
-            <td><input type="file" name="file"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                <input type="button" value="완료" id="btnReply"/>
-                <button type="button" id="writeBtn" onclick="history.back();">취소</button>
-                <input type="button" value="목록" onclick="javascript:window.location.href='qlist.html?page=${page}'"/>
-            </td>
-        </tr>
-    </table>
+	<input type="hidden" name="page" th:value="${page}">
+	<input type="hidden" th:field="*{gnum}">
+	<input type="hidden" th:field="*{onum}">
+	<input type="hidden" th:field="*{nested}">
+	
+	<table border="1" style="width: 80%">
+		<tr>
+			<td>작성자</td>
+			<td  th:text="${nickname}"></td> 
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td>
+			<!-- 2글자만 출력 
+				<input type="text" style="width: 99%" name="title" 
+						th:value="|RE:*{#strings.substring(title,0,2)}|" />
+			-->	
+			<!-- 4글자 이하 출력 -->
+				<input type="text" style="width: 99%" name="title" readonly
+						th:value="|답변완료 : *{title}|" />
+			</td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td><textarea rows="5" style="width: 99%" name="cont"></textarea></td>
+		</tr>
+		<tr>
+				<td>파일 업로드</td>
+				<td><input type="file" name="file"></td>
+			</tr>
+		<tr>
+			<td colspan="2" style="text-align: center;">
+				<input type="button" value="완료" id="btnReply" /> 
+				<button type="button" id="writeBtn" onclick="history.back();">취소</button>
+				<input type="button" value="목록" onclick="javascript:window.location.href='qlist.html?page=${page}'" />
+			</td>
+		</tr>
+	</table>
 </form>
-<th:block th:replace="~{common/footer :: footerFragment}"></th:block>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 </html>
