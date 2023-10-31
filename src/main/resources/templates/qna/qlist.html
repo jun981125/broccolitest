@@ -54,23 +54,22 @@
         </div>
 
 
-        <a th:each="b:${data}" class="card card-content"
-           th:href="@{/qdetail(num=${b.num},page=${page})}">
+        <div th:each="b:${data}" class="card card-content">
             <span>[[${b.num}]]</span>
-            <!-- 답글 들여쓰기 준비 -->
-            <th:block th:each="count : ${#numbers.sequence(0, b.nested)}">  <!-- 0부터 nested 만큼 반복 -->
-                <th:with var="tab" th:utext="${'&nbsp;'}"></th:with>
-                [[${tab}]]
-            </th:block>
-
-            <label class="label ttitle">
-				<span class="basis-200">[[${b.title}]]
+            <a th:href="@{/qdetail(num=${b.num},page=${page})}"> <!--fixme dddddddddddddd-->
+                <label class="label ttitle">
+                    <th th:each="count : ${#numbers.sequence(0, b.nested)}">  <!-- 0부터 nested 만큼 반복 -->
+                        <th:with var="tab" th:utext="${'ㅇㅇㅇㅇㅇㅇ;'}"></th:with>
+                        [[${tab}]]
+                    </th>
+                    <span class="basis-200">[[${b.title}]]
 						</span>
-                    <span>[[${b.name}]]</span>
-                    <span>[[${b.bdate}]]</span>
-                    <span>[[${b.readcnt}]]</span>
-                </label>
-        </a>
+            </a>
+            <span>[[${b.name}]]</span>
+            <span>[[${b.bdate}]]</span>
+            <span>[[${b.readcnt}]]</span>
+            </label>
+        </div>
 
         <p class="btn_wrap"><a class="button" th:href="@{/qlist}">최근목록</a></p>
         <p class="btn_wrap"><a class="button" th:href="@{/qinsert}">글쓰기</a></p>
