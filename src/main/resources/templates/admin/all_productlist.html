@@ -28,7 +28,7 @@
 			<td th:text="${data.customerid}"></td>
 			<td>
 				<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
-					<img th:src="@{upload/}+${data.pimage}" />
+					<img th:src="@{/upload/} + ${data.pimage}"  width="100px"/>
 				</a>
 			</td>
 			<td th:text="${data.category}"></td>
