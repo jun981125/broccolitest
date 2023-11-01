@@ -16,18 +16,6 @@
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 </head>
-<script>
-    $(document).ready(function () {
-        // 메뉴 아이템 클릭 시
-        $(".menu-item").click(function () {
-            // 모든 메뉴 아이템에서 'active' 클래스 제거
-            $(".menu-item").removeClass("active");
-            
-            // 현재 클릭한 메뉴 아이템에 'active' 클래스 추가
-            $(this).addClass("active");
-        });
-    });
-</script>
 
 
 <body>
@@ -46,15 +34,15 @@
 						<span class="material-symbols-outlined arrow_icon"> done</span>
 					</a>
 				</li>
-				<li class="menu-item">
+				<li class="active">
 					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
 						<p>공지사항</p>
 						<span class="material-symbols-outlined arrow_icon"> done</span>
 					</a>
 				</li>
 				<li class="menu-item">
-					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='2')}">
-						<p>이벤트</p>
+					<a th:href="qlist">
+						<p>1:1 문의</p>
 						<span class="material-symbols-outlined arrow_icon"> done</span>
 					</a>
 				</li>

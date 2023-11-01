@@ -2,145 +2,134 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>커뮤니티(중고거래)</title>
-	<link rel="stylesheet" href="css/commu.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	
+    <meta charset="UTF-8">
+    <title>커뮤니티(중고거래)</title>
+    <link th:href="@{/css/commu.css}" rel="stylesheet"/>
+    <base th:href="@{/}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
 <body>
-	<th:block th:replace="common/header :: headerFragment"></th:block>
-	<div id="sub" class="container">
-		<div class="flex">
-			<div class="sub_left flex3">
-			<p class="sub_left_title">커뮤니티</p>
-			<ul>
-				<li class="active">
-					<a th:href="commu" class="flex">
-						<p>중고거래</p>
-						<span class="material-symbols-outlined arrow_icon"> done</span>
-					</a>
-				</li>
-				<li>
-					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
-						<p>공지사항</p>
-						<span class="material-symbols-outlined arrow_icon"> done</span>
-					</a>
-				</li>
-				<li>
-					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='2')}">
-						<p>이벤트</p>
-						<span class="material-symbols-outlined arrow_icon"> done</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="sub_right">
-			<div class="top sub_right_title">
-				<h2>커뮤니티(중고거래)</h2>
-				<div class="title-search-container">
-				<div class="search-form">
-					<form action="/commu/search" method="get" style="display: flex;">
-						<select name="searchName" style="padding: 0 8px; border-radius: 5px;">
-							<option value="customernickname" selected>작성자</option>
-							<option value="title">글제목</option>
-						</select>
-						<div class="textbox flex">
-							<label for="searchValue"></label>
-							<input type="hidden" name="page" th:value="${page}">
-							<input type="text" name="searchValue" id="searchValue" placeholder="검색어 입력"
-								class="inputtext">
-							<input type="submit" class="material-symbols-outlined" value="search">
-						</div>
-					</form>
-				</div>
-			</div>
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="UTF-8"></script>
-		</div>
+<th:block th:replace="~{common/header :: headerFragment}"></th:block>
+<div id="sub" class="container">
+    <div class="flex">
+        <div class="sub_left flex3">
+            <p class="sub_left_title">커뮤니티</p>
+            <ul>
+                <li class="active">
+                    <a th:href="commu" class="flex">
+                        <p>중고거래</p>
+                        <span class="material-symbols-outlined arrow_icon"> done</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
+                        <p>공지사항</p>
+                        <span class="material-symbols-outlined arrow_icon"> done</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="qlist">
+                        <p>1:1 문의</p>
+                        <span class="material-symbols-outlined arrow_icon"> done</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sub_right">
+            <div class="top sub_right_title">
+                <h2>커뮤니티(중고거래)</h2>
+                <div class="title-search-container">
+                    <div class="search-form">
+                        <form action="/commu/search" method="get" style="display: flex;">
+                            <select name="searchName" style="padding: 0 8px; border-radius: 5px;">
+                                <option value="customernickname" selected>작성자</option>
+                                <option value="title">글제목</option>
+                            </select>
+                            <div class="textbox flex">
+                                <label for="searchValue"></label>
+                                <input type="hidden" name="page" th:value="${page}">
+                                <input type="text" name="searchValue" id="searchValue" placeholder="검색어 입력"
+                                       class="inputtext">
+                                <input type="submit" class="material-symbols-outlined" value="search">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="UTF-8"></script>
+            </div>
 
-		<div class="main_list">
-			<div class="new_tab_wrap">
-				<ul class="style02">
-					<li>NO<span class="tab_line"></span></li>
-					<li class="basis-200">제목<span class="tab_line"></span></li>
-					<li>작성자<span class="tab_line"></span></li>
-					<li>작성일<span class="tab_line"></span></li>
-					<li>조회수<span class="tab_line"></span></li>
-				</ul>
-			</div>
+            <div class="main_list">
+                <div class="new_tab_wrap">
+                    <ul class="style02">
+                        <li>NO<span class="tab_line"></span></li>
+                        <li class="basis-200">제목<span class="tab_line"></span></li>
+                        <li>작성자<span class="tab_line"></span></li>
+                        <li>작성일<span class="tab_line"></span></li>
+                        <li>조회수<span class="tab_line"></span></li>
+                    </ul>
+                </div>
 
-			<a th:each="notice:${alist}" class="card card-content card-content2"
-				th:href="@{/Adetail(num=${notice.num},page=${page})}">
-				<label class="label ttitle">
-					<span><span class="notice_title">공지</span></span>
-					<span class="basis-200">[[${notice.title}]]</span>
-					<span>[[${notice.adminname}]]</span>
-					<span class="date" th:text="${notice.cdate}"></span>
-					<span>-</span>
-					<!--
-					<span th:if="${notice.filename != null}">
-						<img th:src="@{images/showimage.png}" alt="이미지" width="25" height="25">
-					</span>
-					<span th:unless="${notice.filename != null}">
-					</span>
-					-->
-				</label>
-			</a>
-			<div th:if="${isAdmin}">
-				<a th:href="@{/deletePost(num=${notice.num})}">삭제</a>
-			</div>
+                <a th:each="notice:${alist}" class="card card-content card-content2"
+                   th:href="@{/Adetail(num=${notice.num},page=${page})}">
+                    <label class="label ttitle">
+                        <span><span class="notice_title">공지</span></span>
+                        <span class="basis-200">[[${notice.title}]]</span>
+                        <span>[[${notice.adminname}]]</span>
+                        <span class="date" th:text="${notice.cdate}"></span>
+                        <span>-</span>
+                    </label>
+                </a>
 
-			<a th:each="list:${list}" class="card card-content" th:href="@{/commudetail(num=${list.num},page=${page})}">
-				<label class="label ttitle">
-					<span>[[${list.num}]]</span>
-					<span class="basis-200 flex2">
+                <a th:each="list:${list}" class="card card-content"
+                   th:href="@{/commudetail(num=${list.num},page=${page})}">
+                    <label class="label ttitle">
+                        <span>[[${list.num}]]</span>
+                        <span class="basis-200 flex2">
 						<div>[[${list.title}]]</div>
-						<span th:if="${list.filename != null}" class="material-symbols-outlined" style="font-size: 19px; flex-basis: 25px; color: #666;">
+						<span th:if="${list.filename != null}" class="material-symbols-outlined"
+                              style="font-size: 19px; flex-basis: 25px; color: #666;">
 							image
 						</span>
 						<span th:unless="${list.filename != null}" style="flex-basis: 5px;">
 						</span>
 						<span class="comment_count" th:if="${list.commentcount > 0}">
-							<span class="comment_icon">[</span><span class="comment_icon" th:text="${list.commentcount}"></span><span class="comment_icon" >]</span>
+							<span class="comment_icon">[</span><span class="comment_icon"
+                                                                     th:text="${list.commentcount}"></span><span
+                                class="comment_icon">]</span>
 						</span>
 					</span>
-					<span>[[${list.customernickname}]]</span>
-					<span>[[${list.cdate}]]</span>
-					<span>[[${list.readcnt}]]</span>
+                        <span>[[${list.customernickname}]]</span>
+                        <span>[[${list.cdate}]]</span>
+                        <span>[[${list.readcnt}]]</span>
+						<span th:if="${isAdmin}">
+							<a th:href="@{/deletePost(num=${notice?.num})}">삭제</a>
+						</span>
+                    </label>
+                </a>
 
-					<!--
-					<span th:if="${list.filename != null}">
-						<img th:src="@{images/showimage.png}" alt="" width="25" height="25">
-					</span>
-					<span th:unless="${list.filename != null}">
-					</span>
-					-->
-				</label>
-			</a>
-
-			<p class="btn_wrap"><a class="button" th:href="@{/insertCommu}">글쓰기</a></p>
-			<!-- paging -->
-			<tr style="text-align: center;">
-				<td colspan="6">
-					<th:block th:each="num : ${#numbers.sequence(1, pagesu)}">
+                <p class="btn_wrap"><a class="button" th:href="@{/insertCommu}">글쓰기</a></p>
+                <!-- paging -->
+                <tr style="text-align: center;">
+                    <td colspan="6">
+                        <th:block th:each="num : ${#numbers.sequence(1, pagesu)}">
 						<span th:if="${num} == ${page}">
 							<b th:text=${num}>num 표시</b>
 						</span>
-						<span th:if="${num} != ${page}">
+                            <span th:if="${num} != ${page}">
 							<a th:href="@{commu(page=${num})}" th:text="${num}">num 표시</a>
 						</span>
-					</th:block>
-				</td>
-			</tr>
-			</th:block>
+                        </th:block>
+                    </td>
+                </tr>
+                </th:block>
 
-		</div>
-	</div>
-
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-<th:block th:replace="common/footer :: footerFragment"></th:block>
+<th:block th:replace="~{common/footer :: footerFragment}"></th:block>
 </body>
 
 

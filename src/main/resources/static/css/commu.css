@@ -80,6 +80,9 @@ h1 {
 .style02 li.basis-200{
 	flex-basis: 650px;
 }
+.ttitle .basis-200{
+    flex-basis: 650px;
+}
 .style02 a {
     text-decoration: none;
     color: #333;
