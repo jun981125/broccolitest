@@ -91,8 +91,7 @@ public class QnaInsertController {
         bean.setId(id);
         bean.setName(nickname);
         bean.setBdate();
-        //int newNum = daoImpl.currentNum() + 1; // 새글 번호  // fixme
-        int newNum = 1; // 새글 번호
+        int newNum = daoImpl.currentNum() + 1; // 새글 번호
         bean.setNum(newNum);
         bean.setGnum(newNum);
 

@@ -83,12 +83,9 @@
 
                     <div th:each="b:${data}" class="card card-content">
                         <label class="label ttitle">
-                            <span>[[${b.num}]]</span>
                             <a class="basis-200" th:href="@{/qdetail(num=${b.num},page=${page})}">
-                                <!--fixme dddddddddddddd-->
-                                <th th:each="count : ${#numbers.sequence(0, b.nested)}"> <!-- 0부터 nested 만큼 반복 -->
-                                    <th:with var="tab" th:utext="${'&nbsp;'}"></th:with>
-                                    [[${tab}]]
+                                <th th:if="${b.nested > 0}">
+                                    <th:with var="tab" th:utext="${'↳'}" th:each="i : ${#numbers.sequence(1, b.nested)}"></th:with>
                                 </th>
                                 <span class="basis-200">[[${b.title}]]</span>
                             </a>
