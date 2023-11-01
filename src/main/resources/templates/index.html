@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/flexslider.css"/>
     <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/product.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -35,9 +36,9 @@
     </header>
 -->
 
-
+<!--
    <div class="popup">
-        <div class="title">허준호 바보</div>
+        <div class="title">집에가고싶다</div>
         <div class="content">
             <p>
                 추석 연휴 기간 동안 팀장의 연락과 지원이 중지됩니다.<br>
@@ -50,7 +51,7 @@
              <input type="button" name="btnclose" class="button" value="닫기" onclick="closePopup()">
         </div>
     </div>
-    
+    -->
     
 
 
@@ -76,97 +77,34 @@
             <div class="maincon_product">
                 <a href="#" class="product_category">세일보다 더 큰 페스타</a>
                 <p>마지막 단 하루! 최대 80% 페스타딜 마감 임박</p>
-               <!-- 브랜드 배너 시작 -->
-            <div class="main_brand">
-                <div class="main_brand_list">
-                    <a class="main_card" href="productbrandlist?page=1&brand=Apple">
-                        <img src="images/brand_img01.png" alt="Apple" style="width: 150px;" />
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=삼성">
-                        <img src="images/brand_img02.png" alt="삼성" style="width: 180px;" />
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=LG">
-                        <img src="images/brand_img03.png" alt="LG" style="width: 200px;"/>
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=모토로라">
-                        <img src="images/brand_img04.png" alt="모토로라" style="width: 100px;"/>
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=샤오미">
-                        <img src="images/brand_img05.png" alt="샤오미" style="width: 70px;"/>
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=레노버">
-                        <img src="images/brand_img06.png" alt="레노버" />
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=SONY">
-                        <img src="images/brand_img07.png" alt="SONY" style="width: 170px;"/>
-                    </a>
-                    <a class="main_card" href="productbrandlist?page=1&brand=기타">
-                        <img src="images/brand_img08.png" alt="기타" style="width: 80px;"/>
-                    </a>
-                </div>
-            </div>
-            <!-- 브랜드 배너 끝 -->
+            
                 
                 
                 <!-- 상품영역 시작 -->
-            	 <div class="product_container">
-				<form th:if="${list.size() > 0}" th:each="data : ${list}" class="list_con">
-					<div class="img_container">
-						<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
-							<img th:src="@{upload/}+${data.pimage}" /></a>
-					</div>
-                    <div class="text_container">
-                        <h3>
-                            <span class="brand_name" th:text="${data.brand}"></span>
-                            <h3 class="prd_name" th:text="${data.model}"></h3>
-                        </h3>
-                    </div>
-					<p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
-                    <div class="mt20 flex2">
-                        <span class="heart_count flex2" style="gap: 2px;">
-                            <span class="material-symbols-outlined">favorite </span>
-                            <span class="count"> 0</span>
-                        </span>
-                        <span style="font-size: 12px; color: #ccc;">|</span>
-                        <span class="review_count flex2" style="gap: 4px;">
-                            <span class="material-symbols-outlined">chat_bubble</span>
-                            <span class="count"> 0</span>
-                        </span>
-                    </div>
-				</form>
-				</div>
-                <a href="productlist_all"><span class="material-symbols-outlined">add</span>상품전체보기</a>
-                <!-- 상품영역 끝 -->
-            </div>
-            
-            <!-- 사이트 장점 시작 -->
-            <div class="main_benefit">
-                <h3>믿고 살 수 있는 브로콜리스토어</h3>
-                <div class="main_benefit_list">
-                    <div class="main_benefit_item">
-                        <div class="main_benefit_item_img" style="background-image:url(/images/ic-money.png)"></div>
-                        <div class="main_benefit_item_title">대학생 혜택을 위한 저렴한 가격</div>
-                        <div class="main_benefit_item_title_scription">
-                            다양한 유명 브랜드의 인기 상품을
-                            <br>
-                            합리적인 가격으로 만나보세요.
-                        </div>
-                    </div>
-                    <div class="main_benefit_item">
-                        <div class="main_benefit_item_img" style="background-image:url(/images/ic-money.png)"></div>
-                        <div class="main_benefit_item_title">대학생 혜택을 위한 저렴한 가격</div>
-                        <div class="main_benefit_item_title_scription">
-                            다양한 유명 브랜드의 인기 상품을
-                            <br>
-                            합리적인 가격으로 만나보세요.
-                        </div>
+                <div class="startList">
+                    <div class="prod_list">
+                        <form th:if="${list.size() > 0}" th:each="data : ${list}" class="list_con">
+                            <div class="prod_img">
+                                <a th:if="${data.pimage != null}"  th:href="@{/showproduct(productid=${data.productid},page=${page})}">
+                                    <img th:src="@{upload/}+ ${data.pimage}" />
+                                </a>
+                            </div>
+                            <p class="brd_name" th:text="${data.brand}" />
+                            <p class="prd_name" th:text="${data.model}" />
+                            <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
+                        </form>
+                        <div id="Infinity_product_list"><div>
+
                     </div>
                 </div>
+                </th:block>
+                <div id="endList"></div>
+                 <!-- 상품영역 끝 -->
             </div>
-            <!-- 사이트 장점 끝 -->
+                </div>
+            </div>
         </div>
     </div>
-    <!-- 푸터 -->
-   <th:block th:replace="common/footer :: footerFragment"></th:block>
+<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 </html>

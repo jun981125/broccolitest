@@ -2,6 +2,7 @@ package pack.product.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -161,60 +162,34 @@ public class ProductDao {
 			b = true;
 		return b;
 	}
+	
+	// 전체 판매자의 전체 상품 리스트
+		public List<ProductDto> selectAllProducts() {
+			return mappingInterface.selectAllProducts();
+		}
+
+	// ProductDao
 
 
 
-	// 판매자 상품 상태 변경 - 관리자
-	public boolean updateProductState(ProductBean bean) {
-		boolean b = false;
-		int re = mappingInterface.updateProductState(bean);
-		if (re > 0) b = true;
-		return b;
-	}
-
-	// 모든 상품 목록을 페이지별로 가져오기 - 관리자
-	public List<ProductDto> selectAllPagingList(int start, int size) {
-		return mappingInterface.selectAllPagingList(start, size);
-	}
-	// 모든 상품의 총 수를 반환 - 관리자
-	public int getTotalProductCount() {
-		return mappingInterface.getTotalProductCount();
-	}
-
-	// 승인 대기 중인 상품 목록을 페이지별로 가져오기 - 관리자
-	public List<ProductDto> selectWaitProductsPaging(int start, int size) {
-		return mappingInterface.selectWaitProductsPaging(start, size);
-	}
-	// 승인 대기 중인 상품의 총 수를 반환 - 관리자
-	public int getTotalWaitProductCount() {
-		return mappingInterface.getTotalWaitProductCount();
+	public List<ProductDto> selectMainProducts(int pagenum) {
+		List<ProductDto> a = mappingInterface.selectMainProducts(pagenum);
+		return a;
 	}
 
 
-	// 전체 아이디에 해당하는 상품 목록을 페이징처리 - 관리자
-	public List<ProductDto> searchByIdPaging(String customerid, int page, int itemsPerPage) {
-		int start = (page - 1) * itemsPerPage;
-		return mappingInterface.searchByIdPaging(customerid, start, itemsPerPage);
-	}
 
 
-	// 검색한 판매자의 아이디에 해당하는 상품 목록 페이징 처리 - 관리자
-	public List<ProductDto> selectProductsBySellerPaging(String seller, int start, int size) {
-		return mappingInterface.selectProductsBySellerPaging(seller, start, size);
-	}
-
-	// 판매자의 아이디에 해당하는 상품의 총 수 - 관리자
-	public int getTotalProductCountBySeller(String seller) {
-		return mappingInterface.getTotalProductCountBySeller(seller);
-	}
-
-	// 승인 대기 중인 판매자의 상품을 페이징 - 관리자
-	public List<ProductDto> selectWaitProductsBySellerPaging(String seller, int start, int size) {
-		return mappingInterface.selectWaitProductsBySellerPaging(seller, start, size);
-	}
-
-	// 승인 대기 중인 판매자의 상품 총 수를 반환 - 관리자
-	public int getTotalWaitProductCountBySeller(String seller) {
-		return mappingInterface.getTotalWaitProductCountBySeller(seller);
-	}
+	// 전체 판매자의 전체 상품 리스트
+		public List<ProductDto> selectWaitProducts() {
+			return mappingInterface.selectWaitProducts();
+		}
+		
+		// 판매자 상품 상태 변경 - 관리자
+	    public boolean updateProductState(ProductBean bean) {
+	        boolean b = false;
+	        int re = mappingInterface.updateProductState(bean);
+	        if (re > 0) b = true;
+	        return b;
+	    }
 }

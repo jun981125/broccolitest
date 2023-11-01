@@ -36,8 +36,8 @@ public interface ProductMappingInterface {
 	// 메인페이지에 최신순으로 8개만 상품 보이게
 	@Select("SELECT *\n"
 			+ "FROM products\n"
-			+ "ORDER BY productid DESC\n"
-			+ "LIMIT 8;")
+			+ "ORDER BY productid "
+			+ "LIMIT 12;")
 	List<ProductDto> selecteight();
 	
 	// 카테고리에서 브랜드 선택한 상품 목록
@@ -100,48 +100,23 @@ public interface ProductMappingInterface {
 	// 특정 상품에 관한 리뷰 전체 삭제
 	@Delete("delete from reviews where productid = #{productid}")
 	int deletereviewfromproduct(int productid);
+	
+	// 전체 판매자 상품 읽기 - 승인대기중만 해당(관리자)
+		@Select("SELECT * FROM products ORDER BY productid")
+		List<ProductDto> selectAllProducts();
 
+	// 전체 상품 읽기 - 페이지에 따라 8개씩 읽기
+	// OFFSET에 해당하는 pagenum이라는 값부터 총 8개는 출력함
+	@Select("SELECT * FROM products ORDER BY productid LIMIT 12 OFFSET #{pagenum}")
+	List<ProductDto> selectMainProducts(@Param("pagenum") int pagenum);
 
-
-	// 판매자 상품 상태 변경 - 관리자
-	@Update("UPDATE products SET state = #{state} WHERE productid = #{productid}")
-	int updateProductState(ProductBean bean);
-
-	// 모든 상품을 페이지별로 가져오기 - 관리자
-	@Select("SELECT * FROM products ORDER BY productid DESC LIMIT #{start}, #{size}")
-	List<ProductDto> selectAllPagingList(@Param("start") int start, @Param("size") int size);
-
-	// 모든 상품의 총 수를 반환 - 관리자
-	@Select("SELECT COUNT(*) FROM products")
-	int getTotalProductCount();
-
-	// 승인 대기 중인 상품 목록을 페이지별로 가져오기 - 관리자
-	@Select("SELECT * FROM products WHERE state = '승인대기중' ORDER BY productid DESC LIMIT #{start}, #{size}")
-	List<ProductDto> selectWaitProductsPaging(@Param("start") int start, @Param("size") int size);
-
-	// 승인 대기 중인 상품의 총 수를 반환 - 관리자
-	@Select("SELECT COUNT(*) FROM products WHERE state = '승인대기중'")
-	int getTotalWaitProductCount();
-
-	//  판매자가 등록한 상품 목록을 페이지별로 가져오기 - 관리자
-	@Select("SELECT * FROM products WHERE customerid = #{customerid} ORDER BY productid DESC LIMIT #{start}, #{size}")
-	List<ProductDto> searchByIdPaging(@Param("customerid") String customerid, @Param("start") int start, @Param("size") int size);
-
-	// 검색한 판매자가 등록한 상품 목록을 페이지별로 가져오기 - 관리자
-	@Select("SELECT * FROM products WHERE customerid = #{seller} ORDER BY productid DESC LIMIT #{start, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}")
-	List<ProductDto> selectProductsBySellerPaging(@Param("seller") String seller, @Param("start") int start, @Param("size") int size);
-
-	// 판매자가 등록한 상품의 총 수를 반환 - 관리자
-	@Select("SELECT COUNT(*) FROM products WHERE customerid = #{seller}")
-	int getTotalProductCountBySeller(@Param("seller") String seller);
-
-	// 승인 대기 중인 판매자의 상품을 페이지별로 가져오기 - 관리자
-	@Select("SELECT * FROM products WHERE state = '승인대기중' AND customerid = #{seller} ORDER BY productid DESC LIMIT #{start}, #{size}")
-	List<ProductDto> selectWaitProductsBySellerPaging(@Param("seller") String seller, @Param("start") int start, @Param("size") int size);
-
-	// 승인 대기 중인 판매자의 상품의 총 수를 반환 - 관리자
-	@Select("SELECT COUNT(*) FROM products WHERE state = '승인대기중' AND customerid = #{seller}")
-	int getTotalWaitProductCountBySeller(String seller);
+	// 전체 판매자 상품 읽기 - 승인대기중만 해당(관리자)
+		@Select("SELECT * FROM products where state = '승인대기중' ORDER BY productid")
+		List<ProductDto> selectWaitProducts();
+			
+		// 판매자 상품 상태 변경 - 관리자
+		@Update("UPDATE products SET state = #{state} WHERE productid = #{productid}")
+		int updateProductState(ProductBean bean);
 
 
 	
