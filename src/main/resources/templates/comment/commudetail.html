@@ -205,7 +205,7 @@
 
 		<!-- 댓글 목록-->
 		<div class="comment_recomment" th:each="comments : ${comments}">
-			<div>작성자 <b>[[${list.customernickname}]]</b></div>
+			<div>작성자 <b>[[${comments.customernickname}]]</b></div>
 			<div>댓글 내용</div>
 			<div class="comment-text">
 				<input type="hidden" th:value="${page}" />
