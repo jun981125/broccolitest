@@ -366,7 +366,7 @@ public class ProductListController {
 		try {
 			int pageNum = scrollPosition;
 			// 페이지에 맞는 일부 데이터만 가져오기
-			ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectMainProducts(pageNum * 8);
+			ArrayList<ProductDto> list = (ArrayList<ProductDto>) productDao.selectMainProducts(pageNum * 12);
 			// 응답 데이터를 담을 Map 생성
 			//System.out.println(pageNum);
 			Map<String, Object> response = new HashMap<>();
@@ -377,7 +377,7 @@ public class ProductListController {
 			} else {
 				response.put("list", list); // 기존 데이터를 삭제하지 않음
 			}
-			response.put("currentPage", pageNum / 8 + 1);
+			response.put("currentPage", pageNum / 12 + 1);
 
 			// Thymeleaf fragment를 통해 productlistFragment 업데이트
 			return response;
