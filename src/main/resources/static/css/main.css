@@ -151,8 +151,11 @@
 
 /* 브랜드 배너 */
 .main_brand .main_brand_list {
-    padding-top: 80px;
-    border-top:1px solid #ecedf1
+    padding: 60px 0 36px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 -6px;
+    overflow: auto;
 }
 
 .main_brand .main_brand_list::after {
@@ -165,11 +168,19 @@
     position: relative;
     float: left;
     width: calc((100% - 72px) * .25);
-    height: 120px;
-    background-color: #fbfbfb;
-    margin:0 9px 18px
+    height: 110px;
+    background-color:#f6f6f6;
+    margin:0 9px 18px;
+    border-radius:250px;
 }
 
+.main_brand .main_brand_list .main_card > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    width: 100%;
+}
 .main_brand .main_brand_list .main_card > img {
     position: absolute;
     top: 50%;
