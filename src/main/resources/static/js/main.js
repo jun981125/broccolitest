@@ -33,7 +33,7 @@ function productLoad() {
             var html = '';
             response.list.forEach(function(product) {
                 html += '<div class="list_con">' +
-                    '    <div class="prod_img">';
+                    '    <div class="img_container">';
 
                 if (product.pimage != null) {
                     // 이미지가 있는 경우
@@ -45,8 +45,12 @@ function productLoad() {
                     html += '        <img src="/images/default-image.jpg" alt="No Image" />';
                 }
                 html += '    </div>' +
-                    '    <p class="brd_name">' + product.brand + '</p>' +
-                    '    <p class="prd_name">' + product.model + '</p>' +
+                    '<div class="text_container">' +
+                    '<h3>' +
+                    '    <span class="brd_name">' + product.brand + '</span>' +
+                    '    <h3 class="prd_name">' + product.model + '</h3>' +
+                    '</h3>' +
+                    '</div>' +
                     '    <p class="price">' + new Intl.NumberFormat('ko-KR').format(product.price) + '원</p>' +
                     '</div>';
             });

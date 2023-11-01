@@ -48,7 +48,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-	gap: 60px 4%;
+    gap: 60px 4%;
     margin: 60px 0;
     overflow: hidden;
 }
@@ -77,7 +77,7 @@
 
 .maincon_product .product_container .button_wrapper a .cart_btn_title{
     position:relative;
- }
+}
 .maincon_product .product_container .button_wrapper .material-cart{
     font-size: 19px;
     vertical-align: middle;
@@ -101,7 +101,7 @@
     word-wrap: break-word;
     word-break: keep-all;
     text-overflow: ellipsis;
-    white-space: nowrap;  
+    white-space: nowrap;
     */
 }
 .maincon_product .flex2{

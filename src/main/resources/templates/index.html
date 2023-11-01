@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/flexslider.css"/>
     <link rel="stylesheet" href="css/main.css"/>
-    <link rel="stylesheet" href="css/product.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -77,21 +76,54 @@
             <div class="maincon_product">
                 <a href="#" class="product_category">세일보다 더 큰 페스타</a>
                 <p>마지막 단 하루! 최대 80% 페스타딜 마감 임박</p>
-            
-                
+
+                <!-- 브랜드 배너 시작 -->
+                <div class="main_brand">
+                    <div class="main_brand_list">
+                        <a class="main_card" href="productbrandlist?page=1&brand=Apple">
+                            <img src="images/brand_img01.png" alt="Apple" />
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=삼성">
+                            <img src="images/brand_img02.png" alt="삼성" />
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=LG">
+                            <img src="images/brand_img03.png" alt="LG" />
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=모토로라">
+                            <img src="images/brand_img04.png" alt="모토로라"  style="width: 110px;"/>
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=샤오미">
+                            <img width="50px" src="images/brand_img05.png" alt="샤오미" style="width: 70px;" />
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=레노버">
+                            <img src="images/brand_img06.png" alt="레노버" style="width: 150px;"/>
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=SONY">
+                            <img src="images/brand_img07.png" alt="SONY" />
+                        </a>
+                        <a class="main_card" href="productbrandlist?page=1&brand=기타">
+                            <img src="images/brand_img08.png" alt="기타" style="width: 80px;"/>
+                        </a>
+                    </div>
+                </div>
+                <!-- 브랜드 배너 끝 -->
                 
                 <!-- 상품영역 시작 -->
                 <div class="startList">
-                    <div class="prod_list">
+                    <div class="product_container">
                         <form th:if="${list.size() > 0}" th:each="data : ${list}" class="list_con">
-                            <div class="prod_img">
+                            <div class="img_container">
                                 <a th:if="${data.pimage != null}"  th:href="@{/showproduct(productid=${data.productid},page=${page})}">
                                     <img th:src="@{upload/}+ ${data.pimage}" />
                                 </a>
                             </div>
-                            <p class="brd_name" th:text="${data.brand}" />
-                            <p class="prd_name" th:text="${data.model}" />
-                            <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
+                            <div class="text_container">
+                        <h3>
+                            <span class="brand_name" th:text="${data.brand}"></span>
+                            <h3 class="prd_name" th:text="${data.model}"></h3>
+                        </h3>
+                    </div>
+                    <p class="price" th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}" />
                         </form>
                         <div id="Infinity_product_list"><div>
 
@@ -108,3 +140,8 @@
 <th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 </html>
+
+
+
+
+
