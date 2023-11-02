@@ -1,0 +1,9 @@
+
+’
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(×ØŞıÿÿÿÿÿ8‹›˜Î¶1
+†
+java:S1319"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(×ØŞıÿÿÿÿÿ8‹›˜Î¶1
+w
+java:S1450"URemove the "pagesu" field and declare it as a local variable in the relevant methods.(¨€àÿÿÿÿÿ8Á›˜Î¶1
+o
+java:S1450"RRemove the "tot" field and declare it as a local variable in the relevant methods.(±‚¥á8Á›˜Î¶1

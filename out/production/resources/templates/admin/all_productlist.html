@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>상품목록</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/admin_productlist.css}">
+</head>
+
+<body>
+<div class="container">
+	<h1>전체 상품 목록</h1>
+	<table class="rwd-table">
+		<tbody>
+		<tr>
+			<th>번호</th>
+			<th>판매자 아이디</th>
+			<th>상품 이미지</th>
+			<th>카테고리</th>
+			<th>브랜드</th>
+			<th>모델</th>
+			<th>가격</th>
+			<th>상태</th>
+			<th>상태 선택</th>
+		</tr>
+		<tr th:each="data : ${productList}">
+			<td th:text="${data.productid}"></td>
+			<td th:text="${data.customerid}"></td>
+			<td>
+				<a th:href="@{/showproduct(productid=${data.productid},page=${page})}">
+					<img th:src="@{/upload/} + ${data.pimage}"  width="100px"/>
+				</a>
+			</td>
+			<td th:text="${data.category}"></td>
+			<td th:text="${data.brand}"></td>
+			<td th:text="${data.model}"></td>
+			<td th:text="${#numbers.formatInteger(data.price, 3, 'COMMA') + '원'}"></td>
+			<td th:text="${data.state}"></td>
+			<td>
+				<form method="post" action="/all_productlist">
+					<input type="hidden" name="productid" th:value="${data.productid}" />
+					<select name="state">
+						<option value="승인대기중">승인대기중</option>
+						<option value="승인">승인</option>
+						<option value="거절">거절</option>
+					</select>
+					<button type="submit">변경</button>
+				</form>
+			</td>
+		</tr>
+		</tbody>
+	</table><br/>
+
+	<!-- paging -->
+	<div class="paging">
+		<th:block th:if="${totalPages > 1}">
+        <span th:each="num : ${#numbers.sequence(1, totalPages)}">
+            <span th:if="${num == currentPage}">
+                <b th:text="${num}"></b>
+            </span>
+            <span th:if="${num != currentPage}">
+                <a th:href="@{/seller/search(search=${search}, page=${num})}" th:text="${num}"></a>
+            </span>
+        </span>
+		</th:block>
+	</div>
+	<tr>
+		<td colspan="6" style="text-align: center;">
+			<form th:action="@{/seller/search}" method="get">
+				<input type="text" name="search" placeholder="아이디 검색">
+				<button type="submit">검색</button>
+			</form>
+		</td>
+	</tr>
+	<br />
+	<a th:href="@{/adminmain}">되돌아가기</a>
+</div>
+</body>
+
+</html>

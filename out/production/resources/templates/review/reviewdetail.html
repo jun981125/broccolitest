@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 상세보기</title>
+	<link rel="stylesheet" href="css/review.css" />
+	<!-- 숫자를 별로 반환 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("p.rating").each(function () {
+                var rating = parseInt($(this).text());
+                var stars = "";
+                for (var i = 1; i <= 5; i++) {
+                    if (i <= rating) {
+                        stars += "&#9733;";
+                    } else {
+                        stars += "&#9734;";
+                    }
+                }
+                $(this).html(stars);
+            });
+        });
+    </script>
+    <!-- 댓글 등록 -->
+     <script type="text/javascript">
+		window.onload = function () {
+			let btnIns = document.getElementById("btnInsre");
+			btnIns.addEventListener("click", checkData);
+		function checkData() {
+			if (replyform.comment.value === "") {
+				alert("댓글을 입력하시오");
+				replyform.comment.focus();
+				return;
+			}
+			replyform.submit();
+		}
+}
+	</script>
+	<!-- 리뷰 삭제 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"  charset="UTF-8"></script>
+      <script th:inline="javascript">
+       /*<![CDATA[*/
+ 		$(document).ready(function() {
+			 $("#btnDel").click(function() {
+				 if(confirm("정말 삭제하시겠습니까? \n 삭제후 되돌릴 수 없습니다.")){
+				 $.ajax({
+					 type:"POST",
+					 url:"/reviewdelete", // ReviewDeleteController로 연결
+					 data : {reviewid:/*[[${data.reviewid}]]*/}, 
+					 success : function(response) {
+						 alert("삭제가 완료되었습니다."); // 리뷰목록으로 돌아가면 좋겠다					 
+					 },
+					 error:function() {
+						 alert("오류 발생");
+					 }
+				 });
+				 }
+			 });
+		 });
+        /*]]>*/
+    </script>
+    <!--댓글 수정 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="UTF-8"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        $(".edit-reply-button").click(function() {
+           var replyid = $(this).data("replyid");
+           var $commentTextarea = $("#comment-textarea-" + replyid);
+           var originalContent = $commentTextarea.val();
+           
+            // 수정 버튼 클릭 시 해당 댓글에 대한 버튼 상태 변경
+            $(".delete-reply-button[data-replyid=" + replyid + "]").hide();
+            $(this).hide();
+            $(".save-reply-button[data-replyid=" + replyid + "]").show();
+            $(".cancel-reply-button[data-replyid=" + replyid + "]").show(); 
+            $commentTextarea.data("original-content", originalContent); 
+            		$(".cancel-reply-button[data-replyid=" + replyid + "]").click(function(){
+						 var replyid = $(this).data("replyid");
+        				 var $commentTextarea = $("#comment-textarea-" + replyid);
+
+        				// Replace the edited content with the original content
+        				$commentTextarea.val($commentTextarea.data("original-content"));
+
+       					// 댓글삭제와 댓글수정버튼 다시 보이게
+        				$(".delete-reply-button[data-replyid=" + replyid + "]").show();
+        				$(".edit-reply-button[data-replyid=" + replyid + "]").show();
+        				$(".save-reply-button[data-replyid=" + replyid + "]").hide();
+        				$(this).hide();
+					})
+             		$(".save-reply-button[data-replyid=" + replyid + "]").click(function(){
+						 var newContent = $("#comment-textarea-" + replyid).val(); // comment에 입력한 값 받기 
+						 if(confirm("정말 수정하시겠습니까?")) {
+							 $.ajax({
+								 type:"POST",
+								 url:"/replyupdate",
+								 data:{reviewno:/*[[${data.reviewid}]]*/,
+								 	   replyid:replyid,
+								 	   page:/*[[${page}]]*/,
+								 	   comment: newContent
+								 	   },
+								 success:function(response){
+									 alert("수정이 완료되었습니다.");
+									 // 댓글삭제와 댓글수정버튼 다시 보이게
+        							$(".delete-reply-button[data-replyid=" + replyid + "]").show();
+        							$(".edit-reply-button[data-replyid=" + replyid + "]").show();
+        							$(".cancel-reply-button[data-replyid=" + replyid + "]").hide();
+        							$(".save-reply-button[data-replyid=" + replyid + "]").hide();
+								 },
+								 error:function(){
+									 alert("오류 발생")
+								 }
+							 })
+						 }
+					 })
+			});
+        });
+    /*]]>*/
+</script>
+
+
+   
+</head>
+<body>
+<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub">
+		<div class="sub_right_title">
+			<h2>리뷰 상세보기</h2>
+			<div class="line"></div>
+		</div>
+		<div class="">
+			<!--
+			<tr>
+				<td>리뷰 아이디 : [[${data.reviewid}]]</td>
+				 고객 아이디 추가 하기 
+				<td>상품 아이디 : [[${data.rproductid}]]</td>
+				<td>등록일 : [[${data.reviewdate}]]</td>
+			</tr>  -->
+			<div class="sub_table_left">
+				<div class="flex3">
+					<img th:src="@{'/upload/' + ${data.pimage}}" />
+					<div class="pro_name">
+						<p class="b_name" th:text="${data.brand}" />
+						<p class="m_name" th:text="${data.model}" />
+					</div>
+				</div>
+				<div class="li_line">
+					<p class="rating" th:text="${data.rating}" />
+				</div>
+			</div>
+			<p class="review_title">제목 : [[${data.title}]]</p>
+			<p class="review_title">닉네임 : [[${data.rnickname}]]</p>
+			<p class="review_title">등록일 : [[${data.reviewdate}]]</p>
+			<div class="li_line"></div>
+			<p class="review_comment">[[${data.comment}]]</p>
+			<div class="li_line"></div>
+			<div class="rimage flex2">
+				<img th:src="@{upload/}+${data.rimage}" />
+				<br><br>
+				<div th:if="${#strings.equals(data.rnickname, nickname)}"}>   <!-- 작성자만 수정, 삭제 가능하도록 -->
+				<div class="rbutton flex2">
+					<a class="review_button"
+						th:href="@{/reviewupdate(reviewid=${data.reviewid},page=${page},rimage=${data.rimage})}">리뷰
+						수정</a>
+					<input type="button" value="리뷰삭제" id="btnDel" class="review_button" />
+					<a class="review_button" th:href="@{/rimagedelete(reviewid=${data.reviewid})}">사진삭제</a>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div > 
+		<h5>댓글등록</h5> 
+		<div class="comment_store">
+			<form th:action="@{/reviewreplyinsert}" name="replyform" id="replyform" class="flex4" method="post">
+				<input type="hidden" name="reviewno" th:value="${data.reviewid}" />
+				<input type="hidden" name="page" th:value="${page}" />
+				<textarea type="text" name="comment" placeholder="댓글을 남겨주세요"></textarea>
+				<input type="button" value="댓글등록" id="btnInsre" />
+			</form>
+		</div>
+		</div>
+		<div class="comment_recomment" th:if="${list.size() > 0}" th:each="reply : ${list}">
+			<!-- 조인을 통해 판매자 정보 불러오기 -->
+			<div class="comment-text">
+				<textarea style="resize: none;" th:text="${reply.comment}" th:id="'comment-textarea-' + ${reply.replyid}"></textarea>
+			</div>
+			<span th:text="${reply.renickname} + ' / '"></span><span th:text="${reply.replydate}"></span>
+			<input hidden th:value="${page}" />
+			
+			 <tr th:if="${#strings.equals(reply.renickname, nickname)}">  <!-- 새션에서 받은 닉네임과 같으면 댓글 수정 삭제 버튼 보이게 -->
+			<div class="rbutton flex2">
+				<a th:href="@{/replydelete(replyid=${reply.replyid}, reviewno=${reply.reviewno}, page=${page})}"
+					class="delete-reply-button review_button2" th:data-replyid="${reply.replyid}">댓글삭제</a>
+				<a href="javascript:void(0);" class="edit-reply-button review_button2" th:data-replyid="${reply.replyid}">댓글수정</a>
+				<a href="javascript:void(0);" class="save-reply-button review_button2" th:data-replyid="${reply.replyid}"
+					style="display: none;">완료</a>
+				<a href="javascript:void(0);" class="cancel-reply-button review_button2" th:data-replyid="${reply.replyid}"
+					style="display: none;">취소</a>
+			</div>
+			</div>
+		</div>
+
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+r
+java:S1488"\Immediately return this expression instead of assigning it to the temporary variable "list".(öëÝþ
+q
+java:S14881"[Immediately return this expression instead of assigning it to the temporary variable "dto".(Ê×òô
+q
+java:S2629"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(»¹¥.
+V
+java:S3457"AFormat specifiers should be used instead of string concatenation.(»¹¥.

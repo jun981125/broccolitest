@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="headerFragment">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/jost" />
+		<link rel="stylesheet" href="css/base.css" />
+		<script>
+			window.kakaoAsyncInit = function () {
+				Kakao.Channel.createChatButton({
+					container: '#kakao-talk-channel-chat-button',
+				});
+			};
+
+			(function (d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.channel.min.js';
+				js.integrity = 'sha384-bg2pMhokxyx1zeEM2ol2hJtBagKMjRIZDVI/KITe+j2U5K+Or6HPY1lWDWY8ubEN';
+				js.crossOrigin = 'anonymous';
+				fjs.parentNode.insertBefore(js, fjs);
+			})(document, 'script', 'kakao-js-sdk');
+		</script>
+	</head>
+
+	<body>
+		<aside>
+			<div class="aside_wrap">
+				<div class="aside_con">
+					<div id="kakao-talk-channel-chat-button" data-channel-public-id="_XdjxlG" data-title="consult"
+						data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true">
+					</div>
+					<!-- 수정된 코드 -->
+					<a href="productlist_seller" class="quick01" th:if="${session.isseller}"><span class="material-symbols-outlined">assignment_ind</span></a>
+					<a href="anmt" class="quick02"><span class="material-symbols-outlined">inventory</span></a>
+				</div>
+				<div class="aside_con aside_con2" id="toTop">
+					<a href="#header" class="quick03"><span
+							class="material-symbols-outlined arrow_upward">arrow_upward</span></a>
+				</div>
+			</div>
+		</aside>
+
+
+		<div id="header">
+			<div class="header_wrap">
+				<div class="header_inner">
+					<div id="logo">
+						<a href="/"><img src="images/logo.png" alt="로고"></a>
+					</div>
+					<div class="search_box">
+						<form action="/mainproductsearch" method="get">
+							<label for="ser_title" class="away">검색어 입력</label>
+							<input type="hidden" name="searchName" value="model" />
+							<input type="text" class="search_text" placeholder="검색어를 입력해주세요" name="searchValue"
+								id="ser_title">
+							<button type="submit" class="search_btn"><span
+									class="material-symbols-outlined material-search">search</span></button>
+						</form>
+					</div>
+					<div class="shop_utility">
+						<ul>
+							<li th:unless="${session.loginid}">
+								<a href="login">
+									<span class="icon icon_login"></span>
+									<span>LOGIN</span>
+								</a>
+							</li>
+							<li th:if="${session.loginid}">
+								<a href="logout">
+									<span class="icon icon_logout"></span>
+									<span>LOGOUT</span>
+								</a>
+							</li>
+							<li>
+								<a href="update">
+									<span class="icon icon_my"></span>
+									<span>MY</span>
+								</a>
+							</li>
+							<li class="last" th:unless="${session.loginid}">
+								<a href="register">
+									<span class="icon icon_join"></span>
+									<span>JOIN</span>
+								</a>
+							</li>
+							<li th:if="${session.loginid}">
+								<a href="wishlist">
+									<span class="icon icon_heart"></span>
+									<span>HEART</span>
+								</a>
+							</li>
+							<li class="last" th:if="${session.loginid}">
+								<a href="cart">
+									<span class="icon icon_cart"></span>
+									<span>CART</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="gnb">
+
+
+					<!-- gnb = global nav bar = 최상위 메뉴  -->
+					<ul class="gnb_menu">
+						<li class="list">
+							<a href="productcategorylist?page=1&category=핸드폰" class="link">
+								<span class="txt">스마트폰</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=태블릿" class="link">
+								<span class="txt">태블릿</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=헤드셋/이어폰" class="link">
+								<span class="txt">음향기기</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=스마트워치/밴드" class="link">
+								<span class="txt">스마트워치</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="productcategorylist?page=1&category=악세사리" class="link">
+								<span class="txt">악세사리</span>
+							</a>
+						</li>
+						<li class="list">
+							<a href="commu" class="link">
+								<span class="txt">커뮤니티</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</th:block>
+
+</html>

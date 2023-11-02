@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/productlist.css">
+</head>
+
+<body>
+	<th:block th:replace="header :: headerFragment"></th:block>
+	<main>
+
+		<h2>상품 목록</h2>
+		<table border="1">
+			<tr>
+				<th>번호</th>
+				<th>카테고리</th>
+				<th>상품이미지</th>
+				<th>브랜드</th>
+				<th>모델</th>
+				<th>가격</th>
+				<th>재고 수량</th>
+			</tr>
+			<tr th:each="product : ${datas}">
+				<td th:text="${product.productId}"></td>
+				<td th:text="${product.category}"></td>
+				<td> <img th:src="@{upload/}+${product.pimage}" height="100" width="100" /> </td>
+				<td th:text="${product.brand}"></td>
+				<td th:text="${product.model}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${product.stockQuantity}"></td>
+				<td>
+					<form action="/addToCartItem" method="post">
+						<input type="hidden" name="productId" th:value="${product.productId}" />
+						<input type="number" name="quantity" min="1" value="1" />
+						<input type="submit" value="장바구니담기" />
+					</form>
+				</td>
+				<td>
+					<form action="/createOrderfromProduct" method="post">
+						<input type="hidden" name="productId" th:value="${product.productId}" />
+						<input type="number" name="quantity" min="1" value="1" />
+						<input type="submit" value="구매하기" />
+					</form>
+				</td>
+			</tr>
+		</table>
+	</main>
+	<th:block th:replace="footer :: footerFragment"></th:block>
+</body>
+
+</html>

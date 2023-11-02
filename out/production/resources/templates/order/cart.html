@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니 목록</title>
+    <link rel="stylesheet" href="css/cart.css">
+    <!-- 주문하기 버튼을 눌렀을 때의 JavaScript 코드 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var orderButton = document.getElementById("payready");
+
+            if (orderButton) {
+                orderButton.addEventListener("click", function () {
+                    var orderCounts = [];
+
+                    // 모든 상품 수량을 수집합니다.
+                    var orderCountInputs = document.querySelectorAll(".order-count-input");
+                    orderCountInputs.forEach(function (input) {
+                        var cartItemId = input.getAttribute("data-cartitemid");
+                        var orderCount = input.value;
+                        orderCounts.push({ cartItemId: parseInt(cartItemId), orderCount: parseInt(orderCount) });
+                    });
+
+                    // Ajax 요청을 보냅니다.
+                    fetch('/updateCartItems', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(orderCounts)
+                    })
+
+                        .then(function (response) {
+                            if (response.ok) {
+                                // 업데이트가 성공하면 주문 페이지로 리다이렉트합니다.
+                                window.location.href = "/createOrder";
+                            } else {
+                                console.error('주문 업데이트에 실패했습니다.');
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error('Ajax 요청 중 오류 발생: ', error);
+                        });
+                });
+            }
+        });
+    </script>
+
+
+</head>
+
+<body>
+<th:block th:replace="common/header :: headerFragment"></th:block>
+<main>
+
+    <div id="sub_con">
+        <div class="carttitle">
+            <h2>장바구니<span class="material-symbols-outlined">shopping_cart</span></h2>
+        </div>
+
+            <div class="cartlist" th:each="cartItem, rowStat : ${cartItems}">
+                <div class="product_img_box">
+                    <a th:href="@{/showproduct}">
+                        <img th:src="@{upload/}+${cartItem.product.pimage}"/>
+                    </a>
+                </div>
+                <div class="product_text_box">
+                    <p class="brd_name" th:text="${cartItem.product.brand}"></p>
+                    <p class="prd_name" th:text="${cartItem.product.model}"></p>
+                    <p class="product-price"
+                       th:text="${#numbers.formatInteger(cartItem.product.price, 3, 'COMMA') + '원'}"></p>
+                </div>
+                <div class="adj_count">
+
+                    <input type="number" th:value="${cartItem.cartCount}" th:min="1" name="orderCount"
+                           class="order-count-input" data-cartitemid="${cartItem.cartItemId}"/>
+                </div>
+                <div class="total_price">
+                    <input type="text" name="totalprice" class="total-price-output" readonly>
+                </div>
+            </div>
+        <form action="clearCart" method="post">
+            <input class="button gray" id="deleteproduct" type="submit">삭제하기</input>
+        </form>
+        <form action="createOrder">
+            <input class="button gray"  type="submit" id="createOrder" value="주문하기">
+        </form>
+        <div class="flex2">
+            <form th:action="@{/clearCart}" method="post">
+                <button class="button gray" type="submit">장바구니비우기</button>
+            </form>
+            <a href="index.html"><span class="material-symbols-outlined">house</span></a>
+        </div>
+    </div>
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var orderCountInputs = document.querySelectorAll(".order-count-input");
+        var totalPriceOutputs = document.querySelectorAll(".total-price-output");
+        var productPrices = document.querySelectorAll(".product-price");
+
+        function updateTotalPrice() {
+            for (var i = 0; i < orderCountInputs.length; i++) {
+                var input = orderCountInputs[i];
+                var totalPriceOutput = totalPriceOutputs[i];
+                var cartCount = parseInt(input.value);
+                var productPriceText = productPrices[i].textContent;
+                var productPrice = parseFloat(productPriceText.replace(/[^0-9.-]+/g, ""));
+                var total = cartCount * productPrice;
+                totalPriceOutput.value = total.toLocaleString() + '원';
+            }
+        }
+
+        // 초기 계산
+        updateTotalPrice();
+
+        orderCountInputs.forEach(function (input) {
+            input.addEventListener("input", updateTotalPrice);
+        });
+    });
+</script>
+<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

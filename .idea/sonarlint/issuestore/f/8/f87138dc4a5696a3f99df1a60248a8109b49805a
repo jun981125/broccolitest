@@ -1,0 +1,53 @@
+
+t
+java:S2293 "YReplace the type specification in this constructor call with the diamond operator ("<>").(¿æ†ğúÿÿÿÿ
+t
+java:S2293]"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿æ†ğúÿÿÿÿ
+u
+java:S2293”"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿æ†ğúÿÿÿÿ
+u
+java:S2293Û"YReplace the type specification in this constructor call with the diamond operator ("<>").(¿æ†ğúÿÿÿÿ
+k
+java:S1192¿"TDefine a constant instead of duplicating this literal "product/productlist" 3 times.(’­ŸÀ
+^
+java:S1192k"HDefine a constant instead of duplicating this literal "loginid" 3 times.(´©Ø³
+]
+java:S1192F"GDefine a constant instead of duplicating this literal "pagesu" 7 times.(¤¹´
+b
+java:S1192Ò"LDefine a constant instead of duplicating this literal "productList" 4 times.(À‰Ç+
+‹
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(òê„–üÿÿÿÿ
+
+java:S1319"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(òê„–üÿÿÿÿ
+†
+java:S1319\"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Å”€ß
+z
+java:S1319\"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(Å”€ß
+Œ
+java:S1319“"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ò‰·öøÿÿÿÿ
+€
+java:S1319“"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(ò‰·öøÿÿÿÿ
+Œ
+java:S1319Ú"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(™ß™üÿÿÿÿ
+€
+java:S1319Ú"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(™ß™üÿÿÿÿ
+l
+java:S1450"VRemove the "apagesu" field and declare it as a local variable in the relevant methods.(¤†¸Ç
+i
+java:S1450"SRemove the "atot" field and declare it as a local variable in the relevant methods.(æÀ—ç
+l
+java:S1450Ø"VRemove the "bpagesu" field and declare it as a local variable in the relevant methods.(Ôƒ­S
+o
+java:S1450Ö"SRemove the "btot" field and declare it as a local variable in the relevant methods.(Ôà¶ùÿÿÿÿ
+p
+java:S1450Z"URemove the "pagesu" field and declare it as a local variable in the relevant methods.(¨€àÿÿÿÿÿ
+r
+java:S1450‘"VRemove the "spagesu" field and declare it as a local variable in the relevant methods.(¿€Ñùÿÿÿÿ
+j
+java:S1450"SRemove the "stot" field and declare it as a local variable in the relevant methods.(·Ûì‚
+h
+java:S1450X"RRemove the "tot" field and declare it as a local variable in the relevant methods.(±‚¥á
+A	java:S106ª"+Replace this use of System.out by a logger.(’ûÜÇ
+A	java:S106·"+Replace this use of System.out by a logger.(’ûÜÇ
+i	java:S100Ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûÙÓ–øÿÿÿÿ
+i	java:S100Ø"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë•¢•şÿÿÿÿ

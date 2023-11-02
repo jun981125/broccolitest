@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			document.querySelector("#btnDel").onclick = chkDelData;
+		}
+
+		function chkDelData() {
+			//입력자료 오류
+
+			if (confirm("정말 삭제할까요?")) {
+				delFrm.submit();
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<h3>* 공지 글 삭제 * <br /> 게시글 작성당시 아이디와 일치해야 글 삭제가 가능합니다</h3>
+	<form action="Adelete" method="post" name="delFrm" th:object="${list}">
+		<input type="hidden" th:field="*{num}">
+		<table border="1" style="width: 80%">
+			<tr>
+				<td>작성자</td>
+				<td>[[${list.adminname}]]</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>[[${list.title}]]</td>
+			</tr>
+			<tr>
+			<td>이미지</td>
+			<td>
+				<img th:src="@{upload/} + ${list.filename}" alt="이미지" width="300" height="300">
+			</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+				<textarea rows="5" style="width: 98%" readonly="readonly">[[${list.content}]]</textarea>
+			</td>
+		</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input type="button" value="삭제" id="btnDel" />
+					<input type="button" value="공지사항/이벤트 목록보기" th:onclick="|location.href='@{anmt(page=1)}'|" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+
+</html>

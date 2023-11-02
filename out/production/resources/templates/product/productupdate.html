@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>상품수정 - 판매자</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/product.css" />
+	<script type="text/javascript">
+		window.onload = function () {
+			document.querySelector("#btnUp").onclick = chkUpData;
+		}
+
+		function chkUpData() {
+			if (confirm("정말 수정할까요?")) {
+				upFrm.submit();
+				 window.location.href = "productlist_seller";
+			}
+		}
+	</script>
+</head>
+
+<body>
+ <th:block th:replace="common/header::headerFragment"></th:block>
+ 	<div id="sub_con">
+		<div class="flex">
+			<div class="sub_left">
+				<p class="sub_left_title">마이페이지</p>
+				<ul>
+					<li class="active">
+						<a href="productlist_seller" class="flex">
+							<p>상품관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="productinsert">
+							<p>상품등록</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<p>주문관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a href="reviewlist">
+							<p>리뷰관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+<div class="sub_right">
+	<div class="sub_right_title">  
+	<h2>상품 수정</h2>
+	<hr><br><br>
+	</div>
+	<form action="productupdate" method="post" name="upFrm" th:object="${data}" enctype="multipart/form-data">
+		<input type="hidden" th:field="*{productid}" />
+		<input type="hidden" name="page" th:value="${page}">
+		<input type="hidden" th:field="*{pimage}" />
+		<input type="hidden" th:field="*{dimage}" />
+		<table>
+			<tr>
+				<td>카테고리</td>
+				<td><select name="category" class="product_category">
+    				<option value="핸드폰" selected>핸드폰</option>
+    				<option value="태블릿">태블릿</option>
+				    <option value="헤드셋/이어폰" >헤드셋/이어폰</option>
+				    <option value="스마트워치/밴드">스마트워치/밴드</option>
+				    <option value="악세사리">악세사리</option>
+				</select> </td>
+			</tr>
+			<tr>
+				<td>브랜드</td>
+				<td><select name="brand" class="product_category">
+					<option value="Apple" selected>Apple</option>
+						<option value="삼성">삼성</option>
+						<option value="LG">LG</option>
+						<option value="모토로라">모토로라</option>
+						<option value="샤오미">샤오미</option>
+						<option value="레노버">레노버</option>
+						<option value="SONY">SONY</option>
+						<option value="Bowers&Wilkins">Bowers&Wilkins</option>
+						<option value="젠하이저">젠하이저</option>
+						<option value="JBL">JBL</option>
+						<option value="교보문구">교보문구</option>
+						<option value="기타">기타</option>
+						</select></td>
+			</tr>
+			<tr>
+				<td>모델</td>
+				<td><input class="product_text_input" type="text" th:field="*{model}"></td>
+			</tr>
+			<tr>
+				<td>가격</td>
+				<td><input class="product_text_input" type="text" th:field="*{price}"></td>
+			</tr>
+			<tr>
+				<td>재고량</td>
+				<td><input class="product_text_input" type="text" th:field="*{stockquantity}"></td>
+			</tr>
+			<tr>
+				<td>상품 이미지</td>
+				<td><input type="file" name="pimagePath"></td>
+			</tr>
+			<tr>
+				<td>상품 상세 이미지</td>
+				<td><input type="file" name="dimagePath"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input class="pr_ins_btn gray_outline" type="button" value="수정" id="btnUp" />&nbsp;
+					<input class="pr_ins_btn gray_outline" type="button" value="목록" th:onclick="|location.href='@{productlist}'|" />
+				</td>
+			</tr>
+		</table>
+	</form>
+			</div>
+		</div>
+ 	</div>
+ <th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+
+</html>

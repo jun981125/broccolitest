@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <style>
+        .container {max-width: 560px;}
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+     <script>
+
+		 
+		 
+		IMP.init("imp58504106"); 						// 가맹점 식별코드
+		
+        function payment_request(brand, model, price) {
+	
+			
+			
+			
+			IMP.request_pay({
+                pg: "html5_inicis",												// 지원pg사 고유코드
+			    pay_method: "card",									// 결제 방법
+			    merchant_uid: "test_lmkv8gme",				// 상점에서 관리하는 주문번호
+			    name :model,							// 주문명
+			    amount: price,												// 가격
+			    buyer_email : 'iamport@siot.do',				// 고객 이메일
+			    buyer_name : '에이콘 노엘',						// 고객 이름
+			    buyer_tel : '010-1234-5678',					// 고객  전화번호
+			    buyer_addr : '서울특별시 강남구 삼성동',	// 고객 주소	
+			    buyer_postcode : '123-456',						// 고객 우편 번호
+			    m_redirect_url: "www.naver.com",				
+          }, function(rsp) {    	
+    if ( rsp.success ) {
+
+           jQuery.ajax({
+                type: "POST",
+                	dataType: 'json',
+                url: "/payment_request",
+                data: {
+					imp_uid : rsp.imp_uid
+    		}
+    	}).done(function(data) {
+    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+    		if ( everythings_fine ) {
+    			let msg = '결제가 완료되었습니다.';
+    			msg += '\n고유ID : ' + rsp.imp_uid;
+    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+    			msg += '\결제 금액 : ' + rsp.paid_amount;
+    			msg += '카드 승인번호 : ' + rsp.apply_num;
+    			
+    			alert(msg);
+    		} else {
+    			//[3] 아직 제대로 결제가 되지 않았습니다.
+    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+    		}
+    	});
+    } else {
+        let msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        
+        alert(msg);
+    }
+});
+}
+    </script>
+</head>
+<body>
+
+<div class="container">
+
+    <div>
+        <h2>상품 확인 페이지</h2>
+    </div>
+
+
+    <div  th:object="${product}" >
+
+			<input type="hidden" value="product_id" name="product_id"/>
+          상품 브랜드 : <span th:text="${product.product_brand}">상품브랜드</span><br/>
+         상품명 :  <span th:text="${product.product_model}">상품명</span><br/>
+       가격 :      <span th:text="${product.product_price}">가격</span><br/>
+        <div>
+			<input type="button" value="결제" th:attr="onclick='payment_request(\'' + ${product.product_brand} + '\', \'' + ${product.product_model} + '\', ' + ${product.product_price} + ')'">
+
+</div>
+
+   
+          
+    
+
+</div>
+</body>
+</html>

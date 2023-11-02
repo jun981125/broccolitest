@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
+</head>
+
+<body>
+<th:block th:replace="common/header :: headerFragment"></th:block>
+<div class="allcontent">
+
+    <div class="box__seller-type">
+        <h3 class="text__seller-type--title">회원 가입</h3>
+
+        <div class="box__type-wrap">
+
+            <div class="box__cell seller-personal">
+                <dl class="list__type">
+                    <dt class="list-title"  >개인 구매회원(외국인포함)</dt>
+                    <dd class="list-data">만 14세 이상 가능</dd>
+                </dl>
+                <button type="button" class="button__submit" id="customer">회원가입</button>
+            </div>
+
+            <div class="box__cell seller-company">
+                <dl class="list__type">
+                    <dt class="list-title" >판매회원</dt>
+                    <dd class="list-data">사업자등록증을 보유한 판매회원</dd>
+                </dl>
+                <button type="button" class="button__submit" id="seller">회원가입</button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="registrationForm" style="display: none;">
+        <div id="wrapper">
+            <!-- 내용-->
+
+
+            <!-- 일반회원 회원가입 -->
+            <!-- form 태그 시작 -->
+            <form th:action="@{/register}" method="post" modelAttribute="userDto">
+                <div id="content" style="margin: 0 auto;">
+
+
+                    <!-- 아이디 입력란 -->
+                    <div>
+                        <!-- 아이디 라벨 -->
+                        <h3 class="join_title">
+                            <label for="id">*아이디</label>
+                            <label class="fil">*표시는 필수 입력란입니다</label>
+                        </h3>
+                        <!-- 아이디 입력 필드 -->
+                        <span class="box int_id">
+               <input type="text" name="customerid" id="customerid"
+                      class="int" onkeyup="idCheck()"  placeholder="아이디 입력은 필수입니다 (5자 ~ 20자)">
+                            <!-- 아이디 형식 -->
+               <p id="check-result" class="step_url" ></p>
+            </span>
+                        <div class="back color-3" id="loginButtons" style="display: none;">
+                            <div class="row columns">
+                                <ul class="menu align-center expanded text-center SMN_effect-13">
+                                    <a href="/login" data-hover="로그인" class="duplicationid"><span>로그인</span></a>&nbsp;
+                                    <a href="/passwd_search" data-hover="비밀번호 찾기"><span>비밀번호 찾기</span></a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 비밀번호 입력란 -->
+                    <div>
+                        <!-- 비밀번호 라벨 -->
+                        <h3 class="join_title"><label for="passwordhash">*비밀번호 (영문,특수문자,숫자 포함)</label></h3>
+                        <!-- 비밀번호 입력 필드 -->
+                        <span class="box int_pass">
+           <input type="password" name="passwordhash" id="passwordhash" class="int" placeholder="비밀번호 입력은 필수입니다 (5자 ~ 16자)">
+        </span>
+                        <!-- 비밀번호 조건 체크 -->
+                        <p>
+                        <div class="error-message">
+                            <span id="passwordCheck" ></span>
+                        </div>
+                        </p>
+                    </div>
+
+                    <!-- 비밀번호 확인 입력란 -->
+                    <div>
+                        <!-- 비밀번호 재확인 라벨 -->
+                        <h3 class="join_title"><label for="pswd2">*비밀번호 재확인</label></h3>
+                        <!-- 비밀번호 재확인 입력 필드 -->
+                        <span class="box int_pass_check">
+               <input type="password" onblur="test()" name="pwd" id="pwd" class="int" maxlength="20" placeholder="비밀번호 확인">
+            </span>
+                    </div>
+
+                    <!-- 이름 입력란 -->
+                    <div>
+                        <!-- 이름 라벨 -->
+                        <h3 class="join_title"><label for="name">*이름</label></h3>
+                        <!-- 이름 입력 필드 -->
+                        <span class="box int_name">
+               <input type="text" name="customername" id="customername" class="int" placeholder="이름 입력은 필수입니다">
+            </span>
+                    </div>
+
+                    <div>
+                        <!-- 닉네임 라벨 -->
+                        <h3 class="join_title"><label for="nickname">*닉네임</label></h3>
+                        <!-- 닉네임 입력 필드 -->
+                        <span class="box int_name">
+               <input type="text" name="customernickname" id="nickname" class="int" placeholder="닉네임을 입력해주세요" onkeyup="nickCheck()">
+               <p id="nickname-result" class="step_url" ></p>
+            </span>
+                    </div>
+
+
+                    <!-- 성별 선택 -->
+                    <div>
+                        <!-- 성별 라벨 -->
+                        <h3 class="join_title"><label for="gender">성별</label></h3>
+                        <!-- 성별 선택 필드 -->
+                        <span class="box gender_code">
+               <select name="customergen" id="customergen1" class="sel">
+                  <option>성별</option>
+                  <option value="남성">남자</option>
+                  <option value="여성">여자</option>
+               </select>
+            </span>
+                    </div>
+
+                    <!-- 이메일 입력란 -->
+                    <div>
+                        <!-- 이메일 라벨 -->
+                        <h3 class="join_title"><label for="email">본인확인 이메일<span class="optional"> (선택)</span></label></h3>
+                        <!-- 이메일 입력 필드 -->
+                        <span class="box int_email">
+               <input type="text" name="email" id="email" class="int" maxlength="100" placeholder="선택입력">
+            </span>
+                    </div>
+
+
+                    <!-- 휴대전화 입력란 -->
+                    <div>
+                        <!-- 휴대전화 라벨 -->
+                        <h3 class="join_title"><label for="phoneNo">*휴대전화</label></h3>
+                        <!-- 휴대전화 입력 필드 -->
+                        <span class="box int_mobile">
+               <input type="tel" name="phonenumber" id="phonenumber" class="int" maxlength="16" placeholder="휴대전화번호 입력은 필수입니다"
+                      onkeyup="phoneCheck()">
+               <p id="check-result1" class="step_url" ></p>
+            </span>
+                    </div>
+
+                    <!-- 주소 라벨 -->
+                    <h3 class="join_title"><label for="addr1">주소</label></h3>
+                    <input type="text" name="zipcode" id="zipcode" class="d_form mini" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="d_btn">
+                    <input type="text" name="address" id="address" class="d_form large" placeholder="주소">
+                    <div class="input-container">
+                        <input type="text"  name="detailaddress" id="detailaddress"  class="d_form" placeholder="상세주소">
+                        <input type="text" id="sample6_extraAddress" class="d_form1" placeholder="참고항목">
+                    </div>
+
+                    <!-- 가입 버튼 -->
+                    <div class="button-blank">
+                        <button class="button-style" name="btnJoin" id="btnJoin" type="submit" disabled="" radius="4">
+                            <span class="button-text">가입하기</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- 내용 -->
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- 판매회원 회원가입  ###############-->
+    <div id="namePhoneForm" style="display: none;">
+
+        <div id="wrapper">
+            <!-- 내용-->
+            <!-- form 태그 시작-->
+
+            <form th:action="@{/register}" method="post">
+                <div id="content" style="margin: 0 auto;">
+                    <!-- 아이디 입력란 -->
+                    <div>
+                        <!-- 아이디 라벨 -->
+                        <h3 class="join_title">
+                            <label for="id">*아이디</label>
+                            <label class="fil">*표시는 필수 입력란입니다</label>
+                        </h3>
+
+
+                        <!-- 아이디 입력 필드 -->
+                        <span class="box int_id">
+               <input type="text" name="customerid" id="customerid1"
+                      class="int" onkeyup="idCheck_seller()"  placeholder="아이디 입력은 필수입니다 (5자 ~ 20자)">
+                            <!-- 아이디 형식 -->
+               <p id="check-result2" class="step_url" ></p>
+            </span>
+                        <div class="back color-3" id="loginButtons1" style="display: none;">
+                            <div class="row columns">
+                                <ul class="menu align-center expanded text-center SMN_effect-13">
+                                    <a href="/login" data-hover="로그인" class="duplicationid"><span>로그인</span></a>&nbsp;
+                                    <a href="/passwd_search" data-hover="비밀번호 찾기"><span>비밀번호 찾기</span></a>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 비밀번호 입력란 -->
+                    <div>
+                        <!-- 비밀번호 라벨 -->
+                        <h3 class="join_title"><label for="pswd1">*비밀번호 (영문,특수문자,숫자 포함)</label></h3>
+                        <!-- 비밀번호 입력 필드 -->
+                        <span class="box int_pass">
+           <input type="password" name="passwordhash" id="passwordhash1" class = "int" placeholder="비밀번호 입력은 필수입니다 (5자 ~ 16자)">
+        </span>
+                        <!-- 비밀번호 조건 체크 -->
+                        <p>
+                        <div class="error-message">
+                            <span id="passwordCheck1" ></span>
+                        </div>
+                        </p>
+                    </div>
+
+
+                    <!-- 비밀번호 확인 입력란 -->
+                    <div>
+                        <!-- 비밀번호 재확인 라벨 -->
+                        <h3 class="join_title"><label for="pswd2">비밀번호 재확인</label></h3>
+                        <!-- 비밀번호 재확인 입력 필드 -->
+                        <span class="box int_pass_check">
+               <input type="password" onblur="test1()" name="pwd" id="pwd1" class="int" maxlength="20" placeholder="비밀번호 확인">
+            </span>
+                    </div>
+
+                    <!-- 이름 입력란 -->
+                    <div>
+                        <!-- 이름 라벨 -->
+                        <h3 class="join_title"><label for="name">*대표자 (실명)</label></h3>
+                        <!-- 이름 입력 필드 -->
+                        <span class="box int_name">
+               <input type="text" name="customername" id="customername1" class="int" placeholder="대표자 이름 입력은 필수입니다">
+            </span>
+                    </div>
+
+                    <!-- 이름 입력란 -->
+                    <div>
+                        <!-- 이름 라벨 -->
+                        <h3 class="join_title"><label for="name">*사업자 등록번호</label></h3>
+                        <!-- 이름 입력 필드 -->
+                        <span class="box int_name">
+               <input type="text" name="aa" id="aa" class="int" placeholder="사업자 등록번호 10자리 입력" maxlength="10">
+            </span>
+                    </div>
+                    <input type="hidden" name="isseller" value="true">
+
+                    <div>
+                        <!-- 닉네임 라벨 -->
+                        <h3 class="join_title"><label for="nickname">*닉네임</label></h3>
+                        <!-- 닉네임 입력 필드 -->
+                        <span class="box int_name">
+               <input type="text" name="customernickname" id="nickname1" class="int" placeholder="닉네임을 입력해주세요" onkeyup="nickCheck_seller()">
+               <p id="sellernickname-result" class="step_url" ></p>
+            </span>
+                    </div>
+
+                    <!-- 성별 선택 -->
+                    <div>
+                        <!-- 성별 라벨 -->
+                        <h3 class="join_title"><label for="gender">성별</label></h3>
+                        <!-- 성별 선택 필드 -->
+                        <span class="box gender_code">
+               <select name="customergen" id="customergen" class="sel">
+                  <option>성별</option>
+                  <option value="남성">남자</option>
+                  <option value="여성">여자</option>
+               </select>
+            </span>
+                    </div>
+
+                    <!-- 이메일 입력란 -->
+                    <div>
+                        <!-- 이메일 라벨 -->
+                        <h3 class="join_title"><label for="email">본인확인 이메일<span class="optional"> (선택)</span></label></h3>
+                        <!-- 이메일 입력 필드 -->
+                        <span class="box int_email">
+               <input type="text" name="email" id="email1" class="int" maxlength="100" placeholder="선택입력">
+            </span>
+                    </div>
+
+
+                    <!-- 휴대전화 입력란 -->
+                    <div>
+                        <!-- 휴대전화 라벨 -->
+                        <h3 class="join_title"><label for="phoneNo">*휴대전화</label></h3>
+                        <!-- 휴대전화 입력 필드 -->
+                        <span class="box int_mobile">
+               <input type="tel" name="phonenumber" id="phonenumber1" class="int" maxlength="16" placeholder="휴대전화번호 입력은 필수입니다"
+                      onkeyup="phoneCheck_seller()">
+               <p id="check-result3" class="step_url" ></p>
+            </span>
+                    </div>
+
+                    <!-- 주소 라벨 -->
+                    <h3 class="join_title"><label for="addr1">주소</label></h3>
+                    <input type="text" name="zipcode" id="zipcode1" class="d_form mini" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode1()" value="우편번호 찾기" class="d_btn">
+                    <input type="text" name="address" id="address1" class="d_form large" placeholder="주소">
+                    <div class="input-container">
+                        <input type="text"  name="detailaddress" id="detailaddress1"  class="d_form" placeholder="상세주소">
+                        <input type="text" id="sample6_extraAddress1" class="d_form1" placeholder="참고항목">
+                    </div>
+
+                    <!-- 가입 버튼 -->
+                    <div class="button-blank">
+                        <button class="button-style" name="btnJoin"  id="btnJoin1" type="submit" disabled="" radius="4">
+                            <span class="button-text" >가입하기</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- 회원가입 시 회원구분 버튼 처리 -->
+<script>
+    // 버튼 1을 클릭하면 회원가입 양식을 표시하고 버튼 2의 양식을 숨김
+    // 일반회원
+    document.getElementById("customer").addEventListener("click", function() {
+        document.getElementById("registrationForm").style.display = "block";
+        document.getElementById("namePhoneForm").style.display = "none";
+    });
+
+    // 버튼 2를 클릭하면 이름 및 휴대전화 양식을 표시하고 버튼 1의 양식을 숨김
+    // 판매회원
+    document.getElementById("seller").addEventListener("click", function() {
+        document.getElementById("registrationForm").style.display = "none";
+        document.getElementById("namePhoneForm").style.display = "block";
+    });
+
+</script>
+<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+</html>

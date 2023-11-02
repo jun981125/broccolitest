@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>계정 삭제 완료</title>
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../css/sub.css">
+</head>
+
+<body>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="sub_left">
+			<p class="sub_left_title">마이페이지</p>
+			<ul>
+				<li>
+					<a href="orderlist" class="flex">
+						<p>주문내역</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="update">
+						<p>내 정보 수정하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="delete">
+						<p>탈퇴하기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				<li>
+					<a href="reviewlist">
+						<p>상품후기</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="address">
+						<p>배송지수정</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="point">
+						<p>포인트내역</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="wishlist">
+						<p>찜한 상품</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/commu/search(searchName='customernickname', page=${page}, searchValue=${nickname})}">
+						<p>문의글</p>
+						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="sub_right">
+			<div class="sub_right_title">
+					<h2>계정 삭제 완료</h2>
+					<div class="line"></div>
+				</div>
+			<p class="delok_txt">계정이 성공적으로 삭제되었습니다.</p>
+			<p class="button-blank"><a href="../index.html" class="button-style">홈으로 돌아가기</a></p>
+		</div>
+	</div>
+	<!-- 푸터 -->
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+
+</html>

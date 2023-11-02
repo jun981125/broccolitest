@@ -1,0 +1,100 @@
+<!-- login.html (Thymeleaf template) -->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/loginstyle.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    
+    <script>
+        function recaptcha(response) {
+            console.log("reCAPTCHA 성공:", response);
+            checkFormCompletion();
+        }
+
+        $(document).ready(function() {
+            let message = "[[${msg}]]";
+            if (message !== "") {
+                alert(message);
+            }
+
+            grecaptcha.ready(function() {
+                // 페이지 로드 시에 리캡차 초기화
+                grecaptcha.reset();
+            });
+
+            $("input").on("input", function() {
+                checkFormCompletion();
+            });
+        });
+
+        function checkFormCompletion() {
+            var customeridValue = $("#customerid").val();
+            var passwordhashValue = $("#passwordhash").val();
+            var recaptchaResponse = grecaptcha.getResponse();
+            
+            // 입력 필드가 비어 있지 않고 리캡차 값이 비어 있지 않으면 로그인 버튼 활성화
+            if (customeridValue !== "" && passwordhashValue !== "" && recaptchaResponse !== "") {
+                $("#btnLogin").prop("disabled", false);
+                // 리캡차 응답 값을 hidden 필드에 설정
+                $("#recaptcha").val(recaptchaResponse);
+            } else {
+                $("#btnLogin").prop("disabled", true);
+            }
+        }
+    </script>
+</head>
+<body>
+    <th:block th:replace="common/header :: headerFragment"></th:block>
+    <form action="/login" method="post">
+        <div class="login-container">
+            <div class="login-title">로그인</div>
+            <div class="login-form">
+                <div class="input-container">
+                    <div class="username-field">
+                        <div class="input-wrapper">
+                            <input data-testid="input-box" id="customerid" name="customerid" placeholder="아이디를 입력해주세요" type="text" class="input-field" autocomplete="on">
+                        </div>
+                    </div>
+                    <div class="password-field">
+                        <div class="input-wrapper">
+                            <input data-testid="input-box" id="passwordhash" name="passwordhash" placeholder="비밀번호를 입력해주세요" type="password" autocomplete="off" class="input-field">
+                        </div>
+                    </div>
+                </div>
+                <div class="link-container">
+                    <a href="/id_search" class="find-username-link">아이디 찾기</a>
+                    <span class="divider"></span>
+                    <a href="/passwd_search" class="find-password-link">비밀번호 찾기</a>
+                </div>
+                
+                <div class="button-container">
+                    <!-- reCAPTCHA -->
+                    <div class="g-recaptcha" data-sitekey="6LdUf20oAAAAAKHc2wJqmdaikJnDxTMZAHnyl0l_" data-callback="recaptcha"></div>
+                    <!-- 리캡차 응답 값을 전송하기 위한 hidden 필드 -->
+                    <input type="hidden" name="recaptcha" id="recaptcha" />
+                    
+                    <!-- 로그인 버튼 -->
+                    <button class="login-button" type="submit" id="btnLogin" disabled>
+                        <span class="button-text">로그인</span>
+                    </button>
+                    
+                    <!-- 회원가입 버튼 -->
+                    <button type="button" onclick="location.href='/register'" class="signup-button">
+                        <span class="button-text">회원가입</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <th:block th:replace="common/footer :: footerFragment"></th:block>
+</body>
+</html>

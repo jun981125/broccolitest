@@ -1,0 +1,12 @@
+
+k
+java:S2259J"IA "NullPointerException" could be thrown; "inputStream" is nullable here.(¶ò†Áþÿÿÿÿ8€Ø«Ü¶1
+g
+java:S2259K"JA "NullPointerException" could be thrown; "outputStream" is nullable here.(¢ÔïÌ8Ø«Ü¶1
+k
+java:S2095="NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(÷¹Œ“8Ø«Ü¶1
+\	java:S899;"BDo something with the "boolean" value returned by "createNewFile".(ÖàÖ¸ûÿÿÿÿ
+E	java:S106F"+Replace this use of System.out by a logger.(ËµÕÊùÿÿÿÿ
+>	java:S108L")Either remove or fill this block of code.(Á¡ÆÃ
+E
+java:S20935"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ

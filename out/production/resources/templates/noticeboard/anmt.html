@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>공지사항/이벤트</title>
+	<link rel="stylesheet" href="css/board.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+
+
+<body>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+
+
+
+	<div id="sub" class="container">
+		<div class="flex">
+			<div class="sub_left flex3">
+			<p class="sub_left_title">커뮤니티</p>
+			<ul>
+				<li class="menu-item">
+					<a th:href="commu" class="flex">
+						<p>중고거래</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+				<li class="active">
+					<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
+						<p>공지사항</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+				<li class="menu-item">
+					<a th:href="qlist">
+						<p>1:1 문의</p>
+						<span class="material-symbols-outlined arrow_icon"> done</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="sub_right">
+		<div class="top sub_right_title">
+			<h2>공지사항/이벤트</h2>
+			<div class="title-search-container">
+				<div class="search-form">
+					<form action="/Asearch" method="get" style="display: flex;">
+						<input type="hidden" name="searchName" value="title">
+						<div class="textbox flex">
+							<label for="searchValue">제목</label>
+							<input type="text" name="searchValue" id="searchValue" class="inputtext">
+							<input type="submit" class="material-symbols-outlined" value="search">
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="main_list">
+			<div class="new_tab_wrap">
+				<ul class="style02">
+					<li><a href="anmt?page=1">전체</a><span class="tab_line"></span></li>
+					<li><a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">공지</a><span
+							class="tab_line"></span></li>
+					<li><a th:href="@{/Asearch(searchName='eventnotice', searchValue='2')}">이벤트</a><span
+							class="tab_line"></span></li>
+				</ul>
+			</div>
+
+			<a th:each="list:${list}" class="card card-content" th:href="@{/Adetail(num=${list.num},page=${page})}">
+				<label class="label label_title" th:text="${list.title}"></label>
+				<p class="date" th:text="'작성일: ' + ${list.cdate}"></p>
+			</a>
+
+			<div class="pagination">
+				<span th:block th:each="num : ${#numbers.sequence(1, pagesu)}">
+					<span th:if="${num} == ${page}"><label th:for="${num}"><b th:text="${num}"></b></label></span>
+					<span th:if="${num} != ${page}"><a th:href="@{anmt(page=${num})}" th:text="${num}"></a></span>
+				</span>
+			</div>
+
+
+			<div class="nav-links" style="text-align: right;" th:if="${session.isAdmin}">
+				<a href="/insertAnmt">공지사항 쓰기</a>
+				<a href="/adminmain">관리자 메인으로</a>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<th:block th:replace="common/footer :: footerFragment"></th:block>
+
+
+
+	<script>
+		$(document).ready(function () {
+			var placeholderTarget = $('.textbox input[type="text"], .textbox input[type="password"]');
+
+			//포커스시
+			placeholderTarget.on('focus', function () {
+				$(this).siblings('label').fadeOut('fast');
+			});
+
+			//포커스아웃시
+			placeholderTarget.on('focusout', function () {
+				if ($(this).val() == '') {
+					$(this).siblings('label').fadeIn('fast');
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

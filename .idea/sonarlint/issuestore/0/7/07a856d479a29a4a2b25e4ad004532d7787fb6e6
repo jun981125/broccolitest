@@ -1,0 +1,16 @@
+
+f
+java:S1192"IDefine a constant instead of duplicating this literal "nickname" 3 times.(‹ŞæĞ8²œ˜Î¶1
+g
+java:S2259Q"JA "NullPointerException" could be thrown; "outputStream" is nullable here.(¢ÔïÌ8ûŸ˜Î¶1
+k
+java:S2259P"IA "NullPointerException" could be thrown; "inputStream" is nullable here.(¶ò†Áşÿÿÿÿ8ûŸ˜Î¶1
+k
+java:S2095C"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(÷¹Œ“8ûŸ˜Î¶1
+t
+java:S3776)"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(é‰û¨ıÿÿÿÿ8‚ ˜Î¶1
+c	java:S899A"BDo something with the "boolean" value returned by "createNewFile".(ÖàÖ¸ûÿÿÿÿ8‰ ˜Î¶1
+L	java:S106L"+Replace this use of System.out by a logger.(ËµÕÊùÿÿÿÿ8Œ ˜Î¶1
+E	java:S108R")Either remove or fill this block of code.(Á¡ÆÃ8Œ ˜Î¶1
+L
+java:S2093;"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8 ˜Î¶1

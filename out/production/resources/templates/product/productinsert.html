@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>상품 등록</title>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/product.css" />
+	<script type="text/javascript">
+		window.onload = function () {
+			let btnIns = document.getElementById("btnIns");
+			btnIns.addEventListener("click", checkData);
+		}
+
+function checkData(event) {
+	 if (frm.brand.value === "") {
+        alert("브랜드를 입력하시오");
+        frm.brand.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    if (frm.model.value === "") {
+        alert("모델을 입력하시오");
+        frm.model.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    let price = frm.price.value;
+    if (frm.price.value === "") {
+        alert("가격을 입력하시오");
+        frm.price.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    // 숫자가 아닌 경우 경고 표시
+    if (!isNumeric(price)) {
+        alert("가격은 숫자만 입력 가능합니다.");
+        frm.price.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    let stockquantity = frm.stockquantity.value;
+    if (frm.stockquantity.value === "") {
+        alert("재고량을 입력하시오");
+        frm.stockquantity.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    // 숫자가 아닌 경우 경고 표시
+    if (!isNumeric(stockquantity)) {
+        alert("재고량은 숫자만 입력 가능합니다.");
+        frm.stockquantity.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    if (frm.pimagePath.value === "") {
+        alert("상품 이미지를 입력하시오");
+        frm.pimagePath.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    if (frm.dimagePath.value === "") {
+        alert("상품 상세 이미지를 입력하시오");
+        frm.dimagePath.focus();
+        event.preventDefault(); // 폼 제출 방지
+        return;
+    }
+    
+    // 숫자 검증 함수
+function isNumeric(price) {
+    return !isNaN(parseFloat(price)) && isFinite(price);
+}
+	// 숫자 검증 함수
+function isNumeric(stockquantity) {
+    return !isNaN(parseFloat(stockquantity)) && isFinite(stockquantity);
+}
+
+}
+
+	</script>
+</head>
+
+<body>
+	<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="flex">
+			<div class="sub_left">
+				<p class="sub_left_title">마이페이지</p>
+				<ul>
+					<li>
+						<a href="productlist_seller" class="flex">
+							<p>상품관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li class="active">
+						<a href="productinsert">
+							<p>상품등록</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="orderlist_seller">
+							<p>주문관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a href="reviewlist_seller">
+							<p>리뷰관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		<div class="sub_right">
+			<div class="sub_right_title">
+		<h2>상품 등록</h2>
+		<p>* 관리자가 승인을 해야 상품목록에 상품이 등록됩니다.</p><br><br>
+			</div>
+			<hr><br>
+			
+		<form action="productinsert" method="post" name="frm" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td>카테고리</td>
+					<td><select class="product_category" name="category">
+	    				<option value="핸드폰" selected>핸드폰</option>
+					    <option value="태블릿">태블릿</option>
+					    <option value="헤드셋/이어폰" >헤드셋/이어폰</option>
+					    <option value="스마트워치/밴드">스마트워치/밴드</option>
+					    <option value="악세사리">악세사리</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>브랜드</td>
+					<td><select class="product_category" name="brand">
+						<option value="Apple" selected>Apple</option>
+						<option value="삼성">삼성</option>
+						<option value="LG">LG</option>
+						<option value="모토로라">모토로라</option>
+						<option value="샤오미">샤오미</option>
+						<option value="레노버">레노버</option>
+						<option value="SONY">SONY</option>			
+						<option value="기타">기타</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>모델</td>
+					<td><input class="product_text_input" type="text" name="model"></td>
+				</tr>
+				<tr>
+					<td>가격</td>
+					<td><input class="product_text_input" type="text" name="price"></td>
+				</tr>
+				<tr>
+					<td>재고량</td>
+					<td><input class="product_text_input" type="text" name="stockquantity"></td>
+				</tr>
+				<tr>
+					<td>상품 이미지</td>
+					<td><input type="file" size="30" name="pimagePath"></td>
+				</tr>
+	
+				<tr>
+					<td>상품 상세 이미지</td>
+					<td><input type="file" size="30" name="dimagePath"></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<input class="pr_ins_btn gray_outline" type="submit" value="등록" id="btnIns" /> &nbsp;
+						<input class="pr_ins_btn gray_outline" type="button" value="목록" onclick="location.href='productlist_seller'" />
+					</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+		</div>
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+
+</html>

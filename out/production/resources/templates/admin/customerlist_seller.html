@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+    <script>
+        function showConfirmationMessage(customerId) {
+            var confirmation = confirm('정말 추방하시겠습니까?');
+            if (confirmation) {
+                window.location.href = `/customer/delete/${customerId}`;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>판매자</h2>
+    <table border="1" style="text-align: center;" class="rwd-table">
+        <tr>
+            <th>번호</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>성별</th>
+            <th>전화번호</th>
+            <th>판매자여부</th>
+            <th>회원 상세정보</th>
+            <th>회원 추방</th>
+        </tr>
+        <tr th:each="customer: ${customerlist}" th:if="${customer.isseller}">
+            <td>[[${customer.customernum}]]</td>
+            <td>[[${customer.customerid}]]</td>
+            <td>[[${customer.customername}]]</td>
+            <td>[[${customer.customergen}]]</td>
+            <td>[[${customer.phonenumber}]]</td>
+            <td>판매자</td>
+            <td>
+                <a th:href="@{|/customer/${customer.customerid}|}">조회</a>
+            </td>
+            <td>
+                <a th:href="@{|/customer/delete/${customer.customerid}|}" onclick="return showConfirmationMessage('${customer.customerid}');">추방</a>
+            </td>
+        </tr>
+    </table>
+    <div class="pagination">
+<!--    <span th:if="${currentPage > 1}">-->
+<!--        <a th:href="@{|/customerlist_seller?page=${currentPage - 1}|}">이전</a>-->
+<!--    </span>-->
+        <span th:each="i : ${#numbers.sequence(1, totalPages ?: 1)}">
+        <a th:href="@{|/customerlist_seller?page=${i}|}" th:text="${i}"></a>
+    </span>
+<!--        <span th:if="${currentPage < totalPages}">-->
+<!--        <a th:href="@{|/customerlist_seller?page=${currentPage + 1}|}">다음</a>-->
+<!--    </span>-->
+    </div>
+</div>
+<br/>
+<div class="container">
+    <form th:action="@{/customer/seller/search}" method="get">
+        <select name="s_type">
+            <option value="customername" name="customername">이름</option>
+            <option value="customerid" name="customerid">아이디</option>
+        </select>
+        <input type="text" name="search" placeholder="검색어 입력">
+        <button type="submit">검색</button>
+    </form>
+    <br>
+    <a href="/adminmain">되돌아가기</a>
+</div>
+</body>
+</html>

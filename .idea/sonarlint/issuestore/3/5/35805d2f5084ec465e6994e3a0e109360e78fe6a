@@ -1,0 +1,14 @@
+
+^
+java:S1192,"HDefine a constant instead of duplicating this literal "loginid" 5 times.(¸ÎÇÚ
+`
+java:S1192;"JDefine a constant instead of duplicating this literal "cartItems" 3 times.(–‰¡½
+E	java:S106i"+Replace this use of System.out by a logger.(Ğªøºşÿÿÿÿ
+T
+java:S1854v">Remove this useless assignment to local variable "cartItemId".(í’ëÜ
+X
+java:S1854w"=Remove this useless assignment to local variable "cartCount".(ÂÂ‚Ôüÿÿÿÿ
+E
+java:S1481v"/Remove this unused "cartItemId" local variable.(í’ëÜ
+I
+java:S1481w".Remove this unused "cartCount" local variable.(ÂÂ‚Ôüÿÿÿÿ

@@ -1,0 +1,17 @@
+
+d
+java:S1192*"GDefine a constant instead of duplicating this literal "&page=" 3 times.(¸Àùí8ÑÙ–ÿ·1
+`
+java:S2259_"JA "NullPointerException" could be thrown; "outputStream" is nullable here.(¢ÔïÌ
+d
+java:S2259^"IA "NullPointerException" could be thrown; "inputStream" is nullable here.(¶ò†Áşÿÿÿÿ
+d
+java:S2095G"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(÷¹Œ“
+t
+java:S3776/"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(Áìî”úÿÿÿÿ8ƒÛ–ÿ·1
+\	java:S899E"BDo something with the "boolean" value returned by "createNewFile".(ÖàÖ¸ûÿÿÿÿ
+E	java:S106Z"+Replace this use of System.out by a logger.(ËµÕÊùÿÿÿÿ
+>	java:S108`")Either remove or fill this block of code.(Á¡ÆÃ
+L
+java:S2093?"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Û–ÿ·1
+V	java:S125d"<This block of commented-out lines of code should be removed.(×ïï›úÿÿÿÿ

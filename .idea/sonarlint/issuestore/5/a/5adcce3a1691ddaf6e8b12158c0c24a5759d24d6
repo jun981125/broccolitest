@@ -1,0 +1,13 @@
+
+^
+java:S1192'"HDefine a constant instead of duplicating this literal "loginid" 4 times.(¸ÎÇÚ
+b
+java:S1192‹"FDefine a constant instead of duplicating this literal "Error" 3 times.(ûüü†þÿÿÿÿ
+_
+java:S1192†"HDefine a constant instead of duplicating this literal "Success" 3 times.(ÛÖØ¹
+@	java:S106>"+Replace this use of System.out by a logger.(˜ªŸÅ
+V	java:S125n"<This block of commented-out lines of code should be removed.( ûûìþÿÿÿÿ
+i
+java:S1128"SRemove this unused import 'org.springframework.web.bind.annotation.ModelAttribute'.(®ùæé
+q
+java:S1128"[Remove this unused import 'org.springframework.web.servlet.mvc.support.RedirectAttributes'.(ìçÚË

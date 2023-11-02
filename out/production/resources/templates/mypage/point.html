@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>포인트 내역</title>
+</head>
+<body>
+    <h1>포인트 내역</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>적립 일자</th>
+                <th>적립 포인트</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="point : ${pointHistory}">
+                <td th:text="${point.orderdate}"></td>
+                <td th:text="${point.orderamount}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

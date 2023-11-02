@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문관리 - 판매자</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+	<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="flex">
+				<div class="sub_left">
+				<p class="sub_left_title">마이페이지</p>
+				<ul>
+					<li class="active">
+						<a href="productlist_seller" class="flex">
+							<p>상품관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="productinsert">
+							<p>상품등록</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="orderlist_seller">
+							<p>주문관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a href="reviewlist_seller">
+							<p>리뷰관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		<div class="sub_right">
+	<div class="sub_right_title">  
+    <h2>주문관리</h2>
+    <p>* 주문 상태를 변경해주세요.</p><br><br>
+  
+    <hr>
+    </div>
+    <br>
+    <div th:if="${list.size() > 0}" th:each="data : ${list}">
+  		<div class="sub_table_list">
+		<div class="product_img_box"> 
+			  <img th:src="@{upload/}+${data.pimage}" />
+  		</div>
+  			<div class="product_text_box">
+			<p class="brd_name" th:text="${data.brand}"/>
+			<p class="cate_name" th:text="${data.category}"/>
+			<p class="prd_name" th:text="${data.model}"/>
+			<div class="order_price">
+			<p class="ordertotalprice" th:text="${#numbers.formatInteger(data.subtotal, 3, 'COMMA') + '원 /'}"/>
+			<p class="quantity" th:text="${data.ordercount + '개'}"/>
+			</div>
+  			</div>
+  		<div class="product_info">
+		    <span class="material-symbols-outlined">check_circle</span>
+		    <p th:text="${data.orderstate}"/>
+		</div>  
+		<div class="prod_inven">
+		    <form method="POST" action="orderstateupdate">
+				<input type="hidden" name="orderid" th:value="${data.orderid}" />
+		        <select name="orderstate" class="product_category">
+		            <option value="결제완료">결제완료</option>
+		            <option value="배송시작">배송시작</option>
+		            <option value="배송중">배송중</option>
+		            <option value="배송완료">배송완료</option>
+		        </select>
+		        <button type="submit">변경</button>
+		    </form>
+		</div>
+		
+  		</div>
+    </div>
+    <br><br>
+        <!-- paging -->
+<div class="paging">
+<span th:each="num : ${#numbers.sequence(1, pagesu)}">
+    <span th:if="${num == page}">
+        <b th:text="${num}">num 표시(현재 페이지는 링크를 걸지 않음)</b>
+    </span>
+    <span th:if="${num != page}">
+        <a th:href="@{orderlist_seller(page=${num})}" th:text="${num}">num 표시</a>
+    </span>
+</span>
+</div>
+			
+			
+		</div>
+	</div>
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+</html>

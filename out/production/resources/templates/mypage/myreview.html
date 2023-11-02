@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>나의 리뷰</title>
+    <style>
+        /* 스타일링을 위한 CSS */
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>나의 리뷰</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>상품 이미지</th>
+                <th>별점</th>
+                <th>제목</th>
+                <th>상품평</th>
+                <th>리뷰 작성일</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 리뷰 목록을 Thymeleaf 반복문을 사용하여 출력 -->
+            <tr th:each="review : ${myReview}">
+                <td>
+                    <img th:src="@{/static/upload/{product.pimage}}" width="100" height="100" />
+                </td>
+                <td th:text="${review.rating}"></td>
+                <td th:text="${review.title}"></td>
+                <td th:text="${review.comment}"></td>
+                <td th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <button type="button" class="btn-edit" th:attr="data-reviewid=${review.id}">수정</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 수정 모달 -->
+    <div id="editModal" class="modal-container">
+        <div class="modal-content">
+            <h2>리뷰 수정</h2>
+            <form th:action="@{/edit-review/{reviewId}(reviewId=${review.id})}" method="post">
+                <div>
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" th:value="${review.title}" required>
+                </div>
+                <div>
+                    <label for="comment">상품평</label>
+                    <textarea id="comment" name="comment" required th:text="${review.comment}"></textarea>
+                </div>
+                <div>
+                    <label for="rating">별점</label>
+                    <input type="number" id="rating" name="rating" min="1" max="5" th:value="${review.rating}" required>
+                </div>
+                <input type="hidden" name="reviewId" th:value="${review.id}">
+                <div>
+                    <button type="button" class="btn-close">취소</button>
+                    <button type="submit" class="btn-save">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 수정 버튼 클릭 시 모달 열기
+        const editButtons = document.querySelectorAll(".btn-edit");
+        const editModal = document.getElementById("editModal");
+        const closeModalButtons = document.querySelectorAll(".btn-close");
+
+        editButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                editModal.style.display = "block";
+            });
+        });
+
+        closeModalButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                editModal.style.display = "none";
+            });
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        window.addEventListener("click", (event) => {
+            if (event.target === editModal) {
+                editModal.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

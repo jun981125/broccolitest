@@ -1,0 +1,13 @@
+
+v
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚…‡š8â”˜Î¶1
+f
+java:S1192="IDefine a constant instead of duplicating this literal "nickname" 4 times.(‹ŞæĞ8ã”˜Î¶1
+
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(äëŞÖ8ã”˜Î¶1
+
+java:S1319"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(äëŞÖ8ã”˜Î¶1
+w
+java:S1450"URemove the "pagesu" field and declare it as a local variable in the relevant methods.(¨€àÿÿÿÿÿ8‡•˜Î¶1
+o
+java:S1450"RRemove the "tot" field and declare it as a local variable in the relevant methods.(±‚¥á8‡•˜Î¶1

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/review.css" />
+	<link href="css/reviewstar.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script>
+		window.onload = function () {
+			document.querySelector("#btnUp").onclick = chkUpData;
+			function chkUpData() {
+				if (confirm("정말 수정할까요?")) {
+					upFrm.submit();
+				}
+			}
+			
+			$("#file").on('change', function () {
+				var fileName = $("#file").val();
+				$(".upload-name").val(fileName);
+			});
+		}
+
+	</script>
+</head>
+
+<body>
+	<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub">
+		<div class="sub_right_title">
+			<h2>리뷰 수정하기</h2>
+			<div class="line"></div>
+		</div>
+		<form action="reviewupdate" method="post" id="myform" name="upFrm" th:object="${data}"
+			enctype="multipart/form-data">
+			<input type="hidden" th:field="*{reviewid}" />
+			<input type="hidden" th:field="*{rimage}" />
+			<input type="hidden" name="page" th:value="${page}">
+			<div class="li_line"></div>
+			<div class="review_update">
+				<span class="text-bold">별점을 선택해주세요</span>
+				<fieldset>
+					<input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+					<input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+					<input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+					<input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+					<input type="radio" name="rating" value="1" id="rate5"><label for="rate5">★</label>
+				</fieldset>
+			</div>
+			<div class="li_line"></div>
+			<div><textarea style="resize: none;" type="text" class="comment-text" th:field="*{comment}" placeholder="내용을 입력해주세요"></textarea></div>
+			<div class="li_line"></div>
+			<div class="filebox">
+				<label for="file">업로드</label>
+				<input type="file" id="file" name="rimagePath">
+
+				<input class="upload-name" value="파일선택">
+			</div>
+
+			<div class="review_btn mt40">
+				<input class="review_button" type="button" value="수정" id="btnUp" />
+				<input class="review_button" type="button" value="목록" th:onclick="|location.href='@{productlist}'|" />
+			</div>
+			</table>
+		</form>
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+
+</html>

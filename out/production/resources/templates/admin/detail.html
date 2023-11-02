@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객 상세 정보</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+</head>
+<body>
+<div class="container">
+    <h2>고객 상세 정보</h2>
+    <table border="1" style="text-align: center;" class="rwd-table">
+        <tr>
+            <th>항목</th>
+            <th>정보</th>
+        </tr>
+        <tr th:if="${customer != null}">
+            <td>고객 번호</td>
+            <td>[[${customer.customernum}]]</td>
+        </tr>
+        <tr>
+            <td>아이디</td>
+            <td>[[${customer.customerid}]]</td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td>[[${customer.customername}]]</td>
+        </tr>
+        <tr>
+            <td>닉네임</td>
+            <td>[[${customer.customernickname}]]</td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td>[[${customer.email}]]</td>
+        </tr>
+        <tr>
+            <td>성별</td>
+            <td>[[${customer.customergen}]]</td>
+        </tr>
+        <tr>
+            <td>휴대전화</td>
+            <td>[[${customer.phonenumber}]]</td>
+        </tr>
+        <tr>
+            <td>우편번호</td>
+            <td>[[${customer.zipcode}]]</td>
+        </tr>
+        <tr>
+            <td>주소</td>
+            <td>[[${customer.address}]]</td>
+        </tr>
+        <tr>
+            <td>상세 주소</td>
+            <td>[[${customer.detailaddress}]]</td>
+        </tr>
+        <tr>
+            <td>판매자 여부</td>
+            <td th:if="${customer != null}">
+                <span th:if="${customer.isseller} == true">판매자</span>
+                <span th:if="${customer.isseller} == false">일반 회원</span>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a href="/customerlist">고객 목록으로 돌아가기</a>
+</div>
+</body>
+</html>

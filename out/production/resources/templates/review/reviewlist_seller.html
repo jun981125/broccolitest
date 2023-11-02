@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 목록 - 구매자</title>
+    <link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/review.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("p.rating").each(function () {
+                var rating = parseInt($(this).text());
+                var stars = "";
+                for (var i = 1; i <= 5; i++) {
+                    if (i <= rating) {
+                        stars += "&#9733; ";
+                    } else {
+                        stars += "&#9734; ";
+                    }
+                }
+                $(this).html(stars);
+            });
+        });
+    </script>
+</head>
+<body>
+	<th:block th:replace="common/header::headerFragment"></th:block>
+	<div id="sub_con">
+		<div class="sub_left">
+			<p class="sub_left_title">마이페이지</p>
+			<ul>
+					<li class="active">
+						<a href="productlist_seller" class="flex">
+							<p>상품관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="productinsert">
+							<p>상품등록</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+					<li>
+						<a href="orderlist_seller">
+							<p>주문관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					<li>
+						<a href="reviewlist_seller">
+							<p>리뷰관리</p>
+							<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
+						</a>
+					</li>
+				</ul>
+		</div>
+			<div class="sub_right">
+			<div class="sub_right_title">
+				<h2>리뷰 목록</h2>
+				<div class="li_line"></div>
+			</div>
+			<div class="sub_table">
+				<form th:if="${list.size() > 0}" th:each="data : ${list}" class="">
+					<div class="sub_table_list flex">
+						<div class="sub_table_left flex2">
+							<div class="flex3">
+								<img th:src="@{'/upload/' + ${data.pimage}}" />
+								<div class="pro_name">
+									<p class="b_name" th:text="${data.brand}" />
+									<p class="m_name" th:text="${data.model}" />
+								</div>
+							</div>
+							<div>
+								<p class="rating" th:text="${data.rating}" />
+								<p class="review_com" th:text="${data.comment}" />
+							</div>
+						</div>
+						<div class="review_date">
+							<p th:text="${data.reviewdate}" />
+						</div>
+						<div class="review_btn">
+							<a class="review_button" th:href="@{/showreview(reviewid=${data.reviewid},page=${page})}" th:text="상세보기"></a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- paging -->
+			<div class="paging">
+				<span th:each="num : ${#numbers.sequence(1, pagesu)}">
+					<span th:if="${num == page}">
+						<b th:text="${num}">num 표시(현재 페이지는 링크를 걸지 않음)</b>
+					</span>
+					<span th:if="${num != page}">
+						<a th:href="@{reviewlist_seller(page=${num})}" th:text="${num}">num 표시</a>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<th:block th:replace="common/footer::footerFragment"></th:block>
+</body>
+</html>
