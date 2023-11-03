@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mariadb://61.74.225.200:3306/team2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="shopdb@awsdb.cwnk1xxz3jme.ap-northeast-2.rds.amazonaws.com" uuid="30a39e22-d467-43d6-8244-fdc357c325ee">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://awsdb.cwnk1xxz3jme.ap-northeast-2.rds.amazonaws.com:3306/shopdb</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
