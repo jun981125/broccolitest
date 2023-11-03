@@ -18,12 +18,14 @@
 		<div class="sub_left">
 			<p class="sub_left_title">마이페이지</p>
 			<ul>
+				<!--
 				<li>
 					<a href="orderlist" class="flex">
 						<p>주문내역</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
+				-->
 				<li>
 					<a href="update">
 						<p>내 정보 수정하기</p>
@@ -47,12 +49,14 @@
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
+				<!--
 				<li>
 					<a href="point">
 						<p>포인트내역</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
+				-->
 				<li>
 					<a href="wishlist">
 						<p>찜한 상품</p>
@@ -60,8 +64,14 @@
 					</a>
 				</li>
 				<li>
-					<a th:href="@{/commu/search(searchName='customernickname', page=${page}, searchValue=${nickname})}">
-						<p>문의글</p>
+					<a th:href="@{/commu/search(searchName='customernickname',searchValue=${nickname})}">
+						<p>내 작성 글</p>
+						<span class="material-symbols-outlined arrow_icon">arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="qlist">
+						<p>1:1 문의</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
@@ -127,7 +137,7 @@
 							<input type="text" name="reference" id="sample6_extraAddress" class="d_form1"
 								placeholder="참고항목">
 						</div>
-						<button type="submit" class="d_btn">추가</button>
+						<button type="submit" class="d_btn btn_save">추가</button>
 					</form>
 				</div>
 			</div>
@@ -135,7 +145,7 @@
 			<!-- 주소 수정 모달 -->
 			<div id="editAddressModal" class="modal">
 				<div class="modal-content">
-					<span class="close" id="closeEditModalButton">&times;</span>
+					<div><span class="close" id="closeEditModalButton">&times;</span></div>
 					<form id="editAddressForm">
 						<h3>주소 수정</h3>
 						<input type="hidden" id="editAddressId" name="addressid">
@@ -152,7 +162,7 @@
 							<input type="text" id="sample6_extraAddress2" name="reference" class="d_form1"
 								placeholder="참고항목">
 						</div>
-						<button type="button" id="editSaveButton" class="d_btn">저장</button>
+						<button type="button" id="editSaveButton" class="d_btn btn_save">저장</button>
 					</form>
 				</div>
 			</div>

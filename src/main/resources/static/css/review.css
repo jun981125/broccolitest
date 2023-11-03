@@ -215,7 +215,7 @@ textarea::placeholder {
     width: 100px;
     height: 40px;
     line-height: 38px;
-    border: 1px solid #1b1b1b !important;
+    border: 1px solid #777 !important;
     border-radius: 5px;
     text-align: center;
     background-color: #fff;
@@ -299,7 +299,7 @@ textarea::placeholder {
     color: tomato; 
     display: inline-block;
     margin: 10px 0 0px;
-    letter-spacing: 8px;
+    letter-spacing: 3px;
 }
 
 .sub_right_title h2{
@@ -310,6 +310,7 @@ textarea::placeholder {
 }
 .review_title{
 	font-size: 16px;
+    margin: 5px 0;
 }
 .review_comment{
 	width: 100%;
@@ -365,7 +366,6 @@ textarea::placeholder {
 }
 .comment-text textarea{
 	width: 100%;
-	margin-bottom: 10px;
 	border: 0px;
 	font-size: 14px;
     padding: 5px 0px;
@@ -402,7 +402,6 @@ textarea::placeholder {
 }
 .comment-text{
 	width: 100%;
-	margin-bottom: 10px;
 	border: 0px;
 	font-size: 15px;
     padding: 5px 0px;

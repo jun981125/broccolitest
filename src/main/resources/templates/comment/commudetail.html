@@ -117,19 +117,19 @@
 <body>
 	<th:block th:replace="common/header :: headerFragment"></th:block>
 	<div id="sub">
-		<div class="sub_right_title">
+		<div class="sub_right_title flex" style="align-items: center;">
 			<h2>상세보기</h2>
-			<div class="line"></div>
-		</div>
-
-		<div th:if="${#strings.equals(list.customernickname, nickname)}">
-			<div class="rbutton flex2">
-				<a class="review_button" th:href="@{/commuupdate(num=${list.num},page=${page})}">수정하기</a>
-				<a class="review_button" href="#"
-					th:onclick="'commudelete(' + ${list.num} + '); return false;'">삭제하기</a>
-				<a class="review_button" th:href="@{/commu(page=${page})}">목록보기</a>
+			<div th:if="${#strings.equals(list.customernickname, nickname)}">
+				<div class="rbutton flex2">
+					<a class="review_button" th:href="@{/commuupdate(num=${list.num},page=${page})}">수정하기</a>
+					<a class="review_button" href="#"
+						th:onclick="'commudelete(' + ${list.num} + '); return false;'">삭제하기</a>
+					<a class="review_button" th:href="@{/commu(page=${page})}">목록보기</a>
+				</div>
 			</div>
 		</div>
+		<div class="line"></div>
+
 
 		<p class="review_title">작성자 : [[${list.customernickname}]]</p>
 		<p class="review_title">제목 : [[${list.title}]]</p>
@@ -205,27 +205,26 @@
 
 		<!-- 댓글 목록-->
 		<div class="comment_recomment" th:each="comments : ${comments}">
-			<div>작성자 <b>[[${comments.customernickname}]]</b></div>
-			<div>댓글 내용</div>
+			
 			<div class="comment-text">
 				<input type="hidden" th:value="${page}" />
 				<textarea th:text="${comments.content}" th:id="'comment-text-' + ${comments.id}"></textarea>
 			</div>
-
-			<div th:if="${session.loginid != null}">
-				<a href="javascript:void(0);" class="edit-com-button" th:data-id="${comments.id}">수정</a>
-				<a href="javascript:void(0);" class="save-com-button" th:data-id="${comments.id}"
+			<div>작성자 <b>[[${comments.customernickname}]]</b></div>
+			<div class="rbutton flex2 mt10" th:if="${session.loginid != null}">
+				<a href="javascript:void(0);" class="edit-com-button review_button2" th:data-id="${comments.id}">수정</a>
+				<a href="javascript:void(0);" class="save-com-button review_button2" th:data-id="${comments.id}"
 					th:data-idkey="${comments.idkey}" style="display: none;">완료</a>
-				<a href="javascript:void(0);" class="cancel-com-button" th:data-id="${comments.id}"
+				<a href="javascript:void(0);" class="cancel-com-button review_button2" th:data-id="${comments.id}"
 					style="display: none;">취소</a>
-				<a href="javascript:void(0);" class="delete-com-button" th:data-id="${comments.id}"
+				<a href="javascript:void(0);" class="delete-com-button review_button2" th:data-id="${comments.id}"
 					th:data-idkey="${comments.idkey}">삭제</a>
 			</div>
 		</div>
 
 
 		<!-- 댓글 작성 폼 -->
-		<div th:if="${session.loginid==null}">
+		<div th:if="${session.loginid==null}" class="mt10">
 			<a href="login">댓글 작성/ 수정은 로그인 후 이용가능합니다</a>
 		</div>
 		<div th:if="${session.loginid != null}">
@@ -233,8 +232,8 @@
 				<form th:action="@{/addComment}" name="replyform" id="replyform" class="flex4" method="post">
 					<input type="hidden" name="num" th:value="${list.num}" />
 					<input type="hidden" name="page" th:value="${page}" />
-					<input type="text" size="50" name="content" placeholder="댓글 내용(150자 이하로 작성 가능합니다)" />
-					<button type="submit">댓글 작성</button>
+					<textarea name="content" placeholder="댓글 내용(150자 이하로 작성 가능합니다)"></textarea>
+					<button type="submit" id="btnInsre">댓글 작성</button>
 				</form>
 			</div>
 		</div>

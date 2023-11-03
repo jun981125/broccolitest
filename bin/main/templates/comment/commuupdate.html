@@ -1,70 +1,133 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/css/board.css">
-<script type="text/javascript">
-window.onload = function(){
-	document.querySelector("#btnUp").onclick = chkUpData;	
-}
 
-function chkUpData(){
-	//입력자료 오류
-	
-	if(upFrm.title.value === ""){
-		upFrm.title.focus();
-		alert("제목을 입력하세요");
-		return;
-	}
-		if(upFrm.cont.value === ""){
-		upFrm.cont.focus();
-		alert("내용을 입력하세요");
-		return;
-	}
-	
-	if(confirm("정말 수정할까요?")){
-		upFrm.submit();
-	}
-}
-</script>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/board.css">
+	<script type="text/javascript">
+		window.onload = function () {
+			document.querySelector("#btnUp").onclick = chkUpData;
+		}
+
+		function chkUpData() {
+			//입력자료 오류
+
+			if (upFrm.title.value === "") {
+				upFrm.title.focus();
+				alert("제목을 입력하세요");
+				return;
+			}
+			if (upFrm.cont.value === "") {
+				upFrm.cont.focus();
+				alert("내용을 입력하세요");
+				return;
+			}
+
+			if (confirm("정말 수정할까요?")) {
+				upFrm.submit();
+			}
+		}
+	</script>
 </head>
+
 <body>
-<h3>* 글 수정 * <br/> 게시글 작성 아이디와 일치해야 글 수정이 가능합니다!</h3>
-<form action="commuupdate" method="post" name="upFrm" th:object="${list}" enctype="multipart/form-data">
-	<input type="hidden" th:field="*{num}">
-	<input type="hidden" name="page" th:value="${page}">
-	<input type="hidden" name="filename" th:value="${filename}">
-	<table border="1" style="width: 80%">
-		<tr>
-			<td>작성자</td>
-			<td>[[${list.customernickname}]]</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td><input type="text" style="width: 99%" th:field="*{title}" name="title"></td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td>
-			 <textarea rows="5" style="width: 99%" th:field="*{cont}" name="cont"></textarea>		
-			</td>
-		</tr>
-		<tr>
-			<td>이미지</td>
-			<td> <img th:src="@{upload/} + ${list.filename}"/> </td>
-		</tr>
-		<tr>
-			<td>이미지 수정</td>
-			<td><input type="file" name="file"></td>
-		<tr>
-		<tr>
-			<td colspan="2" style="text-align: center;">
-				<input type="button" value="수정" id="btnUp" /> 
-				<input type="button" value="목록" th:onclick="|location.href='@{commu(page=${page})}'|" />
-			</td>
-		</tr>
-	</table>
-</form>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div class="sub_con" id="sub">
+		<div class="flex">
+			<div class="sub_left flex3">
+				<p class="sub_left_title">커뮤니티</p>
+				<ul>
+					<li class="active">
+						<a th:href="commu" class="flex">
+							<p>중고거래</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
+							<p>공지사항</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="qlist">
+							<p>1:1 문의</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="sub_right">
+				<div class="sub_right_title">
+					<h2>작성글 수정</h2>
+					<div class="line"></div>
+				</div>
+				<form action="commuupdate" method="post" name="upFrm" th:object="${list}" enctype="multipart/form-data">
+					<input type="hidden" th:field="*{num}">
+					<input type="hidden" name="page" th:value="${page}">
+					<input type="hidden" name="filename" th:value="${filename}">
+
+					<div class="ins_con">
+						<p>작성자</p>
+						<span>[[${list.customernickname}]]</span>
+					</div>
+					<div class="ins_con">
+						<p>제목</p>
+						<span><input type="text" th:field="*{title}" name="title"></span>
+					</div>
+					<div class="ins_con">
+						<p>내용</p>
+						<span>
+							<textarea rows="5" th:field="*{cont}" name="cont"></textarea>
+						</span>
+					</div>
+					<div class="ins_con">
+						<p>이미지</p>
+						<span> <img th:src="@{upload/} + ${list.filename}" style="width: 200px;"/> </span>
+					</div>
+					<div class="ins_con">
+						<p>이미지 수정</p>
+						<input type="file" class="real-upload" accept="image/*" name="file" multiple>
+                        <div class="upload">
+                            <ul class="image-preview"></ul>
+                            <span class="material-symbols-outlined img_icon">add</span>
+                        </div>
+                        <script>
+                            const realUpload = document.querySelector('.real-upload');
+                            const upload = document.querySelector('.upload');
+
+                            // 이미지를 선택했을 때 "삭제" 버튼 및 이미지 추가 아이콘 표시
+                            realUpload.addEventListener('change', (e) => {
+                                const imageFiles = e.currentTarget.files;
+                                const imgIcon = upload.querySelector('.img_icon');
+
+                                if (imageFiles.length > 0) {
+                                    imgIcon.style.display = 'none';
+                                } else {
+                                    imgIcon.style.display = 'block';
+                                }
+
+                                getImageFiles(e);
+                            });
+
+                            upload.addEventListener('click', () => realUpload.click());
+
+                            realUpload.addEventListener('change', getImageFiles);
+                        </script>
+					</div>
+                    <div class="ins_btn btn_wrap">
+						<td colspan="2" style="text-align: center;">
+							<input type="button" class="button"  value="수정" id="btnUp" />
+							<input type="button" class="button"  value="목록" th:onclick="|location.href='@{commu(page=${page})}'|" />
+						</td>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	<th:block th:replace="~{common/footer :: footerFragment}"></th:block>
 </body>
+
 </html>

@@ -18,53 +18,39 @@
 </head>
 
 <body>
-		<th:block th:replace="common/header :: headerFragment"></th:block>
-	<h3>상세 보기</h3>
-	<table>
-		<tr>
-			<td style="text-align: right;">
-				<div th:if="${isseller}">
-					<a th:href="@{/qreply(num=${data.num},page=${page})}">
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div id="sub">
+		<div class="sub_right_title flex">
+			<h2>상세보기</h2>
+			<div class="rbutton flex2">
+				<a th:if="${isseller}" class="review_button" th:href="@{/qreply(num=${data.num},page=${page})}">
 						답글달기
 					</a>
-				</div>
-				<a th:href="@{/qupdate(num=${data.num},page=${page})}">
+				<a class="review_button" th:href="@{/qupdate(num=${data.num},page=${page})}">
 					수정하기
 				</a>
-				<a href="#" th:onclick="'qdelete(' + ${data.num} + '); return false;'">삭제하기</a>
-				<a th:href="@{/qlist(page=${page})}">
+				<a class="review_button" href="#" th:onclick="'qdelete(' + ${data.num} + '); return false;'">삭제하기</a>
+				<a class="review_button" th:href="@{/qlist(page=${page})}">
 					목록보기
 				</a>
-			</td>
-		</tr>
-	</table>
+			</div>
+		</div>
+		<div class="line"></div>
+		<p class="review_title">작성자 : [[${data.name}]]</p>
 
-	<table>
-		<tr>
-			<td>
-				작성자 : [[${data.name}]]
-			</td>
-			<td>작성일 : [[${data.bdate}]]</td>
-			<td>조회수 : [[${data.readcnt}]]</td>
-		</tr>
-		<tr>
-			<td colspan="3">제목 : [[${data.title}]]</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<textarea rows="5" style="width: 98%" readonly="readonly">[[${data.cont}]]</textarea>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<th:block th:if="${data.filename != null}">
+		<p class="review_title">작성일 : [[${data.bdate}]]</p>
+		<p class="review_title">조회수 : [[${data.readcnt}]]</p>
+		<p class="review_title">제목 : [[${data.title}]]</p>
+			<div th:if="${data.filename != null}">
+				<div class="rimage flex2">
 					<img th:src="@{upload/} + ${data.filename}" alt="이미지" width="300" height="300">
-				</th:block>
-				<th:block th:unless="${data.filename != null}">
-				</th:block>
-			</td>
-		</tr>
-	</table>
+				</div>
+				<p class="review_comment">[[${data.cont}]]</p>
+			</div>
+			<div th:unless="${data.filename != null}">
+				<p class="review_comment">[[${data.cont}]]</p>
+			</div>
+	</div>
 	<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
 
