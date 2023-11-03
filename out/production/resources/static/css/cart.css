@@ -113,15 +113,7 @@
 	margin: 0 100px;
 	align-items: center;	
 }
-.button {
-	position: relative;
-	padding: 10px 5px;
-	border-radius: 2px;
-	font-size: 10px;
-	text-decoration: none;
-	font-weight: 600;
-	transition: 0.25s;
-}
+
 
 .gray {
 	border: 1px solid #a3a1a1;
@@ -159,3 +151,30 @@
 	font-size: 15px;
 	color: #222;	
 }
+
+.btn_wrap{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+	margin: 10px auto 30px;
+}
+.btn_wrap .button{
+	width: 90px;
+	height: 40px;
+	line-height: 38px;
+	border: 1px solid #999 !important;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #fff;
+	color: #1b1b1b;
+	box-sizing: border-box;
+	font-size: 13px;
+	display: block;
+}
+.btn_wrap .button:hover{
+	background-color: #1b1b1b;
+	color: #fff;
+	transition: 0.3s;
+}
+

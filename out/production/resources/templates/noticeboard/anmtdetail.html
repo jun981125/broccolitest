@@ -17,23 +17,24 @@
 <body>
 <th:block th:replace="common/header :: headerFragment"></th:block>
 <div id="sub">
-    <div class="sub_right_title">
+    <div class="sub_right_title flex">
         <h2>상세보기</h2>
-        <div class="line"></div>
-    </div>
-
-    <div th:if="${session.isAdmin}" }>
-        <div class="rbutton flex2">
-            <a class="review_button" th:href="@{/Aupdate(num=${list.num},page=${page},filename=${list.filename})}">
-                수정하기
-            </a>
-            <a class="review_button" th:href="@{/Adelete(num=${list.num})}">
-                삭제하기
-            </a>
-            <a class="review_button" th:href="@{/anmt(page=${page})}">
-                목록보기
+        <div th:if="${session.isAdmin}">
+            <div class="rbutton flex2">
+                <a class="review_button" th:href="@{/Aupdate(num=${list.num},page=${page},filename=${list.filename})}">
+                    수정하기
+                </a>
+                <a class="review_button" th:href="@{/Adelete(num=${list.num})}">
+                    삭제하기
+                </a>
+                <a class="review_button" th:href="@{/anmt(page=${page})}">
+                    목록보기
+                </a>
+            </div>
         </div>
     </div>
+    <div class="line"></div>
+
 
     <p class="review_title">제목 : [[${list.title}]]</p>
     <p class="review_title">작성자 : [[${list.adminname}]]</p>
