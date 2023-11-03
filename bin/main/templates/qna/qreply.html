@@ -1,75 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/css/board.css">
-<script type="text/javascript">
-window.onload = function(){
-	document.querySelector("#btnReply").onclick = chk;	
-}
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="/css/board.css">
+	<script type="text/javascript">
+		window.onload = function () {
+			document.querySelector("#btnReply").onclick = chk;
+		}
 
-function chk(){
+		function chk() {
 
-	if(reFrm.title.value === ""){
-		reFrm.title.focus();
-		alert("제목을 입력하세요");
-		return;
-	}
-	
-	if(reFrm.cont.value === ""){
-		reFrm.cont.focus();
-		alert("내용을 입력하세요");
-		return;
-	}
-	
-	reFrm.submit();
-}
-</script>
+			if (reFrm.title.value === "") {
+				reFrm.title.focus();
+				alert("제목을 입력하세요");
+				return;
+			}
+
+			if (reFrm.cont.value === "") {
+				reFrm.cont.focus();
+				alert("내용을 입력하세요");
+				return;
+			}
+
+			reFrm.submit();
+		}
+	</script>
 </head>
+
 <body>
-		<th:block th:replace="common/header :: headerFragment"></th:block>
-<h3>* 문의 답글 쓰기 *</h3>
-<form action="qreply" method="post" name="reFrm" th:object="${data}" enctype="multipart/form-data">
-	<input type="hidden" name="page" th:value="${page}">
-	<input type="hidden" th:field="*{gnum}">
-	<input type="hidden" th:field="*{onum}">
-	<input type="hidden" th:field="*{nested}">
-	
-	<table border="1" style="width: 80%">
-		<tr>
-			<td>작성자</td>
-			<td  th:text="${nickname}"></td> 
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td>
-			<!-- 2글자만 출력 
-				<input type="text" style="width: 99%" name="title" 
-						th:value="|RE:*{#strings.substring(title,0,2)}|" />
-			-->	
-			<!-- 4글자 이하 출력 -->
-				<input type="text" style="width: 99%" name="title" readonly
-						th:value="|답변완료 : *{title}|" />
-			</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td><textarea rows="5" style="width: 99%" name="cont"></textarea></td>
-		</tr>
-		<tr>
-				<td>파일 업로드</td>
-				<td><input type="file" name="file"></td>
-			</tr>
-		<tr>
-			<td colspan="2" style="text-align: center;">
-				<input type="button" value="완료" id="btnReply" /> 
-				<button type="button" id="writeBtn" onclick="history.back();">취소</button>
-				<input type="button" value="목록" onclick="javascript:window.location.href='qlist.html?page=${page}'" />
-			</td>
-		</tr>
-	</table>
-</form>
+	<th:block th:replace="common/header :: headerFragment"></th:block>
+	<div class="sub_con" id="sub">
+		<div class="flex">
+			<div class="sub_left flex3">
+				<p class="sub_left_title">커뮤니티</p>
+				<ul>
+					<li>
+						<a th:href="commu" class="flex">
+							<p>중고거래</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/Asearch(searchName='eventnotice', searchValue='1')}">
+							<p>공지사항</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+					<li class="active">
+						<a th:href="qlist">
+							<p>1:1 문의</p>
+							<span class="material-symbols-outlined arrow_icon"> done</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="sub_right">
+				<div class="sub_right_title">
+					<h2>문의 답글 쓰기</h2>
+					<div class="line"></div>
+				</div>
+				<form action="qreply" method="post" name="reFrm" th:object="${data}" enctype="multipart/form-data">
+					<input type="hidden" name="page" th:value="${page}">
+					<input type="hidden" th:field="*{gnum}">
+					<input type="hidden" th:field="*{onum}">
+					<input type="hidden" th:field="*{nested}">
+
+					<div class="ins_con">
+							<p>작성자</p>
+							<span style="padding: 0 10px;" th:text="${nickname}"></span>
+					</div>
+						<div class="ins_con">
+							<p>제목</p>
+							<span>
+								<!-- 2글자만 출력 
+									<input type="text" style="width: 99%" name="title" 
+											th:value="|RE:*{#strings.substring(title,0,2)}|" />
+								-->
+								<!-- 4글자 이하 출력 -->
+								<input type="text" name="title" readonly
+									th:value="|답변완료 : *{title}|" />
+							</span>
+						</div>
+						<div class="ins_con">
+							<p>내용</p>
+							<span><textarea rows="5" name="cont"></textarea></span>
+						</div>
+						<div class="ins_con">
+							<p>파일 업로드</p>
+							<span><input type="file" name="file"></span>
+						</div>
+						<div class="ins_con btn_wrap">
+								<input type="button" class="button"  value="완료" id="btnReply" />
+								<button type="button" class="button"  id="writeBtn" onclick="history.back();">취소</button>
+								<input type="button" class="button"  value="목록"
+									onclick="javascript:window.location.href='qlist.html?page=${page}'" />
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<th:block th:replace="common/footer :: footerFragment"></th:block>
 </body>
+
 </html>

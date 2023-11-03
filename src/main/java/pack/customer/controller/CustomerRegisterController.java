@@ -37,6 +37,8 @@ public class CustomerRegisterController {
         return "user/login"; // 가입 후 로그인 페이지로 이동
     }
 
+    
+
     // 아이디 중복 여부 확인
     @PostMapping("id-Check")
     public @ResponseBody String idCheck(@RequestParam("customerid") String customerid) {

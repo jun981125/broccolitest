@@ -24,19 +24,21 @@
 		<div class="sub_left">
 			<p class="sub_left_title">마이페이지</p>
 			<ul>
+				<!--
 				<li>
 					<a href="orderlist" class="flex">
 						<p>주문내역</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
+				-->
 				<li>
 					<a href="update">
 						<p>내 정보 수정하기</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
-				<li>
+				<li class="active"> 
 					<a href="delete">
 						<p>탈퇴하기</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
@@ -47,18 +49,19 @@
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
-				<li class="active">
+				<li>
 					<a href="address">
 						<p>배송지수정</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>
+				<!--
 				<li>
 					<a href="point">
 						<p>포인트내역</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="wishlist">
 						<p>찜한 상품</p>
@@ -66,8 +69,14 @@
 					</a>
 				</li>
 				<li>
-					<a th:href="@{/commu/search(searchName='customernickname', page=${page}, searchValue=${nickname})}">
-						<p>문의글</p>
+					<a th:href="@{/commu/search(searchName='customernickname',searchValue=${nickname})}">
+						<p>내 작성 글</p>
+						<span class="material-symbols-outlined arrow_icon">arrow_forward_ios</span>
+					</a>
+				</li>
+				<li>
+					<a href="qlist">
+						<p>1:1 문의</p>
 						<span class="material-symbols-outlined arrow_icon"> arrow_forward_ios</span>
 					</a>
 				</li>

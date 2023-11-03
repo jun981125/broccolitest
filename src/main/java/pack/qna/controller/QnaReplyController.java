@@ -23,22 +23,26 @@ import pack.qna.model.QnaDaoImpl;
 public class QnaReplyController {
 	@Autowired
 	private QnaDaoImpl daoImpl;
-	
+
 	@GetMapping("qreply")
-	public String reply(@RequestParam("num")String num, @RequestParam("page")String page,
-			Model model,HttpSession session) {
+	public String reply(@RequestParam("num") String num, @RequestParam("page") String page,
+			Model model, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginid");
+		String nickname = (String) session.getAttribute("nickname");
+		model.addAttribute("customerid", loginId);
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("data", daoImpl.detail(num));
 		model.addAttribute("page", page);
 		return "qna/qreply";
 	}
-	
+
 	@PostMapping("qreply")
-	public String replyProcess(QnaBean bean, @RequestParam("page")String page,UploadFile uploadfile, 
-			BindingResult result, HttpSession session){
+	public String replyProcess(QnaBean bean, @RequestParam("page") String page, UploadFile uploadfile,
+			BindingResult result, HttpSession session) {
 		// 업로드 파일 초기화
 		InputStream inputStream = null;
 		OutputStream outputStream = null;
-	
+
 		// 업로드될 파일 검사
 		MultipartFile file = uploadfile.getFile();
 
@@ -78,7 +82,7 @@ public class QnaReplyController {
 			}
 			// 파일 업로드 과정 끝
 		}
-		
+
 		// onum 갱신
 		bean.setOnum(bean.getOnum() + 1);
 		daoImpl.updateOnum(bean);
@@ -91,10 +95,10 @@ public class QnaReplyController {
 		bean.setBdate();
 		bean.setNum(daoImpl.currentNum() + 1);
 		bean.setNested(bean.getNested() + 1);
-		
-		if(daoImpl.insertReply(bean)) {
+
+		if (daoImpl.insertReply(bean)) {
 			return "redirect:qlist?page=" + page;
-		}else{
+		} else {
 			return "redirect:error";
 		}
 	}

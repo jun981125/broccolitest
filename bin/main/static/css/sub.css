@@ -272,38 +272,54 @@
 
 .d_btn {
     display: inline-block;
-    padding: 0.5em 1em;
-    margin: 0.4em 0.15em;
-    width: 120px;
+    width: 150px;
+    height: 55px;
+    line-height: 55px;
+    margin: 10px 10px 5px 0;
     cursor: pointer;
     color: #464646;
     border-radius: 5px;
     vertical-align: middle;
-    font-size: 1em;
-    line-height: 1.25em;
+    font-size: 15px;
 	background-color: #eee;
 
 }
+.btn_save{
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    margin: 10px 0 40px;
+    padding: 20px 0;
+    line-height: 0;
+}
+
 .d_form.large {
-    width: 400px;
+    width: 450px;
 }
 
 .input-container {
     width: 100%; /* 부모 요소의 너비를 100%로 설정 */
     display: flex; /* 내부 요소들을 가로로 나열하기 위해 flex 레이아웃을 사용합니다. */
 }
-
+.modal h3{
+    font-size: 24px;
+    margin: 20px 0 40px;
+}
 
 .d_form1, .d_form {
-    margin: 5px;
-    border: 1px solid #1b1b1b;
+    margin: 10px 10px 5px 0;
+    border: 1px solid #888;
     vertical-align: middle;
-    width: 195px;
-    height: 52px;
-    line-height: 50px;
+    width: 220px;
+    height: 55px;
+    line-height: 55px;
     border-radius: 5px;
     padding-left: 20px;
     box-sizing: border-box;
+}
+.d_form1{
+    margin: 10px 0px 5px 0;
 }
 .addr h3 {
     font-weight: 400;
@@ -412,9 +428,9 @@ select {
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
+    padding: 30px;
     border: 1px solid #888;
-    width: 80%;
+    width: 450px;
 }
 
 .close {
