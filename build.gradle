@@ -43,10 +43,14 @@ dependencies {
 	
 	// 본인 인증 
 	implementation 'net.nurigo:sdk:4.3.0'
-	
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
+apply plugin: 'war'
+bootWar.enabled = false
+war.enabled = true
