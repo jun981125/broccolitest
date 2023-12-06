@@ -238,8 +238,6 @@
 
         </div>
     </div>
-    <!-- 주문내역에서 리뷰쓰는거 만들면 지울 예정 -->
-    <a th:href="@{/reviewinsert(rproductid=${data.productid})}">리뷰쓰기</a>
     <div th:if="${#strings.equals(data.customerid, customerid)}"}> <!-- 자신이 등록한 상품만 수정, 삭제 등 가능하도록 -->
         <div class="dropdown-menu">
             <span>판매자 도구<span class="material-symbols-outlined">arrow_drop_down</span></span>
@@ -267,8 +265,11 @@
     <section id='section2'>
         <div class="review" id="review">
             <div class="flex3">
-                <h2>상품리뷰<span></span></h2>
-                <p class="avgstar" th:text="${avgstar}"> <!--평점-->
+				<div class="flex">
+	                <h2 style="margin-right: 10px;">상품리뷰<span></span></h2>
+	                <p class="avgstar" th:text="${avgstar}"></p> <!--평점-->
+                </div>
+                <a th:href="@{/reviewinsert(rproductid=${data.productid})}"><span class="material-symbols-outlined">edit</span>리뷰쓰기</a>
             </div>
             <div class="line"></div>
             <div class="noreview" th:if="${list.size() == 0}" th:text="${noReviews}"></div>
