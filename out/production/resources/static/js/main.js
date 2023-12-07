@@ -34,7 +34,7 @@ function productLoad() {
             // 받은 데이터를 이용하여 동적으로 HTML 생성
             var html = '';
             response.list.forEach(function(product) {
-                if (totalLoadedProducts < 24) { // 32개까지만 로드
+                if (totalLoadedProducts < 24) { // 24개까지만 로드
                     html += '<div class="list_con">' +
                         '    <div class="img_container">';
 
